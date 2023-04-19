@@ -1,0 +1,47 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+
+  &_logo {
+    width: 10%;
+    margin-left: 2%;
+
+    &_img {
+      width: 120px;
+    }
+  }
+
+  &_infos {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    gap: 15%;
+
+    &_box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 7px;
+
+      &_fa {
+        width: 20px;
+        height: auto;
+        color: $secondary-color;
+      }
+
+      &_text {
+        font-size: 15px;
+
+        p {
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+}

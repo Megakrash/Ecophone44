@@ -3,8 +3,6 @@ const express = require("express");
 
 const router = express.Router();
 
-const patchRoutesFunctions = require("../handlers/patchRoutesFunctions");
-
-router.patch("/videos/:id", patchRoutesFunctions.patchVideoById);
+// const patchRoutesFunctions = require("../handlers/patchRoutesFunctions");
 
 module.exports = router;

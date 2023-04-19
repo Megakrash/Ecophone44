@@ -14,7 +14,7 @@
     p {
       margin-top: 1rem;
       font-size: 3rem;
-      font-family: $font-display;
+      font-family: $font-text;
       font-weight: 700;
       color: $tertiary-color;
     }
@@ -38,4 +38,11 @@
       transform: rotate(360deg);
     }
   }
+}
+
+//--------------GENERAL-----------------
+
+.App {
+  font-family: $font-text;
+  font-weight: 400;
 }

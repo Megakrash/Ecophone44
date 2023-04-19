@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import UserContext from "./context/UserContext";
 
 const Home = lazy(() => import("@pages/Home"));
+const Navbar = lazy(() => import("@components/navbar/Navbar"));
+const Header = lazy(() => import("@components/header/Header"));
 
 function App() {
   const [userContext] = useState({
@@ -22,6 +24,8 @@ function App() {
           </div>
         }
       >
+        <Navbar />
+        <Header />
         <UserContext.Provider value={userContext}>
           <Routes>
             <Route path="/" element={<Home />} />
