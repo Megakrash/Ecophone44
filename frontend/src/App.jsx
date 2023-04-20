@@ -5,10 +5,14 @@ import { Routes, Route } from "react-router-dom";
 
 const Home = lazy(() => import("@pages/home/Home"));
 const Model = lazy(() => import("@pages/model/Model"));
+const Reparation = lazy(() => import("@pages/reparation/Reparation"));
 const Navbar = lazy(() => import("@components/navbar/Navbar"));
 const Header = lazy(() => import("@components/header/Header"));
+const Footer = lazy(() => import("@components/footer/Footer"));
 
 function App() {
+  // const [showForm, setShowForm] = useState(false);
+
   // const [userContext] = useState({
   //   userToken: "",
   //   isAdmin: "",
@@ -25,13 +29,16 @@ function App() {
           </div>
         }
       >
+        {/* <UserContext.Provider value={userContext}> */}
         <Navbar />
         <Header />
-        {/* <UserContext.Provider value={userContext}> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/model/:id" element={<Model />} />
+          <Route path="/reparation/:id" element={<Reparation />} />
         </Routes>
+        <Footer />
+        {/* <Contact showForm={showForm} setShowForm={setShowForm} /> */}
         {/* </UserContext.Provider> */}
       </Suspense>
     </div>

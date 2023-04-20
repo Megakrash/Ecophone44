@@ -3,10 +3,10 @@ import React from "react";
 function Header() {
   return (
     <div className="header">
-      <div className="header_text">
+      {/* <div className="header_text">
         <p>Votre réparateur de Smartphones & Tablettes</p>
         <p>sur Nantes depuis 2012</p>
-      </div>
+      </div> */}
       <img
         className="header_img"
         src={`${

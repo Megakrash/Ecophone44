@@ -16,6 +16,10 @@ function Navbar() {
           />
         </NavLink>
       </div>
+      <div className="navbar_baseline">
+        <p>Votre réparateur</p>
+        <p>Smartphones & Tablettes</p>
+      </div>
       <div className="navbar_infos">
         <div className="navbar_infos_box">
           <FaMapMarkerAlt className="navbar_infos_box_fa" />
