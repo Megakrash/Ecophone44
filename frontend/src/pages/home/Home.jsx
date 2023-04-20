@@ -37,12 +37,22 @@ export default function Home() {
             placeholder={`Recherchez parmis nos ${brand.length} marques ...`}
             onChange={(e) => setBrandQuery(e.target.value)}
           />
-          {brandQuery !== "" && <FaTrashAlt className="home_search_trash" />}
+          {brandQuery !== "" && (
+            <button
+              type="button"
+              className="home_search_trash"
+              onClick={() => setBrandQuery("")}
+            >
+              <FaTrashAlt className="home_search_trash_fa" />
+            </button>
+          )}
         </div>
       )}
       <div className="home_brand">
         {brand
-          .filter((search) => search.name.includes(brandQuery))
+          .filter((search) =>
+            search.name.toLowerCase().includes(brandQuery.toLowerCase())
+          )
           .map((infos) => {
             return (
               <li className="home_brand_li" key={infos.id}>

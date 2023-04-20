@@ -10,4 +10,10 @@ const getRoutesFunctions = require("../handlers/getRoutesFunctions");
 /* Brand */
 router.get("/brand", getRoutesFunctions.getBrand);
 
+/* Model */
+router.get("/model/:id", getRoutesFunctions.getModelByBrandId);
+
+/* Réparations */
+router.get("/reparation/:id", getRoutesFunctions.getReparationByModelId);
+
 module.exports = router;
