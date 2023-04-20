@@ -8,7 +8,6 @@
     align-items: center;
     flex-direction: column;
     position: fixed;
-    background: $secondary-color;
     z-index: 1;
 
     p {
@@ -16,7 +15,7 @@
       font-size: 3rem;
       font-family: $font-text;
       font-weight: 700;
-      color: $tertiary-color;
+      color: $secondary-color;
     }
   }
 
@@ -43,6 +42,7 @@
 //--------------GENERAL-----------------
 
 .App {
+  background-color: $primary-color;
   font-family: $font-text;
   font-weight: 400;
 }
