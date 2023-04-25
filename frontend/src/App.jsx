@@ -9,6 +9,7 @@ const Reparation = lazy(() => import("@pages/reparation/Reparation"));
 const Navbar = lazy(() => import("@components/navbar/Navbar"));
 const Header = lazy(() => import("@components/header/Header"));
 const Footer = lazy(() => import("@components/footer/Footer"));
+const Admin = lazy(() => import("@pages/admin/Admin"));
 
 function App() {
   // const [showForm, setShowForm] = useState(false);
@@ -36,6 +37,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/model/:id" element={<Model />} />
           <Route path="/reparation/:id" element={<Reparation />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
         <Footer />
         {/* <Contact showForm={showForm} setShowForm={setShowForm} /> */}

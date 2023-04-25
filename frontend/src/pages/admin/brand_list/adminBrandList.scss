@@ -1,0 +1,28 @@
+@import "./createBrand.scss";
+
+.adminBrandList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &_brand {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &_btn,
+    &_btn-activ {
+      width: 100%;
+      min-height: 50px;
+      border: 0.5px solid $fourth-color;
+      border-radius: 5px;
+      padding: 1%;
+      background-color: $secondary-color;
+      cursor: pointer;
+    }
+
+    &_btn-activ {
+      background-color: $tertiary-color;
+    }
+  }
+}
