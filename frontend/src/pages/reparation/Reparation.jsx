@@ -38,7 +38,10 @@ function reparation() {
             <div className="reparation_box_model_list">
               {repair.map((infos) => {
                 return (
-                  <div className="reparation_box_model_list_repair">
+                  <div
+                    className="reparation_box_model_list_repair"
+                    key={infos.id}
+                  >
                     <FaTools className="reparation_box_model_list_repair_fa" />
                     <div className="reparation_box_model_list_repair_text">
                       <p className="reparation_box_model_list_repair_text_name">
