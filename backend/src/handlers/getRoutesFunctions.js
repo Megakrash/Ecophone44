@@ -27,7 +27,7 @@ const getReparationByModelId = (req, res) => {
 
   database
     .query(
-      "SELECT r.id, r.name, r.price, r.position, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM reparation r JOIN modele m ON r.modele_id = m.id JOIN marque mar ON m.marque_id = mar.id WHERE r.modele_id = ? ORDER BY r.position",
+      "SELECT r.id, r.name, r.price, r.index_id, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM reparation r JOIN modele m ON r.modele_id = m.id JOIN marque mar ON m.marque_id = mar.id WHERE r.modele_id = ? ORDER BY r.index_id",
       [id]
     )
     .then(([reparation]) => res.status(200).json(reparation))

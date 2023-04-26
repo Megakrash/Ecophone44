@@ -66,6 +66,7 @@ function AdminBrandList({ setChoosenBrandId, setChoosenModelId }) {
                   handleClickActiveBrand(infos.id);
                   setChoosenBrandId(infos.id);
                   setChoosenModelId(null);
+                  setShowCreateBrand(false);
                 }}
               >
                 {infos.name.toUpperCase()}

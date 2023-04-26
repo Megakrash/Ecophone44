@@ -43,7 +43,7 @@ function CreateBrand({ setShowCreateBrand, getAllBrand }) {
           id="file"
           name="file"
           placeholder="Choisir une image"
-          accept=".jpg"
+          accept=".jpg, .png"
           onChange={(e) => {
             setNewBrandPic(e.target.files[0]);
           }}
