@@ -35,10 +35,18 @@ function Model() {
             className="home_search_input"
             value={modelQuery}
             type="search"
-            placeholder={`Recherchez parmis nos ${model.length} modèles ...`}
+            placeholder={`Recherchez parmis nos ${model.length} modèle(s) ...`}
             onChange={(e) => setModelQuery(e.target.value)}
           />
-          {modelQuery !== "" && <FaTrashAlt className="home_search_trash" />}
+          {modelQuery !== "" && (
+            <button
+              type="button"
+              className="home_search_trash"
+              onClick={() => setModelQuery("")}
+            >
+              <FaTrashAlt className="home_search_trash_fa" />
+            </button>
+          )}
         </div>
       )}
       {model.length >= 1 && (

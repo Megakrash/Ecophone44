@@ -28,7 +28,7 @@ function AdminModelList({ choosenBrandId, setChoosenModelId }) {
   return (
     <div className="adminModelList">
       {allModelByBrand.length >= 1 && (
-        <div className="adminModelList_model">
+        <div className="adminModelList_brand">
           {allModelByBrand.map((infos) => {
             const isActive = infos.id === activeModelId;
             return (

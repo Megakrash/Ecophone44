@@ -1,19 +1,19 @@
 const multer = require("multer");
+// const fs = require("fs");
 
 // Import des videos dans le backend
-const storage = multer.diskStorage({
+const storageBrandPic = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./public/assets/videos");
+    cb(null, "./public/assets/images/marques");
   },
   filename: (req, file, cb) => {
-    const date = new Date().getTime();
-    req.body.filename = `${req.body.title + date.toString()}.mp4`;
+    req.body.filename = `${req.body.name.toUpperCase()}.jpg`;
     cb(null, req.body.filename.toString());
   },
 });
 
-const upload = multer({ storage });
+const uploadBrandPic = multer({ storage: storageBrandPic });
 
 module.exports = {
-  upload,
+  uploadBrandPic,
 };
