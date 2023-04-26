@@ -27,6 +27,7 @@ CREATE TABLE
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
+        `index_id` INT NULL DEFAULT NULL,
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -49,6 +50,7 @@ CREATE TABLE
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
+        `index_id` INT NULL DEFAULT NULL,
         `marque_id` INT NOT NULL,
         CONSTRAINT `marque_id` FOREIGN KEY (`marque_id`) REFERENCES `ecophone44`.`marque` (`id`),
         PRIMARY KEY (`id`)
@@ -72,18 +74,18 @@ CREATE TABLE
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `price` INT NULL DEFAULT NULL,
-        `position` INT NULL DEFAULT NULL,
+        `index_id` INT NULL DEFAULT NULL,
         `modele_id` INT NOT NULL,
         CONSTRAINT `modele_id` FOREIGN KEY (`modele_id`) REFERENCES `ecophone44`.`modele` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
-  `ecophone44`.`reparation` (name, position, price, modele_id )
+  `ecophone44`.`reparation` (name, price, modele_id )
 VALUES
-  ( 'Façade avant', 1, 59, 1),
-  ( 'Batterie', 2, 39, 1),
-  ( 'Caméra arrière', 3, 39, 1),
-  ( 'Façade avant', 1, 69, 2),
-  ( 'Batterie', 2, 49, 2),
-  ( 'Caméra arrière', 2, 49, 2);
+  ( 'Façade avant', 59, 1),
+  ( 'Batterie', 39, 1),
+  ( 'Caméra arrière', 39, 1),
+  ( 'Façade avant', 69, 2),
+  ( 'Batterie', 49, 2),
+  ( 'Caméra arrière', 49, 2);

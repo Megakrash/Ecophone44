@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import CreateModel from "./CreateModel";
 
 function AdminModelList({ choosenBrandId, setChoosenModelId }) {
   const [activeModelId, setActiveModelId] = useState(null);
   const [allModelByBrand, setAllModelByBrand] = useState([]);
+  const [showCreateModel, setShowCreateModel] = useState(false);
 
   const getAllModelByBrand = () => {
     axios
@@ -27,6 +29,26 @@ function AdminModelList({ choosenBrandId, setChoosenModelId }) {
 
   return (
     <div className="adminModelList">
+      <div className="adminBrandList_create">
+        <button
+          className={
+            showCreateModel
+              ? "adminBrandList_brand_btn-activ"
+              : "adminBrandList_brand_btn"
+          }
+          type="button"
+          onClick={() => setShowCreateModel(!showCreateModel)}
+        >
+          AJOUTER UN MODELE
+        </button>
+        {showCreateModel === true && (
+          <CreateModel
+            setShowCreateModel={setShowCreateModel}
+            getAllModelByBrand={getAllModelByBrand}
+            choosenBrandId={choosenBrandId}
+          />
+        )}
+      </div>
       {allModelByBrand.length >= 1 && (
         <div className="adminModelList_brand">
           {allModelByBrand.map((infos) => {

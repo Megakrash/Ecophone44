@@ -1,6 +1,6 @@
 const express = require("express");
 const postRoutesFunctions = require("../handlers/postRoutesFunctions");
-const { uploadBrandPic } = require("./multers/multers");
+const { uploadBrandPic, uploadModelPic } = require("./multers/multers");
 // const { hashPassword, verifyPassword } = require("../handlers/auth");
 
 const router = express.Router();
@@ -11,4 +11,12 @@ router.post(
   uploadBrandPic.single("file"),
   postRoutesFunctions.postNewBrand
 );
+
+// Add new Model
+router.post(
+  "/model",
+  uploadModelPic.single("file"),
+  postRoutesFunctions.postNewModel
+);
+
 module.exports = router;
