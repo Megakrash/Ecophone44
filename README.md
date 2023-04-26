@@ -3,7 +3,8 @@
 ### Project Initialization
 
 - Run command `npm run setup`
-- Modify .env in the backend & database.sql then run command "npm run migrate"
+- Create .env in the backend & the frontend then run command "npm run migrate"
+- "npm run dev" to launch the project
 
 ### Available Commands
 
