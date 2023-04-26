@@ -1,13 +1,18 @@
 .adminModelList {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 
   &_brand {
     width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 5px;
 
     &_btn,
     &_btn-activ {
+      font-size: 20px;
       width: 100%;
       min-height: 50px;
       border: 0.5px solid $fourth-color;
@@ -15,6 +20,10 @@
       padding: 1%;
       background-color: $secondary-color;
       cursor: pointer;
+
+      &:hover {
+        background-color: $tertiary-color;
+      }
     }
 
     &_btn-activ {

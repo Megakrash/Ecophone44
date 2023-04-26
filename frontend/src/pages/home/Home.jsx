@@ -4,16 +4,16 @@ import axios from "axios";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 
 export default function Home() {
-  const [brand, setBrand] = useState([]);
+  const [allBrands, setAllBrands] = useState([]);
   const [brandQuery, setBrandQuery] = useState("");
 
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/marques/`;
 
-  const getAllBrand = () => {
+  const getAllBrands = () => {
     axios
       .get(`${import.meta.env.VITE_PORT_BACKEND}/brand`)
       .then((res) => {
-        setBrand(res.data);
+        setAllBrands(res.data);
       })
       .catch(() => {
         console.error("error");
@@ -21,20 +21,20 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getAllBrand();
+    getAllBrands();
   }, []);
 
   return (
     <div className="home">
       <p className="home_title">Quelle est votre marque ?</p>
-      {brand.length >= 1 && (
+      {allBrands.length >= 1 && (
         <div className="home_search">
           <FaSearch className="home_search_fa" />
           <input
             className="home_search_input"
             value={brandQuery}
             type="search"
-            placeholder={`Recherchez parmis nos ${brand.length} marques ...`}
+            placeholder={`Recherchez parmis nos ${allBrands.length} marques ...`}
             onChange={(e) => setBrandQuery(e.target.value)}
           />
           {brandQuery !== "" && (
@@ -49,7 +49,7 @@ export default function Home() {
         </div>
       )}
       <div className="home_brand">
-        {brand
+        {allBrands
           .filter((search) =>
             search.name.toLowerCase().includes(brandQuery.toLowerCase())
           )

@@ -32,13 +32,22 @@ function AdminBrandList({ setChoosenBrandId, setChoosenModelId }) {
     <div className="adminBrandList">
       <div className="adminBrandList_create">
         <button
-          className="adminBrandList_brand_btn"
+          className={
+            showCreateBrand
+              ? "adminBrandList_brand_btn-activ"
+              : "adminBrandList_brand_btn"
+          }
           type="button"
           onClick={() => setShowCreateBrand(!showCreateBrand)}
         >
           AJOUTER UNE MARQUE
         </button>
-        {showCreateBrand === true && <CreateBrand />}
+        {showCreateBrand === true && (
+          <CreateBrand
+            setShowCreateBrand={setShowCreateBrand}
+            getAllBrand={getAllBrand}
+          />
+        )}
       </div>
       {allBrand.length >= 1 && (
         <div className="adminBrandList_brand">
