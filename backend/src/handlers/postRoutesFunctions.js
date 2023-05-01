@@ -2,10 +2,14 @@ const database = require("../../database");
 
 // POST NEW BRAND
 const postNewBrand = (req, res) => {
-  const { name, filename } = req.body;
+  const { name, filename, isSmart } = req.body;
 
   database
-    .query("INSERT INTO marque(name, pic) VALUES (?, ?);", [name, filename])
+    .query("INSERT INTO marque(name, pic, is_smart ) VALUES (?, ?, ?);", [
+      name,
+      filename,
+      Number(isSmart),
+    ])
     .then(() => {
       res.status(201).send({ message: "Brand Added" });
     })

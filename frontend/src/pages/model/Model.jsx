@@ -26,13 +26,13 @@ function Model() {
   }, []);
 
   return (
-    <div className="home">
-      <p className="home_title">Quel est votre modèle ?</p>
+    <div className="brand">
+      <p className="brand_title">Quel est votre modèle ?</p>
       {model.length >= 1 && (
-        <div className="home_search">
-          <FaSearch className="home_search_fa" />
+        <div className="brand_search">
+          <FaSearch className="brand_search_fa" />
           <input
-            className="home_search_input"
+            className="brand_search_input"
             value={modelQuery}
             type="search"
             placeholder={`Recherchez parmis nos ${model.length} modèle(s) ...`}
@@ -41,28 +41,28 @@ function Model() {
           {modelQuery !== "" && (
             <button
               type="button"
-              className="home_search_trash"
+              className="brand_search_trash"
               onClick={() => setModelQuery("")}
             >
-              <FaTrashAlt className="home_search_trash_fa" />
+              <FaTrashAlt className="brand_search_trash_fa" />
             </button>
           )}
         </div>
       )}
       {model.length >= 1 && (
-        <div className="home_brand">
+        <div className="brand_brand">
           {model
             .filter((search) => search.name.includes(modelQuery))
             .map((infos) => {
               return (
-                <li className="home_brand_li" key={infos.id}>
+                <li className="brand_brand_li" key={infos.id}>
                   <Link to={`/reparation/${infos.id}`}>
                     <img
-                      className="home_brand_li_pic"
+                      className="brand_brand_li_pic"
                       src={picPath + infos.pic}
                       alt={infos.name}
                     />
-                    <p className="home_brand_li_name">
+                    <p className="brand_brand_li_name">
                       {infos.name.toUpperCase()}
                     </p>
                   </Link>

@@ -1,9 +1,15 @@
 const database = require("../../database");
 
 /* BRAND */
-const getBrand = (req, res) => {
+const getSmartBrand = (req, res) => {
   database
-    .query("SELECT * FROM marque")
+    .query("SELECT * FROM marque WHERE is_smart=1 ORDER BY index_id")
+    .then(([brand]) => res.status(200).json(brand))
+    .catch((err) => console.error(err));
+};
+const getTabBrand = (req, res) => {
+  database
+    .query("SELECT * FROM marque WHERE is_smart=0 ORDER BY index_id")
     .then(([brand]) => res.status(200).json(brand))
     .catch((err) => console.error(err));
 };
@@ -38,7 +44,8 @@ const getReparationByModelId = (req, res) => {
 };
 
 module.exports = {
-  getBrand,
+  getSmartBrand,
+  getTabBrand,
   getModelByBrandId,
   getReparationByModelId,
 };

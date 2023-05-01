@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 // import UserContext from "./context/UserContext";
 
 const Home = lazy(() => import("@pages/home/Home"));
+const Brand = lazy(() => import("@pages/brand/Brand"));
 const Model = lazy(() => import("@pages/model/Model"));
 const Reparation = lazy(() => import("@pages/reparation/Reparation"));
 const Navbar = lazy(() => import("@components/navbar/Navbar"));
@@ -35,6 +36,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/marque/:id" element={<Brand />} />
           <Route path="/model/:id" element={<Model />} />
           <Route path="/reparation/:id" element={<Reparation />} />
           <Route path="/admin" element={<Admin />} />
