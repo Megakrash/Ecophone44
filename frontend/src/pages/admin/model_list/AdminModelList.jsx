@@ -65,6 +65,7 @@ function AdminModelList({ choosenBrandId, setChoosenModelId }) {
                 onClick={() => {
                   handleClickActiveModel(infos.id);
                   setChoosenModelId(infos.id);
+                  setShowCreateModel(false);
                 }}
               >
                 {infos.name.toUpperCase()}

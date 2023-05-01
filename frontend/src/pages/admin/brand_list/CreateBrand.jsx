@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-function CreateBrand({ setShowCreateBrand, getAllBrand }) {
+function CreateBrand({
+  setShowCreateSmartBrand,
+  setShowCreateTabBrand,
+  getAllBrand,
+  type,
+}) {
   const [newBrandPic, setNewBrandPic] = useState({});
   const [newBrandName, setNewBrandName] = useState("");
 
@@ -14,7 +19,8 @@ function CreateBrand({ setShowCreateBrand, getAllBrand }) {
     axios
       .post(`${import.meta.env.VITE_PORT_BACKEND}/brand`, data)
       .then(() => {
-        setShowCreateBrand(false);
+        setShowCreateSmartBrand(false);
+        setShowCreateTabBrand(false);
         clearFile();
         getAllBrand();
       })
@@ -26,6 +32,7 @@ function CreateBrand({ setShowCreateBrand, getAllBrand }) {
   const handleUpload = (e) => {
     e.preventDefault();
     const data = new FormData();
+    data.append("isSmart", type);
     data.append("name", newBrandName);
     data.append("file", newBrandPic);
     createNewBrand(data);
@@ -43,7 +50,7 @@ function CreateBrand({ setShowCreateBrand, getAllBrand }) {
           id="file"
           name="file"
           placeholder="Choisir une image"
-          accept=".jpg"
+          accept=".jpg, .png"
           onChange={(e) => {
             setNewBrandPic(e.target.files[0]);
           }}
@@ -74,6 +81,8 @@ function CreateBrand({ setShowCreateBrand, getAllBrand }) {
 export default CreateBrand;
 
 CreateBrand.propTypes = {
-  setShowCreateBrand: PropTypes.func.isRequired,
+  setShowCreateSmartBrand: PropTypes.func.isRequired,
+  setShowCreateTabBrand: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
+  type: PropTypes.number.isRequired,
 };
