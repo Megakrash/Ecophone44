@@ -5,14 +5,14 @@ import CreateModel from "./CreateModel";
 
 function AdminModelList({ choosenBrandId, setChoosenModelId }) {
   const [activeModelId, setActiveModelId] = useState(null);
-  const [allModelByBrand, setAllModelByBrand] = useState([]);
+  const [allModelsByBrand, setAllModelsByBrand] = useState([]);
   const [showCreateModel, setShowCreateModel] = useState(false);
 
   const getAllModelByBrand = () => {
     axios
       .get(`${import.meta.env.VITE_PORT_BACKEND}/model/${choosenBrandId}`)
       .then((res) => {
-        setAllModelByBrand(res.data);
+        setAllModelsByBrand(res.data);
       })
       .catch(() => {
         console.error("error");
@@ -21,6 +21,7 @@ function AdminModelList({ choosenBrandId, setChoosenModelId }) {
 
   useEffect(() => {
     getAllModelByBrand();
+    setShowCreateModel(false);
   }, [choosenBrandId]);
 
   const handleClickActiveModel = (id) => {
@@ -49,9 +50,9 @@ function AdminModelList({ choosenBrandId, setChoosenModelId }) {
           />
         )}
       </div>
-      {allModelByBrand.length >= 1 && (
+      {allModelsByBrand.length >= 1 && (
         <div className="adminModelList_brand">
-          {allModelByBrand.map((infos) => {
+          {allModelsByBrand.map((infos) => {
             const isActive = infos.id === activeModelId;
             return (
               <button

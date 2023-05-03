@@ -13,13 +13,21 @@ const getTabBrand = (req, res) => {
     .then(([brand]) => res.status(200).json(brand))
     .catch((err) => console.error(err));
 };
+const getBrandById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  database
+    .query("SELECT * FROM marque WHERE id= ?", [id])
+    .then(([brand]) => res.status(200).json(brand))
+    .catch((err) => console.error(err));
+};
 
 /* MODEL */
 const getModelByBrandId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   database
-    .query("SELECT id, name, pic FROM modele WHERE marque_id = ?", [id])
+    .query("SELECT * FROM modele WHERE marque_id = ?", [Number(id)])
     .then(([model]) => res.status(200).json(model))
     .catch((err) => {
       console.error(err);
@@ -46,6 +54,7 @@ const getReparationByModelId = (req, res) => {
 module.exports = {
   getSmartBrand,
   getTabBrand,
+  getBrandById,
   getModelByBrandId,
   getReparationByModelId,
 };

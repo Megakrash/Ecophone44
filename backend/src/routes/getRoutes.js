@@ -10,8 +10,11 @@ const getRoutesFunctions = require("../handlers/getRoutesFunctions");
 router.get("/smartbrand", getRoutesFunctions.getSmartBrand);
 // tablet
 router.get("/tabbrand", getRoutesFunctions.getTabBrand);
+// by Id
+router.get("/brand/:id", getRoutesFunctions.getBrandById);
 
 /* Model */
+// by brand Id
 router.get("/model/:id", getRoutesFunctions.getModelByBrandId);
 
 /* Réparations */
