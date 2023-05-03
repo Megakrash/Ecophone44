@@ -1,6 +1,5 @@
 .createBrand {
   width: 100%;
-  margin-top: 2%;
 
   &_form {
     border: 0.5px solid $fourth-color;
@@ -21,7 +20,6 @@
       width: 80%;
       height: 25px;
       margin-bottom: 2%;
-      cursor: pointer;
     }
 
     &_submit {

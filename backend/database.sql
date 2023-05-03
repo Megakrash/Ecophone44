@@ -29,6 +29,7 @@ CREATE TABLE
         `pic` VARCHAR(255) NULL DEFAULT NULL,
         `is_smart` TINYINT NOT NULL,
         `index_id` INT NULL DEFAULT NULL,
+        `is_visible` TINYINT NOT NULL DEFAULT 1,
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -38,7 +39,8 @@ VALUES
   ( 'apple', 'APPLE.jpg', 1, 1 ),
   ( 'samsung', 'SAMSUNG.jpg', 1, 2 ),
   ( 'huawei', 'HUAWEI.jpg', 1, 3 ),
-  ( 'apple', 'APPLE.jpg', 0, 4 );
+  ( 'apple', 'APPLE.jpg', 0, 4 ),
+  ( 'samsung', 'SAMSUNG.jpg', 0, 5 );
 -- -----------------------------------------------------
 
 -- Table `ecophone44`.`modele`
@@ -53,6 +55,7 @@ CREATE TABLE
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
         `index_id` INT NULL DEFAULT NULL,
+        `is_visible` TINYINT NOT NULL DEFAULT 1,
         `marque_id` INT NOT NULL,
         CONSTRAINT `marque_id` FOREIGN KEY (`marque_id`) REFERENCES `ecophone44`.`marque` (`id`),
         PRIMARY KEY (`id`)

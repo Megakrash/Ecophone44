@@ -20,6 +20,27 @@ const updateBrandById = (req, res) => {
     });
 };
 
+const updateBrandNameById = (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  database
+    .query(`UPDATE marque set name = ${JSON.stringify(name)} WHERE id = ?;`, [
+      Number(id),
+    ])
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the brand name");
+    });
+};
+
 module.exports = {
   updateBrandById,
+  updateBrandNameById,
 };
