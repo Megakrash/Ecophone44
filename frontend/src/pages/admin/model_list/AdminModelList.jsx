@@ -72,6 +72,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
         {showCreateModel === true && (
           <CreateModel
             setShowCreateModel={setShowCreateModel}
+            showCreateModel={showCreateModel}
             getAllModelByBrand={getAllModelByBrand}
             choosenBrandId={choosenBrandId}
           />
