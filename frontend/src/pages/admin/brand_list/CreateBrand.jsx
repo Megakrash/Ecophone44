@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function CreateBrand({
   setShowCreateSmartBrand,
-  setShowUpdateSmartBrand,
+  setShowCreateTabBrand,
   getAllBrand,
   type,
 }) {
@@ -20,7 +20,7 @@ function CreateBrand({
       .post(`${import.meta.env.VITE_PORT_BACKEND}/brand`, data)
       .then(() => {
         setShowCreateSmartBrand(false);
-        setShowUpdateSmartBrand(false);
+        setShowCreateTabBrand(false);
         clearFile();
         getAllBrand();
       })
@@ -82,7 +82,7 @@ export default CreateBrand;
 
 CreateBrand.propTypes = {
   setShowCreateSmartBrand: PropTypes.func.isRequired,
-  setShowUpdateSmartBrand: PropTypes.func.isRequired,
+  setShowCreateTabBrand: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
   type: PropTypes.number.isRequired,
 };

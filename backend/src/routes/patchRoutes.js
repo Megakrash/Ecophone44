@@ -4,11 +4,14 @@ const express = require("express");
 const router = express.Router();
 
 const patchRoutesFunctions = require("../handlers/patchRoutesFunctions");
-
-// Update index_id with D&D
-router.put("/brandindex/:id", patchRoutesFunctions.updateBrandById);
-
+/* Brand */
+// Update brand index_id with D&D
+router.put("/brandindex/:id", patchRoutesFunctions.updateBrandIndexById);
 // Update Name
 router.put("/brandname/:id", patchRoutesFunctions.updateBrandNameById);
+
+/* Model */
+// Update model index_id with D&D
+router.put("/modelindex/:id", patchRoutesFunctions.updateModelIndexById);
 
 module.exports = router;

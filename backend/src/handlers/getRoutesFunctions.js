@@ -27,7 +27,9 @@ const getModelByBrandId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   database
-    .query("SELECT * FROM modele WHERE marque_id = ?", [Number(id)])
+    .query("SELECT * FROM modele WHERE marque_id = ? ORDER BY index_id", [
+      Number(id),
+    ])
     .then(([model]) => res.status(200).json(model))
     .catch((err) => {
       console.error(err);
