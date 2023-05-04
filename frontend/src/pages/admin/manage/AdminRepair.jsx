@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-function AdminManage({ choosenModelId }) {
+function AdminRepair({ choosenModelId }) {
   const [repair, setRepair] = useState([]);
   // const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/modeles/`;
 
@@ -27,8 +27,8 @@ function AdminManage({ choosenModelId }) {
   );
 }
 
-export default AdminManage;
+export default AdminRepair;
 
-AdminManage.propTypes = {
+AdminRepair.propTypes = {
   choosenModelId: PropTypes.number.isRequired,
 };

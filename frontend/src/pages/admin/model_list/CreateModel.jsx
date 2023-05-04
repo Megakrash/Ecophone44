@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 function CreateModel({
   setShowCreateModel,
+  showCreateModel,
   getAllModelByBrand,
   choosenBrandId,
 }) {
@@ -12,18 +13,19 @@ function CreateModel({
 
   function clearFile() {
     setNewModelPic({});
+    setNewModelName("");
   }
 
   const createNewModel = (data) => {
     axios
       .post(`${import.meta.env.VITE_PORT_BACKEND}/model`, data)
       .then(() => {
-        setShowCreateModel(false);
+        setShowCreateModel(!showCreateModel);
         clearFile();
         getAllModelByBrand();
       })
       .catch(() => {
-        console.error("Error create new brand");
+        console.error("Error create new model");
       });
   };
 
@@ -81,5 +83,6 @@ export default CreateModel;
 CreateModel.propTypes = {
   setShowCreateModel: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
+  showCreateModel: PropTypes.bool.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
 };
