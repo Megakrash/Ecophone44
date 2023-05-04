@@ -3,7 +3,12 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { FaCheck } from "react-icons/fa";
 
-function UpdateBrand({ getAllBrand, brands }) {
+function UpdateBrand({
+  getAllBrand,
+  brands,
+  setShowUpdateSmartBrand,
+  setShowUpdateTabBrand,
+}) {
   const [brandSelected, setBrandSelected] = useState("");
   const [newName, setNewName] = useState("");
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/marques/`;
@@ -26,6 +31,8 @@ function UpdateBrand({ getAllBrand, brands }) {
       })
       .then(() => {
         getAllBrand();
+        setShowUpdateSmartBrand(false);
+        setShowUpdateTabBrand(false);
       })
       .catch(() => {
         console.error("Name not updated");
@@ -58,7 +65,10 @@ function UpdateBrand({ getAllBrand, brands }) {
       </div>
       {brandSelected !== "" && (
         <form onSubmit={handleUpdate} className="updateBrand_form">
-          <img src={`${picPath}+${brandSelected.pic}`} alt="" />
+          <img
+            src={`${picPath}+${brandSelected[0].pic}`}
+            alt="logo de la marque"
+          />
           <label className="updateBrand_form_label" htmlFor="name">
             Modifier le nom de la marque
           </label>
@@ -67,7 +77,7 @@ function UpdateBrand({ getAllBrand, brands }) {
             type="text"
             id="name"
             value={newName}
-            placeholder="Nouveau nom"
+            placeholder={brandSelected[0].name}
             onChange={(e) => setNewName(e.target.value)}
             required
           />
@@ -84,6 +94,8 @@ export default UpdateBrand;
 
 UpdateBrand.propTypes = {
   getAllBrand: PropTypes.func.isRequired,
+  setShowUpdateSmartBrand: PropTypes.func.isRequired,
+  setShowUpdateTabBrand: PropTypes.func.isRequired,
   brands: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

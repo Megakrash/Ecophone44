@@ -78,9 +78,11 @@ DROP TABLE IF EXISTS `ecophone44`.`reparation` ;
 CREATE TABLE
     IF NOT EXISTS `ecophone44`.`reparation` (
         `id` INT NOT NULL AUTO_INCREMENT,
-        `name` VARCHAR(100) NOT NULL,
+        `name` VARCHAR(255) NOT NULL,
+        `text` VARCHAR(255) NULL DEFAULT NULL,
         `price` INT NULL DEFAULT NULL,
         `index_id` INT NULL DEFAULT NULL,
+        `is_visible` TINYINT NOT NULL DEFAULT 1,
         `modele_id` INT NOT NULL,
         CONSTRAINT `modele_id` FOREIGN KEY (`modele_id`) REFERENCES `ecophone44`.`modele` (`id`),
         PRIMARY KEY (`id`)

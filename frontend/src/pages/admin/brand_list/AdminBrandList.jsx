@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-
-function AdminBrandList({ choosenBrandId, setChoosenBrandId, setChoosenModelId, brands, getAllBrand, setShowUpdateSmartBrand, setShowCreateSmartBrand }) {
+function AdminBrandList({
+  choosenBrandId,
+  setChoosenBrandId,
+  setChoosenModelId,
+  brands,
+  getAllBrand,
+  setShowUpdateSmartBrand,
+  setShowCreateSmartBrand,
+  setShowCreateTabBrand,
+  setShowUpdateTabBrand,
+}) {
 
   // To patch the index_id in database
   const updateOrderBrand = (items) => {
@@ -62,11 +71,13 @@ function AdminBrandList({ choosenBrandId, setChoosenBrandId, setChoosenModelId, 
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         onClick={() => {
-                          // handleClickActiveBrand(id);
                           setChoosenBrandId(id);
-                          setChoosenModelId(null);
+                          setChoosenModelId(0);
                           setShowCreateSmartBrand(false);
                           setShowUpdateSmartBrand(false);
+                          setShowCreateTabBrand(false);
+                          setShowUpdateTabBrand(false);
+                          window.scrollTo(0, 0);
                         }}
                       >
                         <p>{name.toUpperCase()}</p>
@@ -92,6 +103,8 @@ AdminBrandList.propTypes = {
   setChoosenModelId: PropTypes.func.isRequired,
   setShowUpdateSmartBrand: PropTypes.func.isRequired,
   setShowCreateSmartBrand: PropTypes.func.isRequired,
+  setShowCreateTabBrand: PropTypes.func.isRequired,
+  setShowUpdateTabBrand: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
   brands: PropTypes.arrayOf(
     PropTypes.shape({
