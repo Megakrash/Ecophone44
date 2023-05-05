@@ -1,10 +1,11 @@
 @import "./brand_list/adminBrandList.scss";
 @import "./brand_list/createBrand.scss";
 @import "./model_list/adminModelList.scss";
+@import "./brand_list/updateBrand.scss";
 
 .admin {
   width: 98%;
-  min-height: calc(100vh - 557px);
+  min-height: calc(100vh - 200px);
   margin: auto;
   display: flex;
   flex-direction: row;

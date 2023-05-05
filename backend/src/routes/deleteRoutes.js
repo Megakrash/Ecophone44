@@ -1,9 +1,9 @@
 const express = require("express");
 
-// const deleteRoutesFunctions = require("../handlers/deleteRoutesFunctions");
+const deleteRoutesFunctions = require("../handlers/deleteRoutesFunctions");
 
 const router = express.Router();
 
-// router.delete("/users/:id", deleteRoutesFunctions.deleteUserById);
+router.delete("/brandpic/:id", deleteRoutesFunctions.deleteBrandPicByBrandId);
 
 module.exports = router;
