@@ -113,7 +113,7 @@ AdminBrandList.propTypes = {
       is_smart: PropTypes.number.isRequired,
       is_visible: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      pic: PropTypes.string.isRequired,
+      pic: PropTypes.string,
     })
   ).isRequired,
 };

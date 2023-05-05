@@ -191,7 +191,7 @@ function Admin() {
               setShowUpdateSmartBrand={setShowUpdateSmartBrand}
               setShowUpdateTabBrand={setShowUpdateTabBrand}
               getAllBrand={getAllBrand}
-              brands={smartBrands}
+              brands={tabBrands}
             />
           )}
           {choosenBrandId !== 0 && (

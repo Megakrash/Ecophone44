@@ -1,0 +1,34 @@
+.updateBrand {
+  width: 100%;
+
+  &_infos {
+    width: 100%;
+
+    &_pic {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+
+      &_img {
+        width: 125px;
+        height: auto;
+        border: 0.5px solid $fourth-color;
+        border-radius: 5px;
+      }
+
+      &_delete {
+        width: 45px;
+        height: 45px;
+        cursor: pointer;
+
+        .fa-delete {
+          width: 100%;
+          height: auto;
+          color: $delete-color;
+        }
+      }
+    }
+  }
+}
