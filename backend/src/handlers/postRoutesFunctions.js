@@ -5,7 +5,7 @@ const postNewBrand = (req, res) => {
   const { name, filename, isSmart } = req.body;
 
   database
-    .query("INSERT INTO marque(name, pic, is_smart ) VALUES (?, ?, ?);", [
+    .query("INSERT INTO brands(name, pic, is_smart ) VALUES (?, ?, ?);", [
       name,
       filename,
       Number(isSmart),
@@ -97,12 +97,12 @@ const baseRepair = [
 ];
 
 const postNewModel = (req, res) => {
-  const { name, filename, marqueId } = req.body;
+  const { name, filename, brandId } = req.body;
   database
-    .query("INSERT INTO modele(name, pic, marque_id) VALUES (?, ?, ?);", [
+    .query("INSERT INTO models(name, pic, brand_id) VALUES (?, ?, ?);", [
       name,
       filename,
-      marqueId,
+      brandId,
     ])
     .then(([result]) => {
       res.status(201).send({ message: "Model added" });
@@ -111,7 +111,7 @@ const postNewModel = (req, res) => {
       for (const repair of repairs) {
         database
           .query(
-            "INSERT INTO reparation(name, text, price, index_id, modele_id) VALUES (?, ?, ?, ?, ?);",
+            "INSERT INTO repairs(name, text, price, index_id, model_id) VALUES (?, ?, ?, ?, ?);",
             [repair.name, repair.text, repair.price, repair.index_id, modeleId]
           )
           .catch((err) => {

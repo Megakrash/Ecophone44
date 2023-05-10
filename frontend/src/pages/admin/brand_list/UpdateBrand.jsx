@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { FaCheck, FaTrashAlt } from "react-icons/fa";
+import {
+  FaCheck,
+  FaTrashAlt,
+  FaSkullCrossbones,
+  FaSkull,
+  FaTimesCircle,
+} from "react-icons/fa";
 
 function UpdateBrand({ getAllBrand, brands }) {
   const [brandSelected, setBrandSelected] = useState("");
   const [newName, setNewName] = useState("");
+  const [newBrandPic, setNewBrandPic] = useState("");
+  const [brandIsVisible, setBrandIsVisible] = useState(null);
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/`;
 
   const getBrandSelected = (id) => {
@@ -13,6 +22,12 @@ function UpdateBrand({ getAllBrand, brands }) {
       .get(`${import.meta.env.VITE_PORT_BACKEND}/brand/${id}`)
       .then((res) => {
         setBrandSelected(res.data);
+        if (res.data[0].is_visible === 1) {
+          setBrandIsVisible(true);
+        }
+        if (res.data[0].is_visible === 0) {
+          setBrandIsVisible(false);
+        }
       })
       .catch(() => {
         console.error("Error to get the brand selected");
@@ -62,6 +77,65 @@ function UpdateBrand({ getAllBrand, brands }) {
       });
   };
 
+  const uploadNewBrandPic = (data) => {
+    axios
+      .put(
+        `${import.meta.env.VITE_PORT_BACKEND}/brandpic/${brandSelected[0].id}`,
+        data
+      )
+      .then(() => {
+        getBrandSelected(brandSelected[0].id);
+      })
+      .catch(() => {
+        console.error("Error upload new brand pic");
+      });
+  };
+
+  const handleUploadPic = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("name", `${brandSelected[0].name}`);
+    data.append("file", newBrandPic);
+    uploadNewBrandPic(data);
+  };
+
+  const updateIsVisibleStatut = (bool) => {
+    axios
+      .put(
+        `${import.meta.env.VITE_PORT_BACKEND}/brandisvisible/${
+          brandSelected[0].id
+        }`,
+        {
+          isVisible: bool,
+        }
+      )
+      .catch(() => {
+        console.error("Statut is visible not updated");
+      });
+  };
+
+  useEffect(() => {
+    if (brandIsVisible === false) {
+      updateIsVisibleStatut(0);
+    }
+    if (brandIsVisible === true) {
+      updateIsVisibleStatut(1);
+    }
+  }, [brandIsVisible]);
+
+  const deleteBrand = () => {
+    axios
+      .delete(
+        `${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected[0].id}`
+      )
+      .then(() => {
+        setBrandSelected("");
+      })
+      .catch(() => {
+        console.error("Error delete brand");
+      });
+  };
+
   return (
     <div className="updateBrand">
       <div className="updateBrand_select">
@@ -82,6 +156,17 @@ function UpdateBrand({ getAllBrand, brands }) {
       </div>
       {brandSelected !== "" && (
         <div className="updateBrand_infos">
+          <div className="updateBrand_infos_toogle">
+            <button
+              className={brandIsVisible ? "toogle-true" : "toogle-false"}
+              type="button"
+              onClick={() => {
+                setBrandIsVisible(!brandIsVisible);
+              }}
+            >
+              {brandIsVisible ? "En ligne" : "Hors ligne"}
+            </button>
+          </div>
           {brandSelected[0].pic === null ? (
             <div className="updateBrand_infos_pic">
               <img
@@ -89,6 +174,33 @@ function UpdateBrand({ getAllBrand, brands }) {
                 src={`${picPath}/general/default.jpg`}
                 alt="logo de la marque"
               />
+              <form
+                action=""
+                className="updateBrand_infos_pic_form"
+                onSubmit={handleUploadPic}
+              >
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  placeholder="Choisir une image"
+                  accept=".jpg, .png"
+                  onChange={(e) => {
+                    setNewBrandPic(e.target.files[0]);
+                  }}
+                  required
+                />
+
+                {newBrandPic !== "" && (
+                  <button
+                    className="updateBrand_infos_pic_form_submit"
+                    type="submit"
+                    value="upload"
+                  >
+                    <FaCheck />
+                  </button>
+                )}
+              </form>
             </div>
           ) : (
             <div className="updateBrand_infos_pic">
@@ -108,8 +220,6 @@ function UpdateBrand({ getAllBrand, brands }) {
               </button>
             </div>
           )}
-
-          <div className="updateBrand_infos_toogle" />
           <form onSubmit={handleUpdateName} className="updateBrand_infos_name">
             <label className="updateBrand_form_label" htmlFor="name">
               Modifier le nom de la marque
@@ -127,6 +237,51 @@ function UpdateBrand({ getAllBrand, brands }) {
               <FaCheck />
             </button>
           </form>
+          {showDeleteWarning === false ? (
+            <button
+              className="updateBrand_infos_delete"
+              type="button"
+              onClick={() => {
+                setShowDeleteWarning(true);
+              }}
+            >
+              <FaSkullCrossbones className="fa-delete" />
+              SUPPRIMER LA MARQUE
+            </button>
+          ) : (
+            <div className="updateBrand_infos_confirm">
+              <div className="updateBrand_infos_confirm_fa">
+                <FaSkullCrossbones className="fa-delete" />
+                <FaSkullCrossbones className="fa-delete" />
+                <FaSkullCrossbones className="fa-delete" />
+              </div>
+              <p className="updateBrand_infos_confirm_text">
+                Dude ?! T'es sur ???
+              </p>
+              <p className="updateBrand_infos_confirm_text">
+                Cela va supprimer la marque ainsi que tous les modèles et
+                réparations liés à cette marque.
+              </p>
+              <button
+                className="updateBrand_infos_confirm_delete"
+                type="button"
+                onClick={() => {
+                  deleteBrand();
+                }}
+              >
+                <FaSkull className="fabig-delete" />
+              </button>
+              <button
+                className="updateBrand_infos_confirm_cancel"
+                type="button"
+                onClick={() => {
+                  setShowDeleteWarning(false);
+                }}
+              >
+                <FaTimesCircle className="fabig-cancel" />
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -17,24 +17,24 @@ CREATE SCHEMA IF NOT EXISTS `ecophone44` DEFAULT CHARACTER SET utf8mb4 COLLATE u
 USE `ecophone44` ;
 
 -- -----------------------------------------------------
--- Table `ecophone44`.`marque`
+-- Table `ecophone44`.`brands`
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`marque` ;
+DROP TABLE IF EXISTS `ecophone44`.`brands` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`marque` (
+    IF NOT EXISTS `ecophone44`.`brands` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
         `is_smart` TINYINT NOT NULL,
-        `index_id` INT NULL DEFAULT NULL,
+        `index_id` INT NULL DEFAULT 1,
         `is_visible` TINYINT NOT NULL DEFAULT 1,
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
-  `ecophone44`.`marque` (name, pic, is_smart, index_id )
+  `ecophone44`.`brands` (name, pic, is_smart, index_id )
 VALUES
   ( 'apple', 'APPLE.jpg', 1, 1 ),
   ( 'samsung', 'SAMSUNG.jpg', 1, 2 ),
@@ -43,26 +43,26 @@ VALUES
   ( 'samsung', 'SAMSUNG.jpg', 0, 5 );
 -- -----------------------------------------------------
 
--- Table `ecophone44`.`modele`
+-- Table `ecophone44`.`models`
 
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`modele` ;
+DROP TABLE IF EXISTS `ecophone44`.`models` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`modele` (
+    IF NOT EXISTS `ecophone44`.`models` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
-        `index_id` INT NULL DEFAULT NULL,
+        `index_id` INT NULL DEFAULT 1,
         `is_visible` TINYINT NOT NULL DEFAULT 1,
-        `marque_id` INT NOT NULL,
-        CONSTRAINT `marque_id` FOREIGN KEY (`marque_id`) REFERENCES `ecophone44`.`marque` (`id`),
+        `brand_id` INT NOT NULL,
+        CONSTRAINT `brand_id` FOREIGN KEY (`brand_id`) REFERENCES `ecophone44`.`brands` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
-  `ecophone44`.`modele` (name, pic, marque_id )
+  `ecophone44`.`models` (name, pic, brand_id )
 VALUES
   ( 'iphone 6', 'IPHONE6.png', 1),
   ( 'iphone 7', 'IPHONE7.png', 1),
@@ -70,26 +70,26 @@ VALUES
   ( 'ipad 2', 'IPAD2.jpg', 4);
 
 -- -----------------------------------------------------
--- Table `ecophone44`.`reparation`
+-- Table `ecophone44`.`repairs`
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`reparation` ;
+DROP TABLE IF EXISTS `ecophone44`.`repairs` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`reparation` (
+    IF NOT EXISTS `ecophone44`.`repairs` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(255) NOT NULL,
         `text` VARCHAR(255) NULL DEFAULT NULL,
         `price` INT NULL DEFAULT NULL,
-        `index_id` INT NULL DEFAULT NULL,
+        `index_id` INT NULL DEFAULT 1,
         `is_visible` TINYINT NOT NULL DEFAULT 1,
-        `modele_id` INT NOT NULL,
-        CONSTRAINT `modele_id` FOREIGN KEY (`modele_id`) REFERENCES `ecophone44`.`modele` (`id`),
+        `model_id` INT NOT NULL,
+        CONSTRAINT `model_id` FOREIGN KEY (`model_id`) REFERENCES `ecophone44`.`models` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
-  `ecophone44`.`reparation` (name, price, modele_id )
+  `ecophone44`.`repairs` (name, price, model_id )
 VALUES
   ( 'Façade avant', 59, 1),
   ( 'Batterie', 39, 1),

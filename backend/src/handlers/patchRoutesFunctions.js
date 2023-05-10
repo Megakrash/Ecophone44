@@ -1,13 +1,13 @@
 const database = require("../../database");
 // -------------------------------
-/* ----------- Brand -------------*/
+/* ----------- Brands -------------*/
 // -------------------------------
 
 const updateBrandIndexById = (req, res) => {
   const { id } = req.params;
   const { indexId } = req.body;
   database
-    .query(`UPDATE marque set index_id = ${Number(indexId)} WHERE id = ?;`, [
+    .query(`UPDATE brands set index_id = ${Number(indexId)} WHERE id = ?;`, [
       Number(id),
     ])
     .then(([result]) => {
@@ -27,7 +27,7 @@ const updateBrandNameById = (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
   database
-    .query(`UPDATE marque set name = ${JSON.stringify(name)} WHERE id = ?;`, [
+    .query(`UPDATE brands set name = ${JSON.stringify(name)} WHERE id = ?;`, [
       Number(id),
     ])
     .then(([result]) => {
@@ -43,15 +43,57 @@ const updateBrandNameById = (req, res) => {
     });
 };
 
+const updateBrandPicByBrandId = (req, res) => {
+  const { id } = req.params;
+  const { filename } = req.body;
+  database
+    .query(
+      `UPDATE brands set pic = ${JSON.stringify(filename)} WHERE id = ?;`,
+      [Number(id)]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the brand new pic");
+    });
+};
+
+const updateBrandIsVisibleById = (req, res) => {
+  const { id } = req.params;
+  const { isVisible } = req.body;
+  database
+    .query(
+      `UPDATE brands set is_visible = ${Number(isVisible)} WHERE id = ?;`,
+      [Number(id)]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the brand is visible");
+    });
+};
+
 // -------------------------------
-/* ----------- Model ------------- */
+/* ----------- Models ------------- */
 // -------------------------------
 
 const updateModelIndexById = (req, res) => {
   const { id } = req.params;
   const { indexId } = req.body;
   database
-    .query(`UPDATE modele set index_id = ${Number(indexId)} WHERE id = ?;`, [
+    .query(`UPDATE models set index_id = ${Number(indexId)} WHERE id = ?;`, [
       Number(id),
     ])
     .then(([result]) => {
@@ -70,5 +112,7 @@ const updateModelIndexById = (req, res) => {
 module.exports = {
   updateBrandIndexById,
   updateBrandNameById,
+  updateBrandPicByBrandId,
+  updateBrandIsVisibleById,
   updateModelIndexById,
 };
