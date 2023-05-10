@@ -34,7 +34,7 @@ function CreateModel({
     const data = new FormData();
     data.append("name", newModelName);
     data.append("file", newModelPic);
-    data.append("marqueId", choosenBrandId);
+    data.append("brandId", choosenBrandId);
     createNewModel(data);
   };
 
