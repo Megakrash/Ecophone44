@@ -6,7 +6,7 @@ import { FaTools } from "react-icons/fa";
 function reparation() {
   const [repair, setRepair] = useState([]);
   const { id } = useParams();
-  const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/modeles/`;
+  const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/models/`;
 
   const getReparationByModel = () => {
     axios

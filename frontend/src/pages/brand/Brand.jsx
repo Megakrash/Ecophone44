@@ -7,7 +7,7 @@ export default function Brand() {
   const [allBrands, setAllBrands] = useState([]);
   const [brandQuery, setBrandQuery] = useState("");
 
-  const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/marques/`;
+  const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/brands/`;
   const { id } = useParams();
 
   const getAllBrands = () => {

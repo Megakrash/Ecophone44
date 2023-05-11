@@ -1,11 +1,61 @@
 .updateBrand {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  min-height: 200px;
   border: 0.5px solid $fourth-color;
   border-radius: 5px;
-  padding: 1%;
+  padding: 2%;
+  gap: 15px;
+
+  &_select {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &_title {
+      font-family: $font-title;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    &_option {
+      width: 50%;
+      height: 25px;
+      border-radius: 5px;
+    }
+  }
 
   &_infos {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &_toogle {
+      width: 50%;
+
+      .toogle-true,
+      .toogle-false {
+        width: 100%;
+        height: 25px;
+        font-size: 12px;
+        font-weight: 600;
+        color: $primary-color;
+        border: 0.5px solid $fourth-color;
+        border-radius: 5px;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+      }
+
+      .toogle-true {
+        background-color: green;
+      }
+
+      .toogle-false {
+        background-color: $delete-color;
+      }
+    }
 
     &_pic {
       width: 100%;
@@ -21,15 +71,140 @@
         border-radius: 5px;
       }
 
+      &_form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+
+        &_submit {
+          width: 25px;
+          height: 25px;
+          background: none;
+          cursor: pointer;
+
+          .fa-submit {
+            width: 100%;
+            height: auto;
+            color: $secondary-color;
+          }
+        }
+      }
+
       &_delete {
         width: 45px;
         height: 45px;
+        background: none;
         cursor: pointer;
 
         .fa-delete {
           width: 100%;
           height: auto;
           color: $delete-color;
+        }
+      }
+    }
+
+    &_name {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      &_label {
+        font-family: $font-title;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      &_update {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        &_input {
+          width: 50%;
+          height: 20px;
+          border-radius: 5px;
+          border-color: $secondary-color;
+        }
+
+        &_submit {
+          width: 25px;
+          height: 25px;
+          background: none;
+          cursor: pointer;
+
+          .fa-submit {
+            width: 100%;
+            height: auto;
+            color: $secondary-color;
+          }
+        }
+      }
+    }
+
+    &_delete {
+      margin-top: 2%;
+      margin-bottom: 2%;
+      width: 200px;
+      height: 40px;
+      font-size: 16px;
+      border: 0.5px solid $fourth-color;
+      border-radius: 5px;
+      padding: 1%;
+      background-color: $delete-color;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: red;
+      }
+    }
+
+    &_confirm {
+      margin-top: 2%;
+      margin-bottom: 2%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      &_fa {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .fa-crossbones {
+          width: 35px;
+          height: auto;
+          color: $delete-color;
+        }
+      }
+
+      &_text {
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      &_delete,
+      &_cancel {
+        width: 45px;
+        height: 45px;
+        background-color: transparent;
+        cursor: pointer;
+
+        .fabig-delete {
+          width: 45px;
+          height: auto;
+          color: $delete-color;
+        }
+
+        .fabig-cancel {
+          width: 45px;
+          height: auto;
         }
       }
     }

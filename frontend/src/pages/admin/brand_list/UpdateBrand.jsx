@@ -130,6 +130,8 @@ function UpdateBrand({ getAllBrand, brands }) {
       )
       .then(() => {
         setBrandSelected("");
+        setShowDeleteWarning(false);
+        getAllBrand();
       })
       .catch(() => {
         console.error("Error delete brand");
@@ -197,7 +199,7 @@ function UpdateBrand({ getAllBrand, brands }) {
                     type="submit"
                     value="upload"
                   >
-                    <FaCheck />
+                    <FaCheck className="fa-submit" />
                   </button>
                 )}
               </form>
@@ -206,7 +208,7 @@ function UpdateBrand({ getAllBrand, brands }) {
             <div className="updateBrand_infos_pic">
               <img
                 className="updateBrand_infos_pic_img"
-                src={`${picPath}/marques/${brandSelected[0].pic}`}
+                src={`${picPath}/brands/${brandSelected[0].pic}`}
                 alt="logo de la marque"
               />
               <button
@@ -221,21 +223,26 @@ function UpdateBrand({ getAllBrand, brands }) {
             </div>
           )}
           <form onSubmit={handleUpdateName} className="updateBrand_infos_name">
-            <label className="updateBrand_form_label" htmlFor="name">
+            <label className="updateBrand_infos_name_label" htmlFor="name">
               Modifier le nom de la marque
             </label>
-            <input
-              className="updateBrand_infos_form_input"
-              type="text"
-              id="name"
-              value={newName}
-              placeholder={brandSelected[0].name}
-              onChange={(e) => setNewName(e.target.value)}
-              required
-            />
-            <button className="updateBrand_infos_form_submit" type="submit">
-              <FaCheck />
-            </button>
+            <div className="updateBrand_infos_name_update">
+              <input
+                className="updateBrand_infos_name_update_input"
+                type="text"
+                id="name"
+                value={newName}
+                placeholder={brandSelected[0].name}
+                onChange={(e) => setNewName(e.target.value)}
+                required
+              />
+              <button
+                className="updateBrand_infos_name_update_submit"
+                type="submit"
+              >
+                <FaCheck className="fa-submit" />
+              </button>
+            </div>
           </form>
           {showDeleteWarning === false ? (
             <button
@@ -245,22 +252,21 @@ function UpdateBrand({ getAllBrand, brands }) {
                 setShowDeleteWarning(true);
               }}
             >
-              <FaSkullCrossbones className="fa-delete" />
               SUPPRIMER LA MARQUE
             </button>
           ) : (
             <div className="updateBrand_infos_confirm">
               <div className="updateBrand_infos_confirm_fa">
-                <FaSkullCrossbones className="fa-delete" />
-                <FaSkullCrossbones className="fa-delete" />
-                <FaSkullCrossbones className="fa-delete" />
+                <FaSkullCrossbones className="fa-crossbones" />
+                <FaSkullCrossbones className="fa-crossbones" />
+                <FaSkullCrossbones className="fa-crossbones" />
               </div>
               <p className="updateBrand_infos_confirm_text">
                 Dude ?! T'es sur ???
               </p>
               <p className="updateBrand_infos_confirm_text">
-                Cela va supprimer la marque ainsi que tous les modèles et
-                réparations liés à cette marque.
+                Cela va supprimer la marque ainsi que tous les modèles, les
+                images et les réparations liés à cette marque !
               </p>
               <button
                 className="updateBrand_infos_confirm_delete"
