@@ -83,7 +83,7 @@ const baseRepair = [
     index_id: 10,
   },
   {
-    name: "Forfait recherhce de panne",
+    name: "Forfait recherche de panne",
     text: "Un devis est réalisé dans les 24 heures. Le prix de l'intervention est déductible des réparations.",
     price: 99,
     index_id: 11,

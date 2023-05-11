@@ -29,8 +29,32 @@ const deleteBrandPicByBrandId = (req, res) => {
     .catch((err) => console.error(err));
 };
 
-/* Big function to delete one brand with all the models & repairs & pics linked to this brand */
+const deleteModelPicByModelId = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { pic } = req.body;
+  database
+    .query(`UPDATE models set pic = NULL WHERE id = ?;`, [Number(id)])
+    .then(() => {
+      try {
+        if (fs.existsSync(`public/assets/images/models/${pic}`)) {
+          fs.unlink(`public/assets/images/models/${pic}`, (err) => {
+            if (err) {
+              console.error(err);
+            }
+          });
+          res.sendStatus(204);
+        } else {
+          console.warn("file doesn't exists!");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })
+    .catch((err) => console.error(err));
+};
 
+/* Big function to delete one brand with all the models & repairs & pics 
+linked to this brand */
 async function deleteBrandById(req, res) {
   const brandId = parseInt(req.params.id, 10);
   try {
@@ -88,5 +112,6 @@ async function deleteBrandById(req, res) {
 
 module.exports = {
   deleteBrandPicByBrandId,
+  deleteModelPicByModelId,
   deleteBrandById,
 };

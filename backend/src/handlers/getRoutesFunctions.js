@@ -37,8 +37,20 @@ const getModelByBrandId = (req, res) => {
     });
 };
 
+const getModelById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  database
+    .query("SELECT * FROM models WHERE id = ? LIMIT 1", [Number(id)])
+    .then(([model]) => res.status(200).json(model[0]))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 /* REPARATION */
-const getReparationByModelId = (req, res) => {
+const getRepairsByModelId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   database
@@ -58,5 +70,6 @@ module.exports = {
   getTabBrand,
   getBrandById,
   getModelByBrandId,
-  getReparationByModelId,
+  getModelById,
+  getRepairsByModelId,
 };

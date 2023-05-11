@@ -109,10 +109,54 @@ const updateModelIndexById = (req, res) => {
     });
 };
 
+const updateModelPicByModelId = (req, res) => {
+  const { id } = req.params;
+  const { filename } = req.body;
+  database
+    .query(
+      `UPDATE models set pic = ${JSON.stringify(filename)} WHERE id = ?;`,
+      [Number(id)]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the new model pic");
+    });
+};
+
+const updateModelIsVisibleById = (req, res) => {
+  const { id } = req.params;
+  const { isVisible } = req.body;
+  database
+    .query(
+      `UPDATE models set is_visible = ${Number(isVisible)} WHERE id = ?;`,
+      [Number(id)]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the brand is visible");
+    });
+};
+
 module.exports = {
   updateBrandIndexById,
   updateBrandNameById,
   updateBrandPicByBrandId,
   updateBrandIsVisibleById,
   updateModelIndexById,
+  updateModelPicByModelId,
+  updateModelIsVisibleById,
 };

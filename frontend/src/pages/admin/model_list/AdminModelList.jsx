@@ -11,7 +11,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
 
   const getAllModelByBrand = () => {
     axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/model/${choosenBrandId}`)
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/modelbybrand/${choosenBrandId}`)
       .then((res) => {
         setAllModelsByBrand(res.data);
       })

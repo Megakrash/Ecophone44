@@ -205,7 +205,7 @@ function Admin() {
         </div>
       </div>
 
-      {choosenModelId !== null && (
+      {choosenModelId !== 0 && (
         <div className="admin_right">
           <AdminRepair choosenModelId={choosenModelId} />
         </div>

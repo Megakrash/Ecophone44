@@ -15,9 +15,10 @@ router.get("/brand/:id", getRoutesFunctions.getBrandById);
 
 /* Model */
 // by brand Id
-router.get("/model/:id", getRoutesFunctions.getModelByBrandId);
-
+router.get("/modelbybrand/:id", getRoutesFunctions.getModelByBrandId);
+// by model Id
+router.get("/model/:id", getRoutesFunctions.getModelById);
 /* Réparations */
-router.get("/reparation/:id", getRoutesFunctions.getReparationByModelId);
+router.get("/repairs/:id", getRoutesFunctions.getRepairsByModelId);
 
 module.exports = router;
