@@ -151,6 +151,73 @@ const updateModelIsVisibleById = (req, res) => {
     });
 };
 
+// -------------------------------
+/* ----------- Repairs ------------- */
+// -------------------------------
+
+const updateRepairById = (req, res) => {
+  const { id } = req.params;
+  const { name, text, price } = req.body;
+  database
+    .query(
+      `UPDATE repairs SET name = ?, text = ?, price = ? WHERE id = ${Number(
+        id
+      )};`,
+      [name, text, price]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error update repair infos");
+    });
+};
+
+const updateRepairIndexById = (req, res) => {
+  const { id } = req.params;
+  const { indexId } = req.body;
+  database
+    .query(`UPDATE repairs set index_id = ${Number(indexId)} WHERE id = ?;`, [
+      Number(id),
+    ])
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the model index");
+    });
+};
+
+const updateRepairIsVisibleById = (req, res) => {
+  const { id } = req.params;
+  const { isVisible } = req.body;
+  database
+    .query(
+      `UPDATE repairs set is_visible = ${Number(isVisible)} WHERE id = ?;`,
+      [Number(id)]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the repair is visible");
+    });
+};
 module.exports = {
   updateBrandIndexById,
   updateBrandNameById,
@@ -159,4 +226,7 @@ module.exports = {
   updateModelIndexById,
   updateModelPicByModelId,
   updateModelIsVisibleById,
+  updateRepairById,
+  updateRepairIndexById,
+  updateRepairIsVisibleById,
 };

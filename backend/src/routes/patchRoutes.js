@@ -4,7 +4,9 @@ const express = require("express");
 const router = express.Router();
 
 const patchRoutesFunctions = require("../handlers/patchRoutesFunctions");
-/* Brand */
+// -------------------------------
+// ----------- Brands ------------
+// -------------------------------
 // Update brand index_id with D&D
 router.put("/brandindex/:id", patchRoutesFunctions.updateBrandIndexById);
 // Update Name
@@ -30,7 +32,9 @@ router.put(
   patchRoutesFunctions.updateBrandIsVisibleById
 );
 
-/* Model */
+// -------------------------------
+// ----------- Models ------------
+// -------------------------------
 // Update model index_id with D&D
 router.put("/modelindex/:id", patchRoutesFunctions.updateModelIndexById);
 // Update Pic in models table then delete pic file
@@ -50,6 +54,20 @@ router.put(
 router.put(
   "/modelisvisible/:id",
   patchRoutesFunctions.updateModelIsVisibleById
+);
+
+// -------------------------------
+// ----------- Repairs -----------
+// -------------------------------
+
+// Update repair by id
+router.put("/repair/:id", patchRoutesFunctions.updateRepairById);
+// Update repair index_id with D&D
+router.put("/repairsindex/:id", patchRoutesFunctions.updateRepairIndexById);
+// Update Is visible
+router.put(
+  "/repairisvisible/:id",
+  patchRoutesFunctions.updateRepairIsVisibleById
 );
 
 module.exports = router;

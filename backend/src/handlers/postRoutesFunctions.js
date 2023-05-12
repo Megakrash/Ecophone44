@@ -1,5 +1,7 @@
 const database = require("../../database");
-
+// -------------------------------
+// ----------- Brands -----------
+// -------------------------------
 // POST NEW BRAND
 const postNewBrand = (req, res) => {
   const { name, filename, isSmart } = req.body;
@@ -18,6 +20,9 @@ const postNewBrand = (req, res) => {
       res.status(500).send("Error add new Brand");
     });
 };
+// -------------------------------
+// ----------- Models -----------
+// -------------------------------
 
 // POST NEW MODEL
 
@@ -79,20 +84,20 @@ const baseRepair = [
   {
     name: "Désoxydation",
     text: "Temps d'intervention de 6 heures dans notre atelier. Devis gratuit si des réparations supplémentaires sont nécéssaires. Le prix de l'intervention est déductible des réparations.",
-    price: 99,
+    price: 49,
     index_id: 10,
   },
   {
     name: "Forfait recherche de panne",
     text: "Un devis est réalisé dans les 24 heures. Le prix de l'intervention est déductible des réparations.",
-    price: 99,
+    price: 20,
     index_id: 11,
   },
   {
     name: "Microsoudure",
     text: "Un devis est réalisé dans les 72 heures. Le prix de l'intervention est déductible des réparations.",
     price: 99,
-    index_id: 10,
+    index_id: 12,
   },
 ];
 
@@ -126,7 +131,29 @@ const postNewModel = (req, res) => {
     });
 };
 
+// -------------------------------
+// ----------- Repairs -----------
+// -------------------------------
+
+const postNewRepair = (req, res) => {
+  const { name, text, price, modelId } = req.body;
+
+  database
+    .query(
+      "INSERT INTO repairs(name, text, price, model_id ) VALUES (?, ?, ?, ?);",
+      [name, text, Number(price), Number(modelId)]
+    )
+    .then(() => {
+      res.status(201).send({ message: "Repair Added" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error add new repair");
+    });
+};
+
 module.exports = {
   postNewBrand,
   postNewModel,
+  postNewRepair,
 };

@@ -1,0 +1,45 @@
+.adminUpdateRepair {
+  width: 100%;
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &_bloc {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 25px;
+
+      &_label {
+        font-size: 15px;
+      }
+
+      &_input {
+        width: 50%;
+        height: 30px;
+      }
+    }
+
+    &_submit {
+      width: 200px;
+      height: 30px;
+      border: 0.5px solid $fourth-color;
+      border-radius: 5px;
+      padding: 1%;
+      background-color: $sixte-color;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  }
+
+  .delete-repair {
+    align-self: center;
+    height: 50px;
+    font-size: 18px;
+  }
+}

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import AdminModelPic from "./AdminModelPic";
-import AdminToogleModel from "./AdminToogleModel";
+import AdminModelPic from "./repair_model_infos/AdminModelPic";
+import AdminToogleModel from "./repair_model_infos/AdminToogleModel";
 import AdminRepairList from "./AdminRepairList";
+import AdminCreateRepair from "./AdminCreateRepair";
 
 function AdminRepair({ choosenModelId }) {
   const [repairs, setRepairs] = useState([]);
   const [model, setModel] = useState({});
+  const [showCreateRepair, setShowCreateRepair] = useState(false);
 
   const getModelAndRepairs = async () => {
     try {
@@ -34,7 +36,7 @@ function AdminRepair({ choosenModelId }) {
     <div className="adminRepair">
       {model.name && <h2>{model.name.toUpperCase()}</h2>}
       <div className="adminRepair_infos">
-        {model && (
+        {model.name && model.pic && (
           <AdminModelPic
             choosenModelId={choosenModelId}
             modelPic={model.pic}
@@ -42,7 +44,7 @@ function AdminRepair({ choosenModelId }) {
             getModelAndRepairs={getModelAndRepairs}
           />
         )}
-        {model && (
+        {model.is_visible && (
           <AdminToogleModel
             choosenModelId={choosenModelId}
             isVisible={model.is_visible}
@@ -50,7 +52,34 @@ function AdminRepair({ choosenModelId }) {
           />
         )}
       </div>
-      {repairs.length >= 1 && <AdminRepairList repairs={repairs} />}
+      <div className="adminRepair_create">
+        <button
+          className={
+            showCreateRepair === true
+              ? "adminBrandList_brand_btn-activ create-repair"
+              : "adminBrandList_brand_btn create-repair"
+          }
+          type="button"
+          onClick={() => {
+            setShowCreateRepair(!showCreateRepair);
+          }}
+        >
+          AJOUTER UNE REPARATION
+        </button>
+        {showCreateRepair && (
+          <AdminCreateRepair
+            choosenModelId={choosenModelId}
+            getModelAndRepairs={getModelAndRepairs}
+            setShowCreateRepair={setShowCreateRepair}
+          />
+        )}
+      </div>
+      {repairs.length >= 1 && (
+        <AdminRepairList
+          repairs={repairs}
+          getModelAndRepairs={getModelAndRepairs}
+        />
+      )}
     </div>
   );
 }

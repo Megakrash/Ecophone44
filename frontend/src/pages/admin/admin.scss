@@ -2,9 +2,13 @@
 @import "./brand_list/createBrand.scss";
 @import "./model_list/adminModelList.scss";
 @import "./brand_list/updateBrand.scss";
-@import "./manage/adminModelPic.scss";
-@import "./manage/adminRepair.scss";
-@import "./manage/adminToogleModel.scss";
+@import "./repair_list/repair_model_infos/adminModelPic.scss";
+@import "./repair_list/adminRepair.scss";
+@import "./repair_list/repair_model_infos/adminToogleModel.scss";
+@import "./repair_list/repair_card/adminRepairCard.scss";
+@import "./repair_list/repair_card/adminUpdateRepair.scss";
+@import "./repair_list/adminRepairList.scss";
+@import "./repair_list/adminCreateRepair.scss";
 
 .admin {
   width: 98%;
