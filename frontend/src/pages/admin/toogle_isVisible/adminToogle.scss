@@ -1,9 +1,9 @@
-.adminToogleModel {
+.adminToogle {
   width: 100%;
 
-  .toogle-model-true,
-  .toogle-model-false {
-    width: 60%;
+  .toogle-true,
+  .toogle-false {
+    width: 150px;
     height: 40px;
     font-size: 17px;
     font-weight: 600;
@@ -14,11 +14,11 @@
     cursor: pointer;
   }
 
-  .toogle-model-true {
+  .toogle-true {
     background-color: green;
   }
 
-  .toogle-model-false {
+  .toogle-false {
     background-color: $delete-color;
   }
 }

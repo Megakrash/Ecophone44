@@ -2,14 +2,23 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-function AdminToogleRepair({ repairId, isVisible, getModelAndRepairs }) {
+function AdminToogle({ id, type, isVisible, getBrandOrModelAndRepairs }) {
   const updateIsVisibleStatut = (bool) => {
+    let endpoint = "";
+    if (type === 1) {
+      endpoint = `/brandisvisible/${id}`;
+    } else if (type === 2) {
+      endpoint = `/modelisvisible/${id}`;
+    } else if (type === 3) {
+      endpoint = `/repairisvisible/${id}`;
+    }
+
     axios
-      .put(`${import.meta.env.VITE_PORT_BACKEND}/repairisvisible/${repairId}`, {
+      .put(`${import.meta.env.VITE_PORT_BACKEND}${endpoint}`, {
         isVisible: bool,
       })
       .then(() => {
-        getModelAndRepairs();
+        getBrandOrModelAndRepairs();
       })
       .catch(() => {
         console.error("Statut is visible not updated");
@@ -26,9 +35,9 @@ function AdminToogleRepair({ repairId, isVisible, getModelAndRepairs }) {
   };
 
   return (
-    <div className="adminToogleModel">
+    <div className="adminToogle">
       <button
-        className={isVisible === 1 ? "toogle-model-true" : "toogle-model-false"}
+        className={isVisible === 1 ? "toogle-true" : "toogle-false"}
         type="button"
         onClick={() => {
           handleChangeIsVisible();
@@ -40,10 +49,11 @@ function AdminToogleRepair({ repairId, isVisible, getModelAndRepairs }) {
   );
 }
 
-export default AdminToogleRepair;
+export default AdminToogle;
 
-AdminToogleRepair.propTypes = {
-  repairId: PropTypes.number.isRequired,
+AdminToogle.propTypes = {
+  id: PropTypes.number.isRequired,
+  type: PropTypes.number.isRequired,
   isVisible: PropTypes.number.isRequired,
-  getModelAndRepairs: PropTypes.func.isRequired,
+  getBrandOrModelAndRepairs: PropTypes.func.isRequired,
 };

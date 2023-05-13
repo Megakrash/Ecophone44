@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import AdminModelPic from "./repair_model_infos/AdminModelPic";
-import AdminToogleModel from "./repair_model_infos/AdminToogleModel";
+import AdminToogle from "../toogle_isVisible/AdminToogle";
 import AdminRepairList from "./AdminRepairList";
 import AdminCreateRepair from "./AdminCreateRepair";
 
 function AdminRepair({ choosenModelId }) {
   const [repairs, setRepairs] = useState([]);
   const [model, setModel] = useState({});
+  const [showToogle, setShowToogle] = useState(false);
   const [showCreateRepair, setShowCreateRepair] = useState(false);
 
   const getModelAndRepairs = async () => {
@@ -23,6 +24,7 @@ function AdminRepair({ choosenModelId }) {
       ]);
       setRepairs(allRepairs.data);
       setModel(getModel.data);
+      setShowToogle(true);
     } catch (error) {
       console.error("error", error);
     }
@@ -46,11 +48,12 @@ function AdminRepair({ choosenModelId }) {
             getModelAndRepairs={getModelAndRepairs}
           />
         )}
-        {model && (
-          <AdminToogleModel
-            choosenModelId={choosenModelId}
+        {model && showToogle && (
+          <AdminToogle
+            id={choosenModelId}
+            type={2}
             isVisible={model.is_visible}
-            getModelAndRepairs={getModelAndRepairs}
+            getBrandOrModelAndRepairs={getModelAndRepairs}
           />
         )}
       </div>

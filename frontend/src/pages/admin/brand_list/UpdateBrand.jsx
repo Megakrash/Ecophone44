@@ -8,26 +8,21 @@ import {
   FaSkull,
   FaTimesCircle,
 } from "react-icons/fa";
+import AdminToogle from "../toogle_isVisible/AdminToogle";
 
 function UpdateBrand({ getAllBrand, brands }) {
+  const [brandSelectId, setBrandSelectId] = useState(null);
   const [brandSelected, setBrandSelected] = useState("");
   const [newName, setNewName] = useState("");
   const [newBrandPic, setNewBrandPic] = useState("");
-  const [brandIsVisible, setBrandIsVisible] = useState(null);
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/`;
 
-  const getBrandSelected = (id) => {
+  const getBrandSelected = () => {
     axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/brand/${id}`)
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelectId}`)
       .then((res) => {
         setBrandSelected(res.data);
-        if (res.data[0].is_visible === 1) {
-          setBrandIsVisible(true);
-        }
-        if (res.data[0].is_visible === 0) {
-          setBrandIsVisible(false);
-        }
       })
       .catch(() => {
         console.error("Error to get the brand selected");
@@ -35,13 +30,17 @@ function UpdateBrand({ getAllBrand, brands }) {
   };
 
   const handleChangeSelect = (e) => {
-    getBrandSelected(e.target.value);
+    setBrandSelectId(e.target.value);
   };
+
+  useEffect(() => {
+    getBrandSelected();
+  }, [brandSelectId]);
 
   const updateBrandName = () => {
     axios
       .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandname/${brandSelected[0].id}`,
+        `${import.meta.env.VITE_PORT_BACKEND}/brandname/${brandSelected.id}`,
         {
           name: `${newName}`,
         }
@@ -63,14 +62,14 @@ function UpdateBrand({ getAllBrand, brands }) {
     axios
       .put(
         `${import.meta.env.VITE_PORT_BACKEND}/brandpic_delete/${
-          brandSelected[0].id
+          brandSelected.id
         }`,
         {
-          pic: `${brandSelected[0].pic}`,
+          pic: `${brandSelected.pic}`,
         }
       )
       .then(() => {
-        getBrandSelected(brandSelected[0].id);
+        getBrandSelected(brandSelected.id);
       })
       .catch(() => {
         console.error("Error delete brand pic");
@@ -80,11 +79,11 @@ function UpdateBrand({ getAllBrand, brands }) {
   const uploadNewBrandPic = (data) => {
     axios
       .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandpic/${brandSelected[0].id}`,
+        `${import.meta.env.VITE_PORT_BACKEND}/brandpic/${brandSelected.id}`,
         data
       )
       .then(() => {
-        getBrandSelected(brandSelected[0].id);
+        getBrandSelected(brandSelected.id);
       })
       .catch(() => {
         console.error("Error upload new brand pic");
@@ -94,40 +93,14 @@ function UpdateBrand({ getAllBrand, brands }) {
   const handleUploadPic = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("name", `${brandSelected[0].name}`);
+    data.append("name", `${brandSelected.name}`);
     data.append("file", newBrandPic);
     uploadNewBrandPic(data);
   };
 
-  const updateIsVisibleStatut = (bool) => {
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandisvisible/${
-          brandSelected[0].id
-        }`,
-        {
-          isVisible: bool,
-        }
-      )
-      .catch(() => {
-        console.error("Statut is visible not updated");
-      });
-  };
-
-  useEffect(() => {
-    if (brandIsVisible === false) {
-      updateIsVisibleStatut(0);
-    }
-    if (brandIsVisible === true) {
-      updateIsVisibleStatut(1);
-    }
-  }, [brandIsVisible]);
-
   const deleteBrand = () => {
     axios
-      .delete(
-        `${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected[0].id}`
-      )
+      .delete(`${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected.id}`)
       .then(() => {
         setBrandSelected("");
         setShowDeleteWarning(false);
@@ -159,17 +132,14 @@ function UpdateBrand({ getAllBrand, brands }) {
       {brandSelected !== "" && (
         <div className="updateBrand_infos">
           <div className="updateBrand_infos_toogle">
-            <button
-              className={brandIsVisible ? "toogle-true" : "toogle-false"}
-              type="button"
-              onClick={() => {
-                setBrandIsVisible(!brandIsVisible);
-              }}
-            >
-              {brandIsVisible ? "En ligne" : "Hors ligne"}
-            </button>
+            <AdminToogle
+              id={brandSelected.id}
+              type={1}
+              isVisible={brandSelected.is_visible}
+              getBrandOrModelAndRepairs={getBrandSelected}
+            />
           </div>
-          {brandSelected[0].pic === null ? (
+          {brandSelected.pic === null ? (
             <div className="updateBrand_infos_pic">
               <img
                 className="updateBrand_infos_pic_img"
@@ -208,7 +178,7 @@ function UpdateBrand({ getAllBrand, brands }) {
             <div className="updateBrand_infos_pic">
               <img
                 className="updateBrand_infos_pic_img"
-                src={`${picPath}/brands/${brandSelected[0].pic}`}
+                src={`${picPath}/brands/${brandSelected.pic}`}
                 alt="logo de la marque"
               />
               <button
@@ -232,7 +202,7 @@ function UpdateBrand({ getAllBrand, brands }) {
                 type="text"
                 id="name"
                 value={newName}
-                placeholder={brandSelected[0].name}
+                placeholder={brandSelected.name}
                 onChange={(e) => setNewName(e.target.value)}
                 required
               />
