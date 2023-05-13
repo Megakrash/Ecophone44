@@ -4,11 +4,11 @@
 @import "./brand_list/updateBrand.scss";
 @import "./repair_list/repair_model_infos/adminModelPic.scss";
 @import "./repair_list/adminRepair.scss";
-@import "./repair_list/repair_model_infos/adminToogleModel.scss";
 @import "./repair_list/repair_card/adminRepairCard.scss";
 @import "./repair_list/repair_card/adminUpdateRepair.scss";
 @import "./repair_list/adminRepairList.scss";
 @import "./repair_list/adminCreateRepair.scss";
+@import "./toogle_isVisible/adminToogle.scss";
 
 .admin {
   width: 98%;

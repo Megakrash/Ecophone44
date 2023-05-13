@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import AdminToogleRepair from "./AdminToogleRepair";
+import AdminToogle from "@pages/admin/toogle_isVisible/AdminToogle";
 import AdminUpdateRepair from "./AdminUpdateRepair";
 
 function AdminRepairCard({
@@ -22,10 +22,11 @@ function AdminRepairCard({
         </div>
         <div className="adminRepairCard_infos_price">
           <p className="adminRepairCard_infos_price_euros">{price}.00€</p>
-          <AdminToogleRepair
-            repairId={repairId}
+          <AdminToogle
+            id={repairId}
+            type={3}
             isVisible={isVisible}
-            getModelAndRepairs={getModelAndRepairs}
+            getBrandOrModelAndRepairs={getModelAndRepairs}
           />
         </div>
       </div>

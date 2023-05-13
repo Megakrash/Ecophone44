@@ -33,14 +33,6 @@ CREATE TABLE
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
-INSERT INTO
-  `ecophone44`.`brands` (name, pic, is_smart, index_id )
-VALUES
-  ( 'apple', 'APPLE.jpg', 1, 1 ),
-  ( 'samsung', 'SAMSUNG.jpg', 1, 2 ),
-  ( 'huawei', 'HUAWEI.jpg', 1, 3 ),
-  ( 'apple', 'APPLE.jpg', 0, 4 ),
-  ( 'samsung', 'SAMSUNG.jpg', 0, 5 );
 -- -----------------------------------------------------
 
 -- Table `ecophone44`.`models`
@@ -61,14 +53,6 @@ CREATE TABLE
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
-INSERT INTO
-  `ecophone44`.`models` (name, pic, brand_id )
-VALUES
-  ( 'iphone 6', 'IPHONE6.png', 1),
-  ( 'iphone 7', 'IPHONE7.png', 1),
-  ( 'iphone 8', 'IPHONE8.png', 1),
-  ( 'ipad 2', 'IPAD2.jpg', 4);
-
 -- -----------------------------------------------------
 -- Table `ecophone44`.`repairs`
 -- -----------------------------------------------------
@@ -87,14 +71,3 @@ CREATE TABLE
         CONSTRAINT `model_id` FOREIGN KEY (`model_id`) REFERENCES `ecophone44`.`models` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
-INSERT INTO
-  `ecophone44`.`repairs` (name, price, model_id )
-VALUES
-  ( 'Façade avant', 59, 1),
-  ( 'Batterie', 39, 1),
-  ( 'Caméra arrière', 39, 1),
-  ( 'Façade avant', 69, 2),
-  ( 'Batterie', 49, 2),
-  ( 'Caméra arrière', 49, 2),
-  ( 'Vitre tactile', 59, 4);

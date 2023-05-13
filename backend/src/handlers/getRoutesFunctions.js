@@ -18,7 +18,7 @@ const getBrandById = (req, res) => {
 
   database
     .query("SELECT * FROM brands WHERE id= ?", [id])
-    .then(([brand]) => res.status(200).json(brand))
+    .then(([brand]) => res.status(200).json(brand[0]))
     .catch((err) => console.error(err));
 };
 
