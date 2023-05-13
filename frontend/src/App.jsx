@@ -8,7 +8,6 @@ const Brand = lazy(() => import("@pages/brand/Brand"));
 const Model = lazy(() => import("@pages/model/Model"));
 const Repair = lazy(() => import("@pages/repair/Repair"));
 const Navbar = lazy(() => import("@components/navbar/Navbar"));
-// const Header = lazy(() => import("@components/header/Header"));
 const Footer = lazy(() => import("@components/footer/Footer"));
 const Admin = lazy(() => import("@pages/admin/Admin"));
 
@@ -33,7 +32,6 @@ function App() {
       >
         {/* <UserContext.Provider value={userContext}> */}
         <Navbar />
-        {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/marque/:id" element={<Brand />} />

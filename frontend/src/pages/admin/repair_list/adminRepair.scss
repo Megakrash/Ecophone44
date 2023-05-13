@@ -4,6 +4,14 @@
   border-radius: 5px;
   padding: 1%;
 
+  &_title {
+    font-family: $font-title;
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 1%;
+    color: $secondary-color;
+  }
+
   &_infos {
     width: 100%;
     display: flex;

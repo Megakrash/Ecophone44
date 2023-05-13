@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Header from "@components/header/Header";
 import { FaTools } from "react-icons/fa";
 
-function reparation() {
-  const [repair, setRepair] = useState([]);
+function repair() {
+  const [repairs, setRepairs] = useState([]);
   const { id } = useParams();
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/models/`;
 
   const getReparationByModel = () => {
     axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/reparation/${id}`)
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/repairs_front/${id}`)
       .then((res) => {
-        setRepair(res.data);
+        setRepairs(res.data);
       })
 
       .catch(() => {
@@ -26,17 +27,18 @@ function reparation() {
 
   return (
     <div className="reparation">
-      {repair.length >= 1 && (
+      <Header />
+      {repairs.length >= 1 && (
         <div className="reparation_box">
           <p className="reparation_box_title">
-            Toutes nos réparations pour votre {repair[0].model.toUpperCase()} :
+            Toutes nos réparations pour votre {repairs[0].model.toUpperCase()} :
           </p>
           <div className="reparation_box_model">
             <div className="reparation_box_model_pic">
-              <img src={picPath + repair[0].picmodel} alt={repair[0].model} />
+              <img src={picPath + repairs[0].picmodel} alt={repairs[0].model} />
             </div>
             <div className="reparation_box_model_list">
-              {repair.map((infos) => {
+              {repairs.map((infos) => {
                 return (
                   <div
                     className="reparation_box_model_list_repair"
@@ -47,10 +49,13 @@ function reparation() {
                       <p className="reparation_box_model_list_repair_text_name">
                         {infos.name.toUpperCase()}
                       </p>
-                      <p className="reparation_box_model_list_repair_text_price">
-                        {infos.price}.00€ TTC
+                      <p className="reparation_box_model_list_repair_text_desc">
+                        {infos.text}
                       </p>
                     </div>
+                    <p className="reparation_box_model_list_repair_price">
+                      {infos.price}.00€ TTC
+                    </p>
                   </div>
                 );
               })}
@@ -62,4 +67,4 @@ function reparation() {
   );
 }
 
-export default reparation;
+export default repair;

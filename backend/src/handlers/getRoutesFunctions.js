@@ -23,6 +23,7 @@ const getBrandById = (req, res) => {
 };
 
 /* MODEL */
+// for back-office
 const getModelByBrandId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -37,11 +38,27 @@ const getModelByBrandId = (req, res) => {
     });
 };
 
+// for front
+const getModelByBrandIdForFront = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  database
+    .query(
+      "SELECT * FROM models WHERE brand_id = ? AND is_visible = 1 ORDER BY index_id",
+      [Number(id)]
+    )
+    .then(([model]) => res.status(200).json(model))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 const getModelById = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   database
-    .query("SELECT * FROM models WHERE id = ? LIMIT 1", [Number(id)])
+    .query("SELECT * FROM models WHERE id = ?", [Number(id)])
     .then(([model]) => res.status(200).json(model[0]))
     .catch((err) => {
       console.error(err);
@@ -50,6 +67,7 @@ const getModelById = (req, res) => {
 };
 
 /* REPARATION */
+// for back-office
 const getRepairsByModelId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -65,11 +83,29 @@ const getRepairsByModelId = (req, res) => {
     });
 };
 
+// for front
+const getRepairsByModelIdForFront = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  database
+    .query(
+      "SELECT r.id, r.name, r.price, r.index_id, r.is_visible, r.text, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM repairs r JOIN models m ON r.model_id = m.id JOIN brands mar ON m.brand_id = mar.id WHERE r.model_id = ? AND r.is_visible = 1 ORDER BY r.index_id",
+      [id]
+    )
+    .then(([reparation]) => res.status(200).json(reparation))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 module.exports = {
   getSmartBrand,
   getTabBrand,
   getBrandById,
   getModelByBrandId,
+  getModelByBrandIdForFront,
   getModelById,
   getRepairsByModelId,
+  getRepairsByModelIdForFront,
 };

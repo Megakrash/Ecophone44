@@ -34,7 +34,9 @@ function AdminRepair({ choosenModelId }) {
 
   return (
     <div className="adminRepair">
-      {model.name && <h2>{model.name.toUpperCase()}</h2>}
+      {model.name && (
+        <h2 className="adminRepair_title">{model.name.toUpperCase()}</h2>
+      )}
       <div className="adminRepair_infos">
         {model.name && model.pic && (
           <AdminModelPic
@@ -44,7 +46,7 @@ function AdminRepair({ choosenModelId }) {
             getModelAndRepairs={getModelAndRepairs}
           />
         )}
-        {model.is_visible && (
+        {model && (
           <AdminToogleModel
             choosenModelId={choosenModelId}
             isVisible={model.is_visible}

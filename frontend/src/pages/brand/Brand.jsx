@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Header from "@components/header/Header";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 
 export default function Brand() {
@@ -39,6 +40,7 @@ export default function Brand() {
 
   return (
     <div className="brand">
+      <Header />
       <p className="brand_title">Quelle est votre marque ?</p>
       {allBrands.length >= 1 && (
         <div className="brand_search">
