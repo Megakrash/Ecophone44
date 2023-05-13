@@ -17,16 +17,23 @@ function AdminBrandList({
 
   // To patch the index_id in database
   const updateOrderBrand = (items) => {
+    const promises = [];
+
     items.forEach((element) => {
-      axios
-        .put(`${import.meta.env.VITE_PORT_BACKEND}/brandindex/${element.id}`, {
+      const promise = axios.put(
+        `${import.meta.env.VITE_PORT_BACKEND}/brandindex/${element.id}`,
+        {
           indexId: `${element.index_id}`,
-        })
-        .then(() => {
-          getAllBrand();
-        })
-        .catch((err) => console.error(err));
+        }
+      );
+      promises.push(promise);
     });
+
+    Promise.all(promises)
+      .then(() => {
+        getAllBrand();
+      })
+      .catch((err) => console.error(err));
   };
 
   // Reorder the index_id when D&D 

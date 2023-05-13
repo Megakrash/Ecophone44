@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Header from "@components/header/Header";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 
 function Model() {
@@ -12,7 +13,7 @@ function Model() {
 
   const getAllModelByBrand = () => {
     axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/model/${id}`)
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/model_front/${id}`)
       .then((res) => {
         setModel(res.data);
       })
@@ -26,7 +27,8 @@ function Model() {
   }, []);
 
   return (
-    <div className="brand">
+    <div className="brand model">
+      <Header />
       <p className="brand_title">Quel est votre modèle ?</p>
       {model.length >= 1 && (
         <div className="brand_search">

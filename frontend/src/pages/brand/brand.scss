@@ -1,14 +1,14 @@
 .brand {
-  width: 95%;
+  width: 100%;
   min-height: calc(100vh - 557px);
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2%;
   margin-bottom: 2%;
 
   &_title {
+    margin-top: 2%;
     font-family: $font-title;
     font-size: 35px;
     font-weight: 600;

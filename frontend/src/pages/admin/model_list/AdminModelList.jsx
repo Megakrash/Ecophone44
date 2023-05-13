@@ -11,7 +11,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
 
   const getAllModelByBrand = () => {
     axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/model/${choosenBrandId}`)
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/modelbybrand/${choosenBrandId}`)
       .then((res) => {
         setAllModelsByBrand(res.data);
       })
@@ -27,17 +27,24 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
 
   // To patch the index_id in database
   const updateOrderModel = (items) => {
+    const promises = [];
+
     items.forEach((element) => {
-      axios
-        .put(`${import.meta.env.VITE_PORT_BACKEND}/modelindex/${element.id}`, {
+      const promise = axios.put(
+        `${import.meta.env.VITE_PORT_BACKEND}/modelindex/${element.id}`,
+        {
           indexId: `${element.index_id}`,
-        })
-        .then(() => {
-          getAllBrand();
-          getAllModelByBrand();
-        })
-        .catch((err) => console.error(err));
+        }
+      );
+      promises.push(promise);
     });
+
+    Promise.all(promises)
+      .then(() => {
+        getAllBrand();
+        getAllModelByBrand();
+      })
+      .catch((err) => console.error(err));
   };
 
   // Reorder the index_id when D&D 

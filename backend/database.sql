@@ -79,7 +79,7 @@ CREATE TABLE
     IF NOT EXISTS `ecophone44`.`repairs` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(255) NOT NULL,
-        `text` VARCHAR(255) NULL DEFAULT NULL,
+        `text` VARCHAR(255) NOT NULL,
         `price` INT NULL DEFAULT NULL,
         `index_id` INT NULL DEFAULT 1,
         `is_visible` TINYINT NOT NULL DEFAULT 1,

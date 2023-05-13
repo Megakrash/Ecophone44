@@ -23,6 +23,7 @@ const getBrandById = (req, res) => {
 };
 
 /* MODEL */
+// for back-office
 const getModelByBrandId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -37,13 +38,58 @@ const getModelByBrandId = (req, res) => {
     });
 };
 
-/* REPARATION */
-const getReparationByModelId = (req, res) => {
+// for front
+const getModelByBrandIdForFront = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   database
     .query(
-      "SELECT r.id, r.name, r.price, r.index_id, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM repairs r JOIN models m ON r.model_id = m.id JOIN brands mar ON m.brand_id = mar.id WHERE r.model_id = ? ORDER BY r.index_id",
+      "SELECT * FROM models WHERE brand_id = ? AND is_visible = 1 ORDER BY index_id",
+      [Number(id)]
+    )
+    .then(([model]) => res.status(200).json(model))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
+const getModelById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  database
+    .query("SELECT * FROM models WHERE id = ?", [Number(id)])
+    .then(([model]) => res.status(200).json(model[0]))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
+/* REPARATION */
+// for back-office
+const getRepairsByModelId = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  database
+    .query(
+      "SELECT r.id, r.name, r.price, r.index_id, r.is_visible, r.text, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM repairs r JOIN models m ON r.model_id = m.id JOIN brands mar ON m.brand_id = mar.id WHERE r.model_id = ? ORDER BY r.index_id",
+      [id]
+    )
+    .then(([reparation]) => res.status(200).json(reparation))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
+// for front
+const getRepairsByModelIdForFront = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  database
+    .query(
+      "SELECT r.id, r.name, r.price, r.index_id, r.is_visible, r.text, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM repairs r JOIN models m ON r.model_id = m.id JOIN brands mar ON m.brand_id = mar.id WHERE r.model_id = ? AND r.is_visible = 1 ORDER BY r.index_id",
       [id]
     )
     .then(([reparation]) => res.status(200).json(reparation))
@@ -58,5 +104,8 @@ module.exports = {
   getTabBrand,
   getBrandById,
   getModelByBrandId,
-  getReparationByModelId,
+  getModelByBrandIdForFront,
+  getModelById,
+  getRepairsByModelId,
+  getRepairsByModelIdForFront,
 };

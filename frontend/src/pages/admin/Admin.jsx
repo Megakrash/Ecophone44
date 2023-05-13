@@ -4,7 +4,7 @@ import CreateBrand from "./brand_list/CreateBrand";
 import UpdateBrand from "./brand_list/UpdateBrand";
 import AdminBrandList from "./brand_list/AdminBrandList";
 import AdminModelList from "./model_list/AdminModelList";
-import AdminRepair from "./manage/AdminRepair";
+import AdminRepair from "./repair_list/AdminRepair";
 
 function Admin() {
   // To stock the smartphone brand list
@@ -205,7 +205,7 @@ function Admin() {
         </div>
       </div>
 
-      {choosenModelId !== null && (
+      {choosenModelId !== 0 && (
         <div className="admin_right">
           <AdminRepair choosenModelId={choosenModelId} />
         </div>
