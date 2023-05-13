@@ -28,7 +28,7 @@ CREATE TABLE
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
         `is_smart` TINYINT NOT NULL,
-        `index_id` INT NULL DEFAULT 1,
+        `index_id` INT NULL DEFAULT 0,
         `is_visible` TINYINT NOT NULL DEFAULT 1,
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
