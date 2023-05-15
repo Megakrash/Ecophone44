@@ -8,6 +8,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
 
   const [allModelsByBrand, setAllModelsByBrand] = useState([]);
   const [showCreateModel, setShowCreateModel] = useState(false);
+  const [showDeleteModel, setShowDeleteModel] = useState(false);
 
   const getAllModelByBrand = () => {
     axios

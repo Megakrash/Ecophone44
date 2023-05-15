@@ -89,6 +89,26 @@ const updateBrandIsVisibleById = (req, res) => {
 /* ----------- Models ------------- */
 // -------------------------------
 
+const updateModelNameById = (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  database
+    .query(`UPDATE models set name = ${JSON.stringify(name)} WHERE id = ?;`, [
+      Number(id),
+    ])
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the brand name");
+    });
+};
+
 const updateModelIndexById = (req, res) => {
   const { id } = req.params;
   const { indexId } = req.body;
@@ -223,6 +243,7 @@ module.exports = {
   updateBrandNameById,
   updateBrandPicByBrandId,
   updateBrandIsVisibleById,
+  updateModelNameById,
   updateModelIndexById,
   updateModelPicByModelId,
   updateModelIsVisibleById,

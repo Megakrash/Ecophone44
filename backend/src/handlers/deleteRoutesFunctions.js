@@ -113,6 +113,38 @@ const deleteModelPicByModelId = (req, res) => {
     })
     .catch((err) => console.error(err));
 };
+/* Big function to delete one brand with all the models & repairs & pics 
+linked to this brand */
+async function deleteModelById(req, res) {
+  const modelId = parseInt(req.params.id, 10);
+  try {
+    // Étape 1 : Supprimer toutes les entrées dans la table "repairs" liées à ce modèle
+    await knex("repairs").where("model_id", modelId).del();
+
+    // Étape 2 : Récupérer le nom de l'image du modèle dans la colonne "pic" de la table "models"
+    const model = await knex("models")
+      .select("pic")
+      .where("id", modelId)
+      .first();
+
+    if (model) {
+      // Supprimer physiquement l'image du modèle du backend
+      try {
+        await fs.promises.unlink(`public/assets/images/models/${model.pic}`);
+      } catch (error) {
+        console.error(`Erreur lors de la suppression de ${model.pic} :`, error);
+      }
+    }
+
+    // Étape 3 : Supprimer l'entrée du modèle dans la table "models"
+    await knex("models").where("id", modelId).del();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+}
 
 // -------------------------------
 // ----------- Repairs -----------
@@ -128,7 +160,8 @@ const deleteRepairById = (req, res) => {
 
 module.exports = {
   deleteBrandPicByBrandId,
-  deleteModelPicByModelId,
   deleteBrandById,
+  deleteModelPicByModelId,
+  deleteModelById,
   deleteRepairById,
 };

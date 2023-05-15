@@ -215,7 +215,11 @@ function Admin() {
 
       {choosenModelId !== 0 && (
         <div className="admin_right">
-          <AdminRepair choosenModelId={choosenModelId} />
+          <AdminRepair
+            choosenModelId={choosenModelId}
+            setChoosenModelId={setChoosenModelId}
+            setChoosenBrandId={setChoosenBrandId}
+          />
         </div>
       )}
     </div>

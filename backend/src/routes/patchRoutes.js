@@ -35,6 +35,8 @@ router.put(
 // -------------------------------
 // ----------- Models ------------
 // -------------------------------
+// Update Name
+router.put("/modelname/:id", patchRoutesFunctions.updateModelNameById);
 // Update model index_id with D&D
 router.put("/modelindex/:id", patchRoutesFunctions.updateModelIndexById);
 // Update Pic in models table then delete pic file
@@ -42,7 +44,7 @@ router.put(
   "/modelpic_delete/:id",
   deleteRoutesFunctions.deleteModelPicByModelId
 );
-// upload new file then Update pic in brands
+// upload new pic file then Update pic in brands
 const { uploadModelPic } = require("./multers/multers");
 
 router.put(
