@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import CreateModel from "./CreateModel";
+import CreateBrandOrModel from "../create/CreateBrandOrModel";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, getAllBrand }) {
 
   const [allModelsByBrand, setAllModelsByBrand] = useState([]);
   const [showCreateModel, setShowCreateModel] = useState(false);
+  const [showDeleteModel, setShowDeleteModel] = useState(false);
 
   const getAllModelByBrand = () => {
     axios
@@ -77,11 +78,15 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
           AJOUTER UN MODELE
         </button>
         {showCreateModel === true && (
-          <CreateModel
+          <CreateBrandOrModel
             setShowCreateModel={setShowCreateModel}
             showCreateModel={showCreateModel}
-            getAllModelByBrand={getAllModelByBrand}
+            getAllBrandOrAllModelsByBrand={getAllModelByBrand}
             choosenBrandId={choosenBrandId}
+            smartOrTab={1}
+            brandOrModel={2}
+            setShowCreateSmartBrand={setShowCreateModel}
+            setShowCreateTabBrand={setShowCreateModel}
           />
         )}
       </div>

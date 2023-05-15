@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CreateBrand from "./brand_list/CreateBrand";
+import CreateBrandOrModel from "./create/CreateBrandOrModel";
 import UpdateBrand from "./brand_list/UpdateBrand";
 import AdminBrandList from "./brand_list/AdminBrandList";
 import AdminModelList from "./model_list/AdminModelList";
@@ -163,11 +163,15 @@ function Admin() {
 
         <div className="admin_left_panel2">
           {showCreateSmartBrand === true && (
-            <CreateBrand
+            <CreateBrandOrModel
               setShowCreateSmartBrand={setShowCreateSmartBrand}
               setShowCreateTabBrand={setShowCreateTabBrand}
-              getAllBrand={getAllBrand}
-              type={1}
+              getAllBrandOrAllModelsByBrand={getAllBrand}
+              smartOrTab={1}
+              brandOrModel={1}
+              choosenBrandId={choosenBrandId}
+              setShowCreateModel={setShowCreateSmartBrand}
+              showCreateModel
             />
           )}
           {showUpdateSmartBrand === true && (
@@ -179,11 +183,15 @@ function Admin() {
             />
           )}
           {showCreateTabBrand === true && (
-            <CreateBrand
+            <CreateBrandOrModel
               setShowCreateSmartBrand={setShowCreateSmartBrand}
               setShowCreateTabBrand={setShowCreateTabBrand}
-              getAllBrand={getAllBrand}
-              type={0}
+              getAllBrandOrAllModelsByBrand={getAllBrand}
+              smartOrTab={0}
+              brandOrModel={1}
+              choosenBrandId={choosenBrandId}
+              setShowCreateModel={setShowCreateSmartBrand}
+              showCreateModel
             />
           )}
           {showUpdateTabBrand === true && (
@@ -207,7 +215,11 @@ function Admin() {
 
       {choosenModelId !== 0 && (
         <div className="admin_right">
-          <AdminRepair choosenModelId={choosenModelId} />
+          <AdminRepair
+            choosenModelId={choosenModelId}
+            setChoosenModelId={setChoosenModelId}
+            setChoosenBrandId={setChoosenBrandId}
+          />
         </div>
       )}
     </div>

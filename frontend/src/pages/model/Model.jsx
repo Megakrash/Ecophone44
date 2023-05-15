@@ -29,7 +29,11 @@ function Model() {
   return (
     <div className="brand model">
       <Header />
-      <p className="brand_title">Quel est votre modèle ?</p>
+      {model.length >= 1 ? (
+        <p className="brand_title">Quel est votre modèle ?</p>
+      ) : (
+        <p className="brand_title">Aucun modèle proposé pour le moment.</p>
+      )}
       {model.length >= 1 && (
         <div className="brand_search">
           <FaSearch className="brand_search_fa" />

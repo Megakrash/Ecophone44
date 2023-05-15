@@ -41,7 +41,11 @@ export default function Brand() {
   return (
     <div className="brand">
       <Header />
-      <p className="brand_title">Quelle est votre marque ?</p>
+      {allBrands.length >= 1 ? (
+        <p className="brand_title">Quelle est votre marque ?</p>
+      ) : (
+        <p className="brand_title">Aucune marque disponible actuellement.</p>
+      )}
       {allBrands.length >= 1 && (
         <div className="brand_search">
           <FaSearch className="brand_search_fa" />

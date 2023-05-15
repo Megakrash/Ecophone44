@@ -13,6 +13,12 @@ router.delete("/brandpic/:id", deleteRoutesFunctions.deleteBrandPicByBrandId);
 router.delete("/brand/:id", deleteRoutesFunctions.deleteBrandById);
 
 // -------------------------------
+// ----------- Models ------------
+// -------------------------------
+// Delete the model pic then all repairs link then delete the model
+router.delete("/model/:id", deleteRoutesFunctions.deleteModelById);
+
+// -------------------------------
 // ----------- Repairs -----------
 // -------------------------------
 

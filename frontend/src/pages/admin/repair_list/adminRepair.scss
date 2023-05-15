@@ -4,12 +4,37 @@
   border-radius: 5px;
   padding: 1%;
 
-  &_title {
-    font-family: $font-title;
-    font-size: 35px;
-    font-weight: 600;
-    margin-bottom: 1%;
-    color: $secondary-color;
+  &_name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+
+    &_title {
+      font-family: $font-title;
+      font-size: 35px;
+      font-weight: 600;
+      margin-bottom: 1%;
+      color: $secondary-color;
+    }
+
+    &_btn {
+      width: 20px;
+      height: 30px;
+      cursor: pointer;
+      background: none;
+
+      &_fa {
+        width: 100%;
+        height: auto;
+        color: $tertiary-color;
+      }
+    }
+
+    &_input {
+      height: 25px;
+      width: 250px;
+    }
   }
 
   &_infos {
@@ -22,6 +47,15 @@
   }
 
   &_create {
+    margin-top: 2%;
+    width: 81%;
+
+    .create-repair {
+      padding: 3%;
+    }
+  }
+
+  &_delete {
     margin-top: 2%;
     width: 81%;
 
