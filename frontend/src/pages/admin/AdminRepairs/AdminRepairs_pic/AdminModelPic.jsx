@@ -10,7 +10,6 @@ function AdminModelPic({
   getModelAndRepairs,
 }) {
   const [newModelPic, setNewModelPic] = useState("");
-  const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images`;
 
   const deleteModelPic = () => {
     axios
@@ -59,7 +58,7 @@ function AdminModelPic({
         <div className="updateBrand_infos_pic">
           <img
             className="updateBrand_infos_pic_img"
-            src={`${picPath}/general/default.jpg`}
+            src={`${import.meta.env.VITE_PATH_IMAGE}/general/default.jpg`}
             alt="modèle"
           />
           <form
@@ -94,7 +93,7 @@ function AdminModelPic({
         <div className="updateBrand_infos_pic">
           <img
             className="updateBrand_infos_pic_img pic-model"
-            src={`${picPath}/models/${modelPic}`}
+            src={`${import.meta.env.VITE_PATH_IMAGE}/models/${modelPic}`}
             alt={modelName}
           />
           <button

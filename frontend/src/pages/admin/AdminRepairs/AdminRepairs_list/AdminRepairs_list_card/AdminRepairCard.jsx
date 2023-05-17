@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import AdminToogle from "@pages/admin/AdminToogle/AdminToogle";
 import AdminUpdateRepair from "./AdminUpdateRepair";
@@ -14,18 +15,29 @@ function AdminRepairCard({
 }) {
   const [showUpdateRepair, setShowUpdateRepair] = useState(false);
 
+  const deleteRepair = () => {
+    axios
+      .delete(`${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`)
+      .then(() => {
+        getModelAndRepairs();
+      })
+      .catch(() => {
+        console.error("Error delete repair");
+      });
+  };
+
   return (
     <div className="adminRepairCard">
       <div className="adminRepairCard_infos">
         <div className="adminRepairCard_infos_text">
           <p className="adminRepairCard_infos_text_name">{name}</p>
           <p className="adminRepairCard_infos_text_desc"> {text}</p>
-        </div>
-        <div className="adminRepairCard_infos_price">
-          <p className="adminRepairCard_infos_price_euros">
+          <p className="adminRepairCard_infos_text_euros">
             {price.toUpperCase()}
             {price === "nc" ? "" : ".00€"}
           </p>
+        </div>
+        <div className="adminRepairCard_infos_modify">
           <AdminToogle
             id={repairId}
             type={3}
@@ -33,6 +45,15 @@ function AdminRepairCard({
             getBrandOrModelAndRepairs={getModelAndRepairs}
             getAllModelByBrand={getAllModelByBrand}
           />
+          <button
+            className="adminRepairCard_infos_modify_delete"
+            type="button"
+            onClick={() => {
+              deleteRepair();
+            }}
+          >
+            SUPPRIMER
+          </button>
         </div>
       </div>
       <button
@@ -48,6 +69,7 @@ function AdminRepairCard({
       >
         Modifier
       </button>
+
       {showUpdateRepair && (
         <AdminUpdateRepair
           repairId={repairId}

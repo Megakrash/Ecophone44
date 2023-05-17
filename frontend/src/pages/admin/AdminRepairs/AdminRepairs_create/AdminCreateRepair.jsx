@@ -56,7 +56,7 @@ function AdminCreateRepair({
             Description
           </label>
           <textarea
-            className="adminUpdateRepair_form_bloc_input"
+            className="adminUpdateRepair_form_bloc_input repair-area"
             type="text"
             placeholder="Description"
             onChange={(e) => setNewRepairText(e.target.value)}
