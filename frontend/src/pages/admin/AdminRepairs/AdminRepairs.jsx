@@ -1,43 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { FaCheck, FaPen } from "react-icons/fa";
-import AdminModelPic from "./repair_model_infos/AdminModelPic";
-import AdminToogle from "../toogle_isVisible/AdminToogle";
-import AdminRepairList from "./AdminRepairList";
-import AdminCreateRepair from "./AdminCreateRepair";
-import AdminDeleteModel from "./AdminDeleteModel";
+import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
+import AdminModelPic from "./AdminRepairs_pic/AdminModelPic";
+import AdminToogle from "../AdminToogle/AdminToogle";
+import AdminRepairsList from "./AdminRepairs_list/AdminRepairsList";
+import AdminCreateRepair from "./AdminRepairs_create/AdminCreateRepair";
+import AdminDeleteModel from "./AdminRepairs_delete/AdminDeleteModel";
 
-function AdminRepair({ choosenModelId, setChoosenModelId, setChoosenBrandId }) {
-  const [repairs, setRepairs] = useState([]);
-  const [model, setModel] = useState({});
+function AdminRepair({
+  choosenModelId,
+  setChoosenModelId,
+  setChoosenBrandId,
+  getAllModelByBrand,
+  model,
+  repairs,
+  getModelAndRepairs,
+}) {
   const [showUpdateName, setShowUpdateName] = useState(false);
   const [newName, setNewName] = useState("");
-  const [showToogle, setShowToogle] = useState(false);
   const [showDeleteRepair, setShowDeleteRepair] = useState(false);
   const [showCreateRepair, setShowCreateRepair] = useState(false);
-
-  const getModelAndRepairs = async () => {
-    try {
-      const [allRepairs, getModel] = await Promise.all([
-        axios.get(
-          `${import.meta.env.VITE_PORT_BACKEND}/repairs/${choosenModelId}`
-        ),
-        axios.get(
-          `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`
-        ),
-      ]);
-      setRepairs(allRepairs.data);
-      setModel(getModel.data);
-      setShowToogle(true);
-    } catch (error) {
-      console.error("error", error);
-    }
-  };
-
-  useEffect(() => {
-    getModelAndRepairs();
-  }, [choosenModelId]);
 
   const updateModelName = () => {
     axios
@@ -46,6 +29,7 @@ function AdminRepair({ choosenModelId, setChoosenModelId, setChoosenBrandId }) {
       })
       .then(() => {
         getModelAndRepairs();
+        getAllModelByBrand();
         setShowUpdateName(false);
       })
       .catch(() => {
@@ -53,39 +37,57 @@ function AdminRepair({ choosenModelId, setChoosenModelId, setChoosenBrandId }) {
       });
   };
 
+  const handleUpdateName = (e) => {
+    e.preventDefault();
+    updateModelName();
+  };
+
   return (
     <div className="adminRepair">
       {model.name && (
         <div className="adminRepair_name">
-          <h2 className="adminRepair_name_title">{model.name.toUpperCase()}</h2>
-          <button
-            className="adminRepair_name_btn"
-            type="button"
-            onClick={() => setShowUpdateName(!showUpdateName)}
-          >
-            <FaPen className="adminRepair_name_btn_fa" />
-          </button>
-          {showUpdateName === true && (
+          {showUpdateName === false ? (
             <>
-              <input
-                className="adminRepair_name_input"
-                type="text"
-                placeholder={model.name}
-                onChange={(e) => setNewName(e.target.value)}
-              />
+              <h2 className="adminRepair_name_title">
+                {model.name.toUpperCase()}
+              </h2>
               <button
                 className="adminRepair_name_btn"
                 type="button"
-                onClick={() => updateModelName()}
+                onClick={() => setShowUpdateName(!showUpdateName)}
               >
-                <FaCheck className="adminRepair_name_btn_fa" />
+                <FaPen className="adminRepair_name_btn_fa" />
               </button>
             </>
+          ) : (
+            <form
+              className="adminRepair_name_update"
+              onSubmit={handleUpdateName}
+            >
+              <input
+                className="adminRepair_name_update_input"
+                type="text"
+                value={newName}
+                placeholder={model.name}
+                onChange={(e) => setNewName(e.target.value)}
+                required
+              />
+              <button
+                className="adminRepair_name_update_btn"
+                type="button"
+                onClick={() => setShowUpdateName(false)}
+              >
+                <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
+              </button>
+              <button className="adminRepair_name_update_btn" type="submit">
+                <FaCheck className="adminRepair_name_update_btn_fa" />
+              </button>
+            </form>
           )}
         </div>
       )}
       <div className="adminRepair_infos">
-        {model.name && model.pic && (
+        {model.name && (
           <AdminModelPic
             choosenModelId={choosenModelId}
             modelPic={model.pic}
@@ -93,12 +95,13 @@ function AdminRepair({ choosenModelId, setChoosenModelId, setChoosenBrandId }) {
             getModelAndRepairs={getModelAndRepairs}
           />
         )}
-        {model && showToogle && (
+        {model && (
           <AdminToogle
             id={choosenModelId}
             type={2}
             isVisible={model.is_visible}
             getBrandOrModelAndRepairs={getModelAndRepairs}
+            getAllModelByBrand={getAllModelByBrand}
           />
         )}
       </div>
@@ -112,6 +115,7 @@ function AdminRepair({ choosenModelId, setChoosenModelId, setChoosenBrandId }) {
           type="button"
           onClick={() => {
             setShowDeleteRepair(!showDeleteRepair);
+            setShowCreateRepair(false);
           }}
         >
           SUPPRIMER CE MODELE
@@ -135,6 +139,7 @@ function AdminRepair({ choosenModelId, setChoosenModelId, setChoosenBrandId }) {
           type="button"
           onClick={() => {
             setShowCreateRepair(!showCreateRepair);
+            setShowDeleteRepair(false);
           }}
         >
           AJOUTER UNE REPARATION
@@ -148,9 +153,10 @@ function AdminRepair({ choosenModelId, setChoosenModelId, setChoosenBrandId }) {
         )}
       </div>
       {repairs.length >= 1 && (
-        <AdminRepairList
+        <AdminRepairsList
           repairs={repairs}
           getModelAndRepairs={getModelAndRepairs}
+          getAllModelByBrand={getAllModelByBrand}
         />
       )}
     </div>
@@ -163,4 +169,29 @@ AdminRepair.propTypes = {
   choosenModelId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
   setChoosenBrandId: PropTypes.func.isRequired,
+  getAllModelByBrand: PropTypes.func.isRequired,
+  getModelAndRepairs: PropTypes.func.isRequired,
+  model: PropTypes.shape({
+    brand_id: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    index_id: PropTypes.number.isRequired,
+    is_visible: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    pic: PropTypes.string.isRequired,
+  }).isRequired,
+  repairs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      index_id: PropTypes.number.isRequired,
+      is_visible: PropTypes.number.isRequired,
+      marque: PropTypes.string.isRequired,
+      model: PropTypes.string.isRequired,
+      picmodel: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.oneOf([null]),
+      ]),
+      price: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

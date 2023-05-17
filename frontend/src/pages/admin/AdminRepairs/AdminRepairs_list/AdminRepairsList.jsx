@@ -2,9 +2,9 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import AdminRepairCard from "./repair_card/AdminRepairCard";
+import AdminRepairCard from "./AdminRepairs_list_card/AdminRepairCard";
 
-function AdminRepairList({ repairs, getModelAndRepairs }) {
+function AdminRepairList({ repairs, getModelAndRepairs, getAllModelByBrand }) {
   // To patch the index_id in database
   const updateOrderRepairs = (items) => {
     const promises = [];
@@ -63,6 +63,7 @@ function AdminRepairList({ repairs, getModelAndRepairs }) {
                           text={text}
                           isVisible={is_visible}
                           getModelAndRepairs={getModelAndRepairs}
+                          getAllModelByBrand={getAllModelByBrand}
                         />
                       </div>
                     )}
@@ -89,10 +90,14 @@ AdminRepairList.propTypes = {
       marque: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      picmodel: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
+      picmodel: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.oneOf([null]),
+      ]),
+      price: PropTypes.string.isRequired,
       text: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
     })
   ).isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,
+  getAllModelByBrand: PropTypes.func.isRequired,
 };

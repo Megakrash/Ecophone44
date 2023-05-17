@@ -1,15 +1,21 @@
-@import "./brand_list/adminBrandList.scss";
-@import "./model_list/adminModelList.scss";
-@import "./brand_list/updateBrand.scss";
-@import "./repair_list/repair_model_infos/adminModelPic.scss";
-@import "./repair_list/adminRepair.scss";
-@import "./repair_list/repair_card/adminRepairCard.scss";
-@import "./repair_list/repair_card/adminUpdateRepair.scss";
-@import "./repair_list/adminRepairList.scss";
-@import "./repair_list/adminCreateRepair.scss";
-@import "./toogle_isVisible/adminToogle.scss";
-@import "./create/createBrandOrModel.scss";
-@import "./repair_list/adminDeleteModel.scss";
+@import "./Adminbrands/adminBrandsList.scss";
+@import "./Adminbrands/updateBrand.scss";
+
+@import "./AdminCards/adminBrandsCard.scss";
+
+@import "./AdminCreate/createBrandOrModel.scss";
+
+@import "./AdminModels/adminModelsList.scss";
+
+@import "./AdminRepairs/adminRepairs.scss";
+@import "./AdminRepairs/AdminRepairs_create/adminCreateRepair.scss";
+@import "./AdminRepairs/AdminRepairs_delete/adminDeleteModel.scss";
+@import "./AdminRepairs/AdminRepairs_list/adminRepairsList.scss";
+@import "./AdminRepairs/AdminRepairs_list/AdminRepairs_list_card/adminRepairCard.scss";
+@import "./AdminRepairs/AdminRepairs_list/AdminRepairs_list_card/adminUpdateRepair.scss";
+@import "./AdminRepairs/AdminRepairs_pic/adminModelPic.scss";
+
+@import "./AdminToogle/adminToogle.scss";
 
 .admin {
   width: 98%;

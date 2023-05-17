@@ -1,30 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import CreateBrandOrModel from "../create/CreateBrandOrModel";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import CreateBrandOrModel from "../AdminCreate/CreateBrandOrModel";
+import AdminModelsCard from "../AdminCards/AdminModelsCard";
 
-function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, getAllBrand }) {
-
-  const [allModelsByBrand, setAllModelsByBrand] = useState([]);
+function AdminModelList({
+  choosenBrandId,
+  choosenModelId,
+  setChoosenModelId,
+  getAllBrand,
+  getAllModelByBrand,
+  allModelsByBrand,
+  getModelAndRepairs,
+}) {
   const [showCreateModel, setShowCreateModel] = useState(false);
-  const [showDeleteModel, setShowDeleteModel] = useState(false);
-
-  const getAllModelByBrand = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/modelbybrand/${choosenBrandId}`)
-      .then((res) => {
-        setAllModelsByBrand(res.data);
-      })
-      .catch(() => {
-        console.error("error");
-      });
-  };
-
-  useEffect(() => {
-    getAllModelByBrand();
-    setShowCreateModel(false);
-  }, [choosenBrandId]);
 
   // To patch the index_id in database
   const updateOrderModel = (items) => {
@@ -48,7 +38,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
       .catch((err) => console.error(err));
   };
 
-  // Reorder the index_id when D&D 
+  // Reorder the index_id when D&D
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(allModelsByBrand);
@@ -90,7 +80,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
           />
         )}
       </div>
-      {allModelsByBrand.length >= 1 && (
+      {allModelsByBrand && (
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="models">
             {(provided) => (
@@ -99,8 +89,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {allModelsByBrand.map(({ id, name }, index) => {
-                  const isActive = id === choosenModelId;
+                {allModelsByBrand.map(({ id, name, is_visible }, index) => {
                   return (
                     <Draggable
                       key={JSON.stringify(id)}
@@ -109,20 +98,20 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
                     >
                       {(provided) => (
                         <div
-                          className={
-                            isActive
-                              ? "adminModelList_brand_btn-activ"
-                              : "adminModelList_brand_btn"
-                          }
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          onClick={() => {
-                            setChoosenModelId(id);
-                            setShowCreateModel(false);
-                          }}
                         >
-                          {name.toUpperCase()}
+                          <AdminModelsCard
+                            id={id}
+                            name={name}
+                            isVisible={is_visible}
+                            choosenModelId={choosenModelId}
+                            setChoosenModelId={setChoosenModelId}
+                            setShowCreateModel={setShowCreateModel}
+                            getAllModelByBrand={getAllModelByBrand}
+                            getModelAndRepairs={getModelAndRepairs}
+                          />
                         </div>
                       )}
                     </Draggable>
@@ -135,7 +124,7 @@ function AdminModelList({ choosenBrandId, choosenModelId, setChoosenModelId, get
         </DragDropContext>
       )}
     </div>
-  )
+  );
 }
 
 export default AdminModelList;
@@ -145,4 +134,19 @@ AdminModelList.propTypes = {
   choosenBrandId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
+  getAllModelByBrand: PropTypes.func.isRequired,
+  getModelAndRepairs: PropTypes.func.isRequired,
+  allModelsByBrand: PropTypes.arrayOf(
+    PropTypes.shape({
+      brand_id: PropTypes.number.isRequired,
+      id: PropTypes.number.isRequired,
+      index_id: PropTypes.number.isRequired,
+      is_visible: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      picmodel: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.oneOf([null]),
+      ]),
+    })
+  ).isRequired,
 };

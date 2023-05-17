@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import AdminBrandsCard from "../AdminCards/AdminBrandsCard";
 
 function AdminBrandList({
   choosenBrandId,
@@ -14,7 +15,6 @@ function AdminBrandList({
   setShowCreateTabBrand,
   setShowUpdateTabBrand,
 }) {
-
   // To patch the index_id in database
   const updateOrderBrand = (items) => {
     const promises = [];
@@ -36,7 +36,7 @@ function AdminBrandList({
       .catch((err) => console.error(err));
   };
 
-  // Reorder the index_id when D&D 
+  // Reorder the index_id when D&D
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(brands);
@@ -48,7 +48,6 @@ function AdminBrandList({
     updateOrderBrand(items);
   }
 
-
   return (
     <div className="adminBrandList">
       <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -59,8 +58,7 @@ function AdminBrandList({
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {brands.map(({ id, name }, index) => {
-                const isActive = id === choosenBrandId;
+              {brands.map(({ id, name, is_visible }, index) => {
                 return (
                   <Draggable
                     key={JSON.stringify(id)}
@@ -69,25 +67,23 @@ function AdminBrandList({
                   >
                     {(provided) => (
                       <div
-                        className={
-                          isActive
-                            ? "adminBrandList_brand_btn-activ"
-                            : "adminBrandList_brand_btn"
-                        }
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        onClick={() => {
-                          setChoosenBrandId(id);
-                          setChoosenModelId(0);
-                          setShowCreateSmartBrand(false);
-                          setShowUpdateSmartBrand(false);
-                          setShowCreateTabBrand(false);
-                          setShowUpdateTabBrand(false);
-                          window.scrollTo(0, 0);
-                        }}
                       >
-                        <p>{name.toUpperCase()}</p>
+                        <AdminBrandsCard
+                          choosenBrandId={choosenBrandId}
+                          setChoosenBrandId={setChoosenBrandId}
+                          setChoosenModelId={setChoosenModelId}
+                          setShowCreateSmartBrand={setShowCreateSmartBrand}
+                          setShowUpdateSmartBrand={setShowUpdateSmartBrand}
+                          setShowCreateTabBrand={setShowCreateTabBrand}
+                          setShowUpdateTabBrand={setShowUpdateTabBrand}
+                          getAllBrand={getAllBrand}
+                          id={id}
+                          isVisible={is_visible}
+                          name={name}
+                        />
                       </div>
                     )}
                   </Draggable>

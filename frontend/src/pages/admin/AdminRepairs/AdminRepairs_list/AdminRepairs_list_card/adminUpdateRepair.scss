@@ -19,8 +19,13 @@
         font-size: 15px;
       }
 
+      .repair-area {
+        font-family: $font-text;
+        min-height: 100px;
+      }
+
       &_input {
-        width: 50%;
+        width: 60%;
         height: 30px;
       }
     }

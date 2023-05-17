@@ -3,17 +3,13 @@ const database = require("../../database");
 /* BRAND */
 const getSmartBrand = (req, res) => {
   database
-    .query(
-      "SELECT * FROM brands WHERE is_smart = 1 AND is_visible = 1 ORDER BY index_id"
-    )
+    .query("SELECT * FROM brands WHERE is_smart = 1 ORDER BY index_id")
     .then(([brand]) => res.status(200).json(brand))
     .catch((err) => console.error(err));
 };
 const getTabBrand = (req, res) => {
   database
-    .query(
-      "SELECT * FROM brands WHERE is_smart = 0 AND is_visible = 1 ORDER BY index_id"
-    )
+    .query("SELECT * FROM brands WHERE is_smart = 0 ORDER BY index_id")
     .then(([brand]) => res.status(200).json(brand))
     .catch((err) => console.error(err));
 };

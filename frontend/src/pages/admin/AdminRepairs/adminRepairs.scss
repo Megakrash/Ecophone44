@@ -9,18 +9,18 @@
     flex-direction: row;
     align-items: center;
     gap: 15px;
+    margin-bottom: 1%;
 
     &_title {
       font-family: $font-title;
       font-size: 35px;
       font-weight: 600;
-      margin-bottom: 1%;
       color: $secondary-color;
     }
 
     &_btn {
       width: 20px;
-      height: 30px;
+      height: 20px;
       cursor: pointer;
       background: none;
 
@@ -31,9 +31,29 @@
       }
     }
 
-    &_input {
-      height: 25px;
-      width: 250px;
+    &_update {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+
+      &_input {
+        height: 30px;
+        width: 250px;
+      }
+
+      &_btn {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        background: none;
+
+        &_fa {
+          width: 100%;
+          height: auto;
+          color: $tertiary-color;
+        }
+      }
     }
   }
 
