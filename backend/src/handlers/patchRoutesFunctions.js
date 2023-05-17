@@ -1,4 +1,4 @@
-const database = require("../../database");
+const knex = require("../../knex");
 // -------------------------------
 /* ----------- Brands -------------*/
 // -------------------------------
@@ -6,12 +6,11 @@ const database = require("../../database");
 const updateBrandIndexById = (req, res) => {
   const { id } = req.params;
   const { indexId } = req.body;
-  database
-    .query(`UPDATE brands set index_id = ${Number(indexId)} WHERE id = ?;`, [
-      Number(id),
-    ])
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("brands")
+    .where("id", id)
+    .update({ index_id: Number(indexId) })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -26,12 +25,11 @@ const updateBrandIndexById = (req, res) => {
 const updateBrandNameById = (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-  database
-    .query(`UPDATE brands set name = ${JSON.stringify(name)} WHERE id = ?;`, [
-      Number(id),
-    ])
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("brands")
+    .where("id", id)
+    .update({ name })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -46,13 +44,11 @@ const updateBrandNameById = (req, res) => {
 const updateBrandPicByBrandId = (req, res) => {
   const { id } = req.params;
   const { filename } = req.body;
-  database
-    .query(
-      `UPDATE brands set pic = ${JSON.stringify(filename)} WHERE id = ?;`,
-      [Number(id)]
-    )
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("brands")
+    .where("id", id)
+    .update({ pic: filename })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -67,13 +63,11 @@ const updateBrandPicByBrandId = (req, res) => {
 const updateBrandIsVisibleById = (req, res) => {
   const { id } = req.params;
   const { isVisible } = req.body;
-  database
-    .query(
-      `UPDATE brands set is_visible = ${Number(isVisible)} WHERE id = ?;`,
-      [Number(id)]
-    )
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("brands")
+    .where("id", id)
+    .update({ is_visible: Number(isVisible) })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -92,12 +86,11 @@ const updateBrandIsVisibleById = (req, res) => {
 const updateModelNameById = (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-  database
-    .query(`UPDATE models set name = ${JSON.stringify(name)} WHERE id = ?;`, [
-      Number(id),
-    ])
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("models")
+    .where("id", id)
+    .update({ name })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -105,19 +98,18 @@ const updateModelNameById = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error editing the brand name");
+      res.status(500).send("Error editing the model name");
     });
 };
 
 const updateModelIndexById = (req, res) => {
   const { id } = req.params;
   const { indexId } = req.body;
-  database
-    .query(`UPDATE models set index_id = ${Number(indexId)} WHERE id = ?;`, [
-      Number(id),
-    ])
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("models")
+    .where("id", id)
+    .update({ index_id: Number(indexId) })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -132,13 +124,11 @@ const updateModelIndexById = (req, res) => {
 const updateModelPicByModelId = (req, res) => {
   const { id } = req.params;
   const { filename } = req.body;
-  database
-    .query(
-      `UPDATE models set pic = ${JSON.stringify(filename)} WHERE id = ?;`,
-      [Number(id)]
-    )
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("models")
+    .where("id", id)
+    .update({ pic: filename })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -153,13 +143,11 @@ const updateModelPicByModelId = (req, res) => {
 const updateModelIsVisibleById = (req, res) => {
   const { id } = req.params;
   const { isVisible } = req.body;
-  database
-    .query(
-      `UPDATE models set is_visible = ${Number(isVisible)} WHERE id = ?;`,
-      [Number(id)]
-    )
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("models")
+    .where("id", id)
+    .update({ is_visible: Number(isVisible) })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -167,7 +155,7 @@ const updateModelIsVisibleById = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error editing the brand is visible");
+      res.status(500).send("Error editing the model is visible");
     });
 };
 
@@ -178,15 +166,11 @@ const updateModelIsVisibleById = (req, res) => {
 const updateRepairById = (req, res) => {
   const { id } = req.params;
   const { name, text, price } = req.body;
-  database
-    .query(
-      `UPDATE repairs SET name = ?, text = ?, price = ? WHERE id = ${Number(
-        id
-      )};`,
-      [name, text, price]
-    )
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("repairs")
+    .where("id", id)
+    .update({ name, text, price })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -201,12 +185,11 @@ const updateRepairById = (req, res) => {
 const updateRepairIndexById = (req, res) => {
   const { id } = req.params;
   const { indexId } = req.body;
-  database
-    .query(`UPDATE repairs set index_id = ${Number(indexId)} WHERE id = ?;`, [
-      Number(id),
-    ])
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("repairs")
+    .where("id", id)
+    .update({ index_id: Number(indexId) })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);
@@ -214,20 +197,18 @@ const updateRepairIndexById = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error editing the model index");
+      res.status(500).send("Error editing the repair index");
     });
 };
 
 const updateRepairIsVisibleById = (req, res) => {
   const { id } = req.params;
   const { isVisible } = req.body;
-  database
-    .query(
-      `UPDATE repairs set is_visible = ${Number(isVisible)} WHERE id = ?;`,
-      [Number(id)]
-    )
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
+  knex("repairs")
+    .where("id", id)
+    .update({ is_visible: Number(isVisible) })
+    .then((result) => {
+      if (result === 0) {
         res.status(404).send("Not Found");
       } else {
         res.sendStatus(204);

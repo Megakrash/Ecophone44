@@ -1,4 +1,4 @@
-const database = require("../../database");
+const knex = require("../../knex");
 // -------------------------------
 // ----------- Brands -----------
 // -------------------------------
@@ -6,20 +6,17 @@ const database = require("../../database");
 const postNewBrand = (req, res) => {
   const { name, filename, isSmart } = req.body;
 
-  database
-    .query("INSERT INTO brands(name, pic, is_smart ) VALUES (?, ?, ?);", [
-      name,
-      filename,
-      Number(isSmart),
-    ])
+  knex("brands")
+    .insert({ name, pic: filename, is_smart: Number(isSmart) })
     .then(() => {
       res.status(201).send({ message: "Brand Added" });
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error add new Brand");
+      res.status(500).send("Error adding new Brand");
     });
 };
+
 // -------------------------------
 // ----------- Models -----------
 // -------------------------------
@@ -103,52 +100,61 @@ const baseRepair = [
 
 const postNewModel = (req, res) => {
   const { name, filename, brandId } = req.body;
-  database
-    .query("INSERT INTO models(name, pic, brand_id) VALUES (?, ?, ?);", [
-      name,
-      filename,
-      brandId,
-    ])
-    .then(([result]) => {
-      res.status(201).send({ message: "Model added" });
-      const modeleId = result.insertId;
-      const repairs = Object.values(baseRepair);
-      for (const repair of repairs) {
-        database
-          .query(
-            "INSERT INTO repairs(name, text, price, index_id, model_id) VALUES (?, ?, ?, ?, ?);",
-            [repair.name, repair.text, repair.price, repair.index_id, modeleId]
-          )
+
+  knex.transaction((trx) => {
+    knex("models")
+      .transacting(trx)
+      .insert({ name, pic: filename, brand_id: brandId })
+      .then(([modelId]) => {
+        const repairs = Object.values(baseRepair);
+        const repairPromises = repairs.map((repair) =>
+          knex("repairs").transacting(trx).insert({
+            name: repair.name,
+            text: repair.text,
+            price: repair.price,
+            index_id: repair.index_id,
+            model_id: modelId,
+          })
+        );
+
+        Promise.all(repairPromises)
+          .then(() => {
+            trx.commit();
+            res.status(201).send({ message: "Model added" });
+          })
           .catch((err) => {
             console.error(err);
+            trx.rollback();
             res.status(500).send("Error adding repair");
           });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error adding new model");
-    });
+      })
+      .catch((err) => {
+        console.error(err);
+        trx.rollback();
+        res.status(500).send("Error adding new model");
+      });
+  });
 };
 
 // -------------------------------
 // ----------- Repairs -----------
 // -------------------------------
-
 const postNewRepair = (req, res) => {
   const { name, text, price, modelId } = req.body;
 
-  database
-    .query(
-      "INSERT INTO repairs(name, text, price, model_id ) VALUES (?, ?, ?, ?);",
-      [name, text, Number(price), Number(modelId)]
-    )
+  knex("repairs")
+    .insert({
+      name,
+      text,
+      price: Number(price),
+      model_id: Number(modelId),
+    })
     .then(() => {
       res.status(201).send({ message: "Repair Added" });
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error add new repair");
+      res.status(500).send("Error adding new repair");
     });
 };
 
