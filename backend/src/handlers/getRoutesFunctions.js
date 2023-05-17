@@ -1,24 +1,34 @@
-const database = require("../../database");
+const knex = require("../../knex");
 
 /* BRAND */
 const getSmartBrand = (req, res) => {
-  database
-    .query("SELECT * FROM brands WHERE is_smart = 1 ORDER BY index_id")
-    .then(([brand]) => res.status(200).json(brand))
+  knex
+    .select("*")
+    .from("brands")
+    .where("is_smart", 1)
+    .orderBy("index_id")
+    .then((brand) => res.status(200).json(brand))
     .catch((err) => console.error(err));
 };
+
 const getTabBrand = (req, res) => {
-  database
-    .query("SELECT * FROM brands WHERE is_smart = 0 ORDER BY index_id")
-    .then(([brand]) => res.status(200).json(brand))
+  knex
+    .select("*")
+    .from("brands")
+    .where("is_smart", 0)
+    .orderBy("index_id")
+    .then((brand) => res.status(200).json(brand))
     .catch((err) => console.error(err));
 };
+
 const getBrandById = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  database
-    .query("SELECT * FROM brands WHERE id= ?", [id])
-    .then(([brand]) => res.status(200).json(brand[0]))
+  knex
+    .select("*")
+    .from("brands")
+    .where("id", id)
+    .then((brand) => res.status(200).json(brand[0]))
     .catch((err) => console.error(err));
 };
 
@@ -27,11 +37,12 @@ const getBrandById = (req, res) => {
 const getModelByBrandId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  database
-    .query("SELECT * FROM models WHERE brand_id = ? ORDER BY index_id", [
-      Number(id),
-    ])
-    .then(([model]) => res.status(200).json(model))
+  knex
+    .select("*")
+    .from("models")
+    .where("brand_id", id)
+    .orderBy("index_id")
+    .then((model) => res.status(200).json(model))
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
@@ -42,12 +53,13 @@ const getModelByBrandId = (req, res) => {
 const getModelByBrandIdForFront = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  database
-    .query(
-      "SELECT * FROM models WHERE brand_id = ? AND is_visible = 1 ORDER BY index_id",
-      [Number(id)]
-    )
-    .then(([model]) => res.status(200).json(model))
+  knex
+    .select("*")
+    .from("models")
+    .where("brand_id", id)
+    .andWhere("is_visible", 1)
+    .orderBy("index_id")
+    .then((model) => res.status(200).json(model))
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
@@ -57,9 +69,11 @@ const getModelByBrandIdForFront = (req, res) => {
 const getModelById = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  database
-    .query("SELECT * FROM models WHERE id = ?", [Number(id)])
-    .then(([model]) => res.status(200).json(model[0]))
+  knex
+    .select("*")
+    .from("models")
+    .where("id", id)
+    .then((model) => res.status(200).json(model[0]))
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
@@ -71,12 +85,24 @@ const getModelById = (req, res) => {
 const getRepairsByModelId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  database
-    .query(
-      "SELECT r.id, r.name, r.price, r.index_id, r.is_visible, r.text, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM repairs r JOIN models m ON r.model_id = m.id JOIN brands mar ON m.brand_id = mar.id WHERE r.model_id = ? ORDER BY r.index_id",
-      [id]
+  knex
+    .select(
+      "r.id",
+      "r.name",
+      "r.price",
+      "r.index_id",
+      "r.is_visible",
+      "r.text",
+      "m.name AS model",
+      "m.pic AS picmodel",
+      "mar.name AS marque"
     )
-    .then(([reparation]) => res.status(200).json(reparation))
+    .from("repairs as r")
+    .join("models as m", "r.model_id", "m.id")
+    .join("brands as mar", "m.brand_id", "mar.id")
+    .where("r.model_id", id)
+    .orderBy("r.index_id")
+    .then((reparation) => res.status(200).json(reparation))
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
@@ -87,12 +113,25 @@ const getRepairsByModelId = (req, res) => {
 const getRepairsByModelIdForFront = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  database
-    .query(
-      "SELECT r.id, r.name, r.price, r.index_id, r.is_visible, r.text, m.name AS model, m.pic AS picmodel, mar.name AS marque FROM repairs r JOIN models m ON r.model_id = m.id JOIN brands mar ON m.brand_id = mar.id WHERE r.model_id = ? AND r.is_visible = 1 ORDER BY r.index_id",
-      [id]
+  knex
+    .select(
+      "r.id",
+      "r.name",
+      "r.price",
+      "r.index_id",
+      "r.is_visible",
+      "r.text",
+      "m.name AS model",
+      "m.pic AS picmodel",
+      "mar.name AS marque"
     )
-    .then(([reparation]) => res.status(200).json(reparation))
+    .from("repairs as r")
+    .join("models as m", "r.model_id", "m.id")
+    .join("brands as mar", "m.brand_id", "mar.id")
+    .where("r.model_id", id)
+    .andWhere("r.is_visible", 1)
+    .orderBy("r.index_id")
+    .then((reparation) => res.status(200).json(reparation))
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
