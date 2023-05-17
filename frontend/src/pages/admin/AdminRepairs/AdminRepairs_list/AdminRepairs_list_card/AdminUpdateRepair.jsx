@@ -31,17 +31,6 @@ function AdminUpdateRepair({
       });
   };
 
-  const deleteRepair = () => {
-    axios
-      .delete(`${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`)
-      .then(() => {
-        getModelAndRepairs();
-      })
-      .catch(() => {
-        console.error("Error delete repair");
-      });
-  };
-
   return (
     <div className="adminUpdateRepair">
       <form
@@ -99,15 +88,6 @@ function AdminUpdateRepair({
           Mettre à jour
         </button>
       </form>
-      <button
-        className="updateBrand_infos_delete delete-repair"
-        type="button"
-        onClick={() => {
-          deleteRepair();
-        }}
-      >
-        SUPPRIMER LA REPARATION
-      </button>
     </div>
   );
 }

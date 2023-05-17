@@ -11,13 +11,15 @@ import {
 import AdminToogle from "../AdminToogle/AdminToogle";
 
 function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
+  // The select give the brand id
   const [brandSelectId, setBrandSelectId] = useState(null);
+  // Stock selected brand infos
   const [brandSelected, setBrandSelected] = useState("");
   const [newName, setNewName] = useState("");
   const [newBrandPic, setNewBrandPic] = useState("");
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/`;
 
+  // Get brand selected infos
   const getBrandSelected = () => {
     axios
       .get(`${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelectId}`)
@@ -34,9 +36,12 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
   };
 
   useEffect(() => {
-    getBrandSelected();
+    if (brandSelectId !== null) {
+      getBrandSelected();
+    }
   }, [brandSelectId, brands]);
 
+  // Patch the new brand name
   const updateBrandName = () => {
     axios
       .put(
@@ -58,6 +63,7 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
     updateBrandName();
   };
 
+  // Delete the brand pic then patch the name in brands table to null
   const deleteBrandPic = () => {
     axios
       .put(
@@ -76,6 +82,7 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
       });
   };
 
+  // Post new brand pic then patch name in brands table
   const uploadNewBrandPic = (data) => {
     axios
       .put(
@@ -98,6 +105,7 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
     uploadNewBrandPic(data);
   };
 
+  // Delete the brand & all his models & repairs
   const deleteBrand = () => {
     axios
       .delete(`${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected.id}`)
@@ -144,7 +152,7 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
             <div className="updateBrand_infos_pic">
               <img
                 className="updateBrand_infos_pic_img"
-                src={`${picPath}/general/default.jpg`}
+                src={`${import.meta.env.VITE_PATH_IMAGE}/general/default.jpg`}
                 alt="logo de la marque"
               />
               <form
@@ -179,7 +187,9 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
             <div className="updateBrand_infos_pic">
               <img
                 className="updateBrand_infos_pic_img"
-                src={`${picPath}/brands/${brandSelected.pic}`}
+                src={`${import.meta.env.VITE_PATH_IMAGE}/brands/${
+                  brandSelected.pic
+                }`}
                 alt="logo de la marque"
               />
               <button
