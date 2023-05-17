@@ -56,7 +56,7 @@ function AdminUpdateRepair({
           <input
             className="adminUpdateRepair_form_bloc_input"
             type="text"
-            value={name}
+            value={newRepairName}
             placeholder={name}
             onChange={(e) => setNewRepairName(e.target.value)}
             required
@@ -70,9 +70,9 @@ function AdminUpdateRepair({
             Description
           </label>
           <textarea
-            className="adminUpdateRepair_form_bloc_input"
+            className="adminUpdateRepair_form_bloc_input repair-area"
             type="text"
-            value={text}
+            value={newRepairText}
             placeholder={text}
             onChange={(e) => setNewRepairText(e.target.value)}
             required
@@ -117,7 +117,7 @@ export default AdminUpdateRepair;
 AdminUpdateRepair.propTypes = {
   repairId: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
     .isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import AdminToogle from "@pages/admin/toogle_isVisible/AdminToogle";
+import AdminToogle from "@pages/admin/AdminToogle/AdminToogle";
 import AdminUpdateRepair from "./AdminUpdateRepair";
 
 function AdminRepairCard({
@@ -10,6 +10,7 @@ function AdminRepairCard({
   text,
   isVisible,
   getModelAndRepairs,
+  getAllModelByBrand,
 }) {
   const [showUpdateRepair, setShowUpdateRepair] = useState(false);
 
@@ -21,12 +22,16 @@ function AdminRepairCard({
           <p className="adminRepairCard_infos_text_desc"> {text}</p>
         </div>
         <div className="adminRepairCard_infos_price">
-          <p className="adminRepairCard_infos_price_euros">{price}.00€</p>
+          <p className="adminRepairCard_infos_price_euros">
+            {price.toUpperCase()}
+            {price === "nc" ? "" : ".00€"}
+          </p>
           <AdminToogle
             id={repairId}
             type={3}
             isVisible={isVisible}
             getBrandOrModelAndRepairs={getModelAndRepairs}
+            getAllModelByBrand={getAllModelByBrand}
           />
         </div>
       </div>
@@ -62,8 +67,9 @@ export default AdminRepairCard;
 AdminRepairCard.propTypes = {
   repairId: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   isVisible: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,
+  getAllModelByBrand: PropTypes.func.isRequired,
 };

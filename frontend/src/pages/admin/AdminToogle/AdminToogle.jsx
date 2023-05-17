@@ -2,7 +2,13 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-function AdminToogle({ id, type, isVisible, getBrandOrModelAndRepairs }) {
+function AdminToogle({
+  id,
+  type,
+  isVisible,
+  getBrandOrModelAndRepairs,
+  getAllModelByBrand,
+}) {
   const updateIsVisibleStatut = (bool) => {
     let endpoint = "";
     if (type === 1) {
@@ -19,6 +25,7 @@ function AdminToogle({ id, type, isVisible, getBrandOrModelAndRepairs }) {
       })
       .then(() => {
         getBrandOrModelAndRepairs();
+        getAllModelByBrand();
       })
       .catch(() => {
         console.error("Statut is visible not updated");
@@ -56,4 +63,5 @@ AdminToogle.propTypes = {
   type: PropTypes.number.isRequired,
   isVisible: PropTypes.number.isRequired,
   getBrandOrModelAndRepairs: PropTypes.func.isRequired,
+  getAllModelByBrand: PropTypes.func.isRequired,
 };

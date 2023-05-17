@@ -8,9 +8,9 @@ import {
   FaSkull,
   FaTimesCircle,
 } from "react-icons/fa";
-import AdminToogle from "../toogle_isVisible/AdminToogle";
+import AdminToogle from "../AdminToogle/AdminToogle";
 
-function UpdateBrand({ getAllBrand, brands }) {
+function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
   const [brandSelectId, setBrandSelectId] = useState(null);
   const [brandSelected, setBrandSelected] = useState("");
   const [newName, setNewName] = useState("");
@@ -35,7 +35,7 @@ function UpdateBrand({ getAllBrand, brands }) {
 
   useEffect(() => {
     getBrandSelected();
-  }, [brandSelectId]);
+  }, [brandSelectId, brands]);
 
   const updateBrandName = () => {
     axios
@@ -136,7 +136,8 @@ function UpdateBrand({ getAllBrand, brands }) {
               id={brandSelected.id}
               type={1}
               isVisible={brandSelected.is_visible}
-              getBrandOrModelAndRepairs={getBrandSelected}
+              getBrandOrModelAndRepairs={getAllBrand}
+              getAllModelByBrand={getAllModelByBrand}
             />
           </div>
           {brandSelected.pic === null ? (
@@ -278,4 +279,5 @@ UpdateBrand.propTypes = {
       pic: PropTypes.string,
     })
   ).isRequired,
+  getAllModelByBrand: PropTypes.func.isRequired,
 };

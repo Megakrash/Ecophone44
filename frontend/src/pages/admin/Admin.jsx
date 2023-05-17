@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CreateBrandOrModel from "./create/CreateBrandOrModel";
-import UpdateBrand from "./brand_list/UpdateBrand";
-import AdminBrandList from "./brand_list/AdminBrandList";
-import AdminModelList from "./model_list/AdminModelList";
-import AdminRepair from "./repair_list/AdminRepair";
+import CreateBrandOrModel from "./AdminCreate/CreateBrandOrModel";
+import UpdateBrand from "./Adminbrands/UpdateBrand";
+import AdminBrandsList from "./Adminbrands/AdminBrandsList";
+import AdminModelsList from "./AdminModels/AdminModelsList";
+import AdminRepairs from "./AdminRepairs/AdminRepairs";
 
 function Admin() {
   // To stock the smartphone brand list
   const [smartBrands, setSmartBrands] = useState([]);
   // To stock the tablet brand list
   const [tabBrands, setTabBrands] = useState([]);
+  // When a brand is selected
   const [choosenBrandId, setChoosenBrandId] = useState(0);
+  // To stock all models when a brand is selected
+  const [allModelsByBrand, setAllModelsByBrand] = useState([]);
+  // When a model is selected
   const [choosenModelId, setChoosenModelId] = useState(0);
+  // To stock model infos when a model is selected
+  const [model, setModel] = useState({});
+  // To stock the repairs when a model is selected
+  const [repairs, setRepairs] = useState([]);
+
+  // To show or not show create or update smartphone/tablet brand
   const [showCreateSmartBrand, setShowCreateSmartBrand] = useState(false);
   const [showUpdateSmartBrand, setShowUpdateSmartBrand] = useState(false);
   const [showCreateTabBrand, setShowCreateTabBrand] = useState(false);
   const [showUpdateTabBrand, setShowUpdateTabBrand] = useState(false);
 
+  // Get all the smartphones & tablets brand
   const getAllBrand = async () => {
     try {
       const [smartBrandRes, tabBrandRes] = await Promise.all([
@@ -34,6 +45,50 @@ function Admin() {
   useEffect(() => {
     getAllBrand();
   }, []);
+
+  // When a brand is selected get all the models
+  const getAllModelByBrand = () => {
+    axios
+      .get(
+        `${import.meta.env.VITE_PORT_BACKEND}/modelbybrand/${choosenBrandId}`
+      )
+      .then((res) => {
+        setAllModelsByBrand(res.data);
+      })
+      .catch(() => {
+        console.error("error");
+      });
+  };
+
+  useEffect(() => {
+    if (choosenBrandId !== 0) {
+      getAllModelByBrand();
+    }
+  }, [choosenBrandId]);
+
+  // When a model is selected get the model infos and all repairs for this model
+  const getModelAndRepairs = async () => {
+    try {
+      const [allRepairs, getModel] = await Promise.all([
+        axios.get(
+          `${import.meta.env.VITE_PORT_BACKEND}/repairs/${choosenModelId}`
+        ),
+        axios.get(
+          `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`
+        ),
+      ]);
+      setRepairs(allRepairs.data);
+      setModel(getModel.data);
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
+  useEffect(() => {
+    if (choosenModelId !== 0) {
+      getModelAndRepairs();
+    }
+  }, [choosenModelId]);
 
   return (
     <div className="admin">
@@ -86,7 +141,7 @@ function Admin() {
           </div>
           {smartBrands.length >= 1 && (
             <div className="admin_left_brandlist">
-              <AdminBrandList
+              <AdminBrandsList
                 brands={smartBrands}
                 getAllBrand={getAllBrand}
                 choosenBrandId={choosenBrandId}
@@ -146,7 +201,7 @@ function Admin() {
           </div>
           {tabBrands.length >= 1 && (
             <div className="admin_left_brandlist">
-              <AdminBrandList
+              <AdminBrandsList
                 brands={tabBrands}
                 getAllBrand={getAllBrand}
                 choosenBrandId={choosenBrandId}
@@ -179,6 +234,7 @@ function Admin() {
               setShowUpdateSmartBrand={setShowUpdateSmartBrand}
               setShowUpdateTabBrand={setShowUpdateTabBrand}
               getAllBrand={getAllBrand}
+              getAllModelByBrand={getAllModelByBrand}
               brands={smartBrands}
             />
           )}
@@ -203,22 +259,29 @@ function Admin() {
             />
           )}
           {choosenBrandId !== 0 && (
-            <AdminModelList
+            <AdminModelsList
               choosenBrandId={choosenBrandId}
               choosenModelId={choosenModelId}
               setChoosenModelId={setChoosenModelId}
               getAllBrand={getAllBrand}
+              getAllModelByBrand={getAllModelByBrand}
+              allModelsByBrand={allModelsByBrand}
+              getModelAndRepairs={getModelAndRepairs}
             />
           )}
         </div>
       </div>
 
-      {choosenModelId !== 0 && (
+      {model && repairs && choosenModelId !== 0 && (
         <div className="admin_right">
-          <AdminRepair
+          <AdminRepairs
             choosenModelId={choosenModelId}
             setChoosenModelId={setChoosenModelId}
             setChoosenBrandId={setChoosenBrandId}
+            getAllModelByBrand={getAllModelByBrand}
+            repairs={repairs}
+            model={model}
+            getModelAndRepairs={getModelAndRepairs}
           />
         </div>
       )}
