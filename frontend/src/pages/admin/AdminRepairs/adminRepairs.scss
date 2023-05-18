@@ -5,10 +5,11 @@
   padding: 1%;
 
   &_name {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 15px;
+    justify-content: space-between;
     margin-bottom: 1%;
 
     &_title {
@@ -16,9 +17,12 @@
       font-size: 35px;
       font-weight: 600;
       color: $secondary-color;
+      margin-right: 2%;
     }
 
     &_btn {
+      margin-right: auto;
+      justify-self: left;
       width: 20px;
       height: 20px;
       cursor: pointer;
@@ -55,15 +59,14 @@
         }
       }
     }
+
+    &_toogle {
+      margin-left: auto;
+    }
   }
 
   &_infos {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20%;
   }
 
   &_create {

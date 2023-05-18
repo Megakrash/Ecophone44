@@ -10,6 +10,23 @@
     flex-direction: column;
     gap: 5px;
     margin-bottom: 2%;
+
+    .create-model,
+    .create-model-activ {
+      width: 100%;
+      background-color: $fourth-color;
+
+      &:hover {
+        background-color: $sixte-color;
+      }
+
+      .fa-plus {
+        width: 30px;
+        height: auto;
+        color: $secondary-color;
+        margin-right: 2%;
+      }
+    }
   }
 
   &_brand {

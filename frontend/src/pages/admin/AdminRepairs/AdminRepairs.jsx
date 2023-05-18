@@ -84,6 +84,17 @@ function AdminRepair({
               </button>
             </form>
           )}
+          <div className="adminRepair_name_toogle">
+            {model && (
+              <AdminToogle
+                id={choosenModelId}
+                type={2}
+                isVisible={model.is_visible}
+                getBrandOrModelAndRepairs={getModelAndRepairs}
+                getAllModelByBrand={getAllModelByBrand}
+              />
+            )}
+          </div>
         </div>
       )}
       <div className="adminRepair_infos">
@@ -93,15 +104,6 @@ function AdminRepair({
             modelPic={model.pic}
             modelName={model.name}
             getModelAndRepairs={getModelAndRepairs}
-          />
-        )}
-        {model && (
-          <AdminToogle
-            id={choosenModelId}
-            type={2}
-            isVisible={model.is_visible}
-            getBrandOrModelAndRepairs={getModelAndRepairs}
-            getAllModelByBrand={getAllModelByBrand}
           />
         )}
       </div>
@@ -177,7 +179,7 @@ AdminRepair.propTypes = {
     index_id: PropTypes.number.isRequired,
     is_visible: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    pic: PropTypes.string.isRequired,
+    pic: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   }).isRequired,
   repairs: PropTypes.arrayOf(
     PropTypes.shape({

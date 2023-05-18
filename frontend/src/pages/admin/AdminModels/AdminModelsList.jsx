@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CreateBrandOrModel from "../AdminCreate/CreateBrandOrModel";
 import AdminModelsCard from "../AdminCards/AdminModelsCard";
+import { FaPlusCircle } from "react-icons/fa";
 
 function AdminModelList({
   choosenBrandId,
@@ -56,8 +57,8 @@ function AdminModelList({
         <button
           className={
             showCreateModel
-              ? "adminModelList_brand_btn-activ"
-              : "adminModelList_brand_btn"
+              ? "adminModelList_brand_btn-activ create-model-activ"
+              : "adminModelList_brand_btn create-model"
           }
           type="button"
           onClick={() => {
@@ -65,6 +66,7 @@ function AdminModelList({
             setChoosenModelId(0);
           }}
         >
+          <FaPlusCircle className="fa-plus" />
           AJOUTER UN MODELE
         </button>
         {showCreateModel === true && (

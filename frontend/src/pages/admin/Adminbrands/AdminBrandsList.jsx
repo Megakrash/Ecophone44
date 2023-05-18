@@ -13,7 +13,6 @@ function AdminBrandList({
   setShowUpdateSmartBrand,
   setShowCreateSmartBrand,
   setShowCreateTabBrand,
-  setShowUpdateTabBrand,
 }) {
   // To patch the index_id in database
   const updateOrderBrand = (items) => {
@@ -78,7 +77,6 @@ function AdminBrandList({
                           setShowCreateSmartBrand={setShowCreateSmartBrand}
                           setShowUpdateSmartBrand={setShowUpdateSmartBrand}
                           setShowCreateTabBrand={setShowCreateTabBrand}
-                          setShowUpdateTabBrand={setShowUpdateTabBrand}
                           getAllBrand={getAllBrand}
                           id={id}
                           isVisible={is_visible}
@@ -107,7 +105,6 @@ AdminBrandList.propTypes = {
   setShowUpdateSmartBrand: PropTypes.func.isRequired,
   setShowCreateSmartBrand: PropTypes.func.isRequired,
   setShowCreateTabBrand: PropTypes.func.isRequired,
-  setShowUpdateTabBrand: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
   brands: PropTypes.arrayOf(
     PropTypes.shape({

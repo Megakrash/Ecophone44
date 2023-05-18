@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { FaCheck, FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
 function AdminModelPic({
   choosenModelId,
@@ -9,8 +9,6 @@ function AdminModelPic({
   modelName,
   getModelAndRepairs,
 }) {
-  const [newModelPic, setNewModelPic] = useState("");
-
   const deleteModelPic = () => {
     axios
       .put(
@@ -23,7 +21,6 @@ function AdminModelPic({
       )
       .then(() => {
         getModelAndRepairs();
-        setNewModelPic("");
       })
       .catch(() => {
         console.error("Error delete model pic");
@@ -44,11 +41,10 @@ function AdminModelPic({
       });
   };
 
-  const handleUploadPic = (e) => {
-    e.preventDefault();
+  const handleUploadPic = (file) => {
     const data = new FormData();
     data.append("name", `${modelName}`);
-    data.append("file", newModelPic);
+    data.append("file", file);
     uploadNewModelPic(data);
   };
 
@@ -57,37 +53,19 @@ function AdminModelPic({
       {modelPic === null ? (
         <div className="updateBrand_infos_pic">
           <img
-            className="updateBrand_infos_pic_img"
+            className="updateBrand_infos_pic_img default-pic"
             src={`${import.meta.env.VITE_PATH_IMAGE}/general/default.jpg`}
             alt="modèle"
           />
-          <form
-            action=""
-            className="updateBrand_infos_pic_form"
-            onSubmit={handleUploadPic}
-          >
-            <input
-              type="file"
-              id="file"
-              name="file"
-              placeholder="Choisir une image"
-              accept=".jpg, .png"
-              onChange={(e) => {
-                setNewModelPic(e.target.files[0]);
-              }}
-              required
-            />
-
-            {newModelPic !== "" && (
-              <button
-                className="updateBrand_infos_pic_form_submit"
-                type="submit"
-                value="upload"
-              >
-                <FaCheck className="fa-submit" />
-              </button>
-            )}
-          </form>
+          <input
+            type="file"
+            id="file"
+            name="file"
+            placeholder="Choisir une image"
+            accept=".jpg, .png"
+            onChange={(e) => handleUploadPic(e.target.files[0])}
+            required
+          />
         </div>
       ) : (
         <div className="updateBrand_infos_pic">
@@ -115,8 +93,10 @@ export default AdminModelPic;
 
 AdminModelPic.propTypes = {
   choosenModelId: PropTypes.number.isRequired,
-  modelPic: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
-    .isRequired,
+  modelPic: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   modelName: PropTypes.string.isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,
+};
+AdminModelPic.defaultProps = {
+  modelPic: null,
 };
