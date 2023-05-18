@@ -10,36 +10,28 @@ import {
 } from "react-icons/fa";
 import AdminToogle from "../AdminToogle/AdminToogle";
 
-function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
-  // The select give the brand id
-  const [brandSelectId, setBrandSelectId] = useState(null);
+function UpdateBrand({ getAllBrand, getAllModelByBrand, choosenBrandId }) {
   // Stock selected brand infos
   const [brandSelected, setBrandSelected] = useState("");
   const [newName, setNewName] = useState("");
-  const [newBrandPic, setNewBrandPic] = useState("");
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
 
   // Get brand selected infos
   const getBrandSelected = () => {
     axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelectId}`)
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/brand/${choosenBrandId}`)
       .then((res) => {
         setBrandSelected(res.data);
+        setNewName("");
       })
       .catch(() => {
         console.error("Error to get the brand selected");
       });
   };
 
-  const handleChangeSelect = (e) => {
-    setBrandSelectId(e.target.value);
-  };
-
   useEffect(() => {
-    if (brandSelectId !== null) {
-      getBrandSelected();
-    }
-  }, [brandSelectId, brands]);
+    getBrandSelected();
+  }, [choosenBrandId, getAllBrand]);
 
   // Patch the new brand name
   const updateBrandName = () => {
@@ -97,11 +89,10 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
       });
   };
 
-  const handleUploadPic = (e) => {
-    e.preventDefault();
+  const handleUploadPic = (file) => {
     const data = new FormData();
     data.append("name", `${brandSelected.name}`);
-    data.append("file", newBrandPic);
+    data.append("file", file);
     uploadNewBrandPic(data);
   };
 
@@ -121,22 +112,6 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
 
   return (
     <div className="updateBrand">
-      <div className="updateBrand_select">
-        <p className="updateBrand_select_title">Choisir la marque à modifier</p>
-        <select
-          className="updateBrand_select_option"
-          onChange={handleChangeSelect}
-        >
-          <option value="">---</option>
-          {brands.map((infos) => {
-            return (
-              <option key={infos.id} value={infos.id}>
-                {infos.name}
-              </option>
-            );
-          })}
-        </select>
-      </div>
       {brandSelected !== "" && (
         <div className="updateBrand_infos">
           <div className="updateBrand_infos_toogle">
@@ -155,33 +130,17 @@ function UpdateBrand({ getAllBrand, brands, getAllModelByBrand }) {
                 src={`${import.meta.env.VITE_PATH_IMAGE}/general/default.jpg`}
                 alt="logo de la marque"
               />
-              <form
-                action=""
-                className="updateBrand_infos_pic_form"
-                onSubmit={handleUploadPic}
-              >
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  placeholder="Choisir une image"
-                  accept=".jpg, .png"
-                  onChange={(e) => {
-                    setNewBrandPic(e.target.files[0]);
-                  }}
-                  required
-                />
-
-                {newBrandPic !== "" && (
-                  <button
-                    className="updateBrand_infos_pic_form_submit"
-                    type="submit"
-                    value="upload"
-                  >
-                    <FaCheck className="fa-submit" />
-                  </button>
-                )}
-              </form>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                placeholder="Choisir une image"
+                accept=".jpg, .png"
+                onChange={(e) => {
+                  handleUploadPic(e.target.files[0]);
+                }}
+                required
+              />
             </div>
           ) : (
             <div className="updateBrand_infos_pic">
@@ -279,15 +238,6 @@ export default UpdateBrand;
 
 UpdateBrand.propTypes = {
   getAllBrand: PropTypes.func.isRequired,
-  brands: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      index_id: PropTypes.number.isRequired,
-      is_smart: PropTypes.number.isRequired,
-      is_visible: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      pic: PropTypes.string,
-    })
-  ).isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
+  choosenBrandId: PropTypes.number.isRequired,
 };

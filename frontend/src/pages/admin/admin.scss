@@ -85,6 +85,23 @@
             background-color: $tertiary-color;
           }
         }
+
+        .create,
+        .create-activ {
+          width: 100%;
+          background-color: $fourth-color;
+
+          &:hover {
+            background-color: $sixte-color;
+          }
+
+          .fa-plus {
+            width: 30px;
+            height: auto;
+            color: $secondary-color;
+            margin-right: 2%;
+          }
+        }
       }
 
       &_brandlist {

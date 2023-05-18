@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FaPlusCircle } from "react-icons/fa";
 import CreateBrandOrModel from "./AdminCreate/CreateBrandOrModel";
 import UpdateBrand from "./Adminbrands/UpdateBrand";
 import AdminBrandsList from "./Adminbrands/AdminBrandsList";
@@ -18,7 +19,8 @@ function Admin() {
   // When a model is selected
   const [choosenModelId, setChoosenModelId] = useState(0);
   // To stock model infos when a model is selected
-  const [model, setModel] = useState({});
+  const [model, setModel] = useState();
+
   // To stock the repairs when a model is selected
   const [repairs, setRepairs] = useState([]);
 
@@ -26,7 +28,6 @@ function Admin() {
   const [showCreateSmartBrand, setShowCreateSmartBrand] = useState(false);
   const [showUpdateSmartBrand, setShowUpdateSmartBrand] = useState(false);
   const [showCreateTabBrand, setShowCreateTabBrand] = useState(false);
-  const [showUpdateTabBrand, setShowUpdateTabBrand] = useState(false);
 
   // Get all the smartphones & tablets brand
   const getAllBrand = async () => {
@@ -101,42 +102,21 @@ function Admin() {
             <button
               className={
                 showCreateSmartBrand
-                  ? "admin_left_panel1_create_btn-activ"
-                  : "admin_left_panel1_create_btn"
+                  ? "admin_left_panel1_create_btn-activ create-activ"
+                  : "admin_left_panel1_create_btn create"
               }
               type="button"
               onClick={() => {
                 setShowCreateSmartBrand(!showCreateSmartBrand);
                 setShowUpdateSmartBrand(false);
                 setShowCreateTabBrand(false);
-                setShowUpdateTabBrand(false);
                 setChoosenBrandId(0);
                 setChoosenModelId(0);
                 window.scrollTo(0, 0);
               }}
             >
+              <FaPlusCircle className="fa-plus" />
               AJOUTER UNE MARQUE
-            </button>
-          </div>
-          <div className="admin_left_panel1_create">
-            <button
-              className={
-                showUpdateSmartBrand
-                  ? "admin_left_panel1_create_btn-activ"
-                  : "admin_left_panel1_create_btn"
-              }
-              type="button"
-              onClick={() => {
-                setShowUpdateSmartBrand(!showUpdateSmartBrand);
-                setShowCreateSmartBrand(false);
-                setShowCreateTabBrand(false);
-                setShowUpdateTabBrand(false);
-                setChoosenBrandId(0);
-                setChoosenModelId(0);
-                window.scrollTo(0, 0);
-              }}
-            >
-              MODIFIER UNE MARQUE
             </button>
           </div>
           {smartBrands.length >= 1 && (
@@ -150,7 +130,6 @@ function Admin() {
                 setShowCreateSmartBrand={setShowCreateSmartBrand}
                 setShowUpdateSmartBrand={setShowUpdateSmartBrand}
                 setShowCreateTabBrand={setShowCreateTabBrand}
-                setShowUpdateTabBrand={setShowUpdateTabBrand}
               />
             </div>
           )}
@@ -161,13 +140,12 @@ function Admin() {
             <button
               className={
                 showCreateTabBrand
-                  ? "admin_left_panel1_create_btn-activ"
-                  : "admin_left_panel1_create_btn"
+                  ? "admin_left_panel1_create_btn-activ create-activ"
+                  : "admin_left_panel1_create_btn create"
               }
               type="button"
               onClick={() => {
                 setShowCreateTabBrand(!showCreateTabBrand);
-                setShowUpdateTabBrand(false);
                 setShowCreateSmartBrand(false);
                 setShowUpdateSmartBrand(false);
                 setChoosenBrandId(0);
@@ -175,28 +153,8 @@ function Admin() {
                 window.scrollTo(0, 0);
               }}
             >
+              <FaPlusCircle className="fa-plus" />
               AJOUTER UNE MARQUE
-            </button>
-          </div>
-          <div className="admin_left_panel1_create">
-            <button
-              className={
-                showUpdateTabBrand
-                  ? "admin_left_panel1_create_btn-activ"
-                  : "admin_left_panel1_create_btn"
-              }
-              type="button"
-              onClick={() => {
-                setShowUpdateTabBrand(!showUpdateTabBrand);
-                setShowCreateTabBrand(false);
-                setShowCreateSmartBrand(false);
-                setShowUpdateSmartBrand(false);
-                setChoosenBrandId(0);
-                setChoosenModelId(0);
-                window.scrollTo(0, 0);
-              }}
-            >
-              MODIFIER UNE MARQUE
             </button>
           </div>
           {tabBrands.length >= 1 && (
@@ -210,7 +168,6 @@ function Admin() {
                 setShowCreateSmartBrand={setShowCreateSmartBrand}
                 setShowUpdateSmartBrand={setShowUpdateSmartBrand}
                 setShowCreateTabBrand={setShowCreateTabBrand}
-                setShowUpdateTabBrand={setShowUpdateTabBrand}
               />
             </div>
           )}
@@ -232,10 +189,9 @@ function Admin() {
           {showUpdateSmartBrand === true && (
             <UpdateBrand
               setShowUpdateSmartBrand={setShowUpdateSmartBrand}
-              setShowUpdateTabBrand={setShowUpdateTabBrand}
               getAllBrand={getAllBrand}
               getAllModelByBrand={getAllModelByBrand}
-              brands={smartBrands}
+              choosenBrandId={choosenBrandId}
             />
           )}
           {showCreateTabBrand === true && (
@@ -248,14 +204,6 @@ function Admin() {
               choosenBrandId={choosenBrandId}
               setShowCreateModel={setShowCreateSmartBrand}
               showCreateModel
-            />
-          )}
-          {showUpdateTabBrand === true && (
-            <UpdateBrand
-              setShowUpdateSmartBrand={setShowUpdateSmartBrand}
-              setShowUpdateTabBrand={setShowUpdateTabBrand}
-              getAllBrand={getAllBrand}
-              brands={tabBrands}
             />
           )}
           {choosenBrandId !== 0 && (
