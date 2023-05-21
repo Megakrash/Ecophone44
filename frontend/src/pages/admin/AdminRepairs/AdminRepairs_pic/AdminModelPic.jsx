@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { FaTrashAlt } from "react-icons/fa";
+import UserContext from "../../../../context/UserContext";
 
 function AdminModelPic({
   choosenModelId,
@@ -9,6 +10,12 @@ function AdminModelPic({
   modelName,
   getModelAndRepairs,
 }) {
+  const { userToken } = useContext(UserContext);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
   const deleteModelPic = () => {
     axios
       .put(
@@ -17,7 +24,8 @@ function AdminModelPic({
         }/modelpic_delete/${choosenModelId}`,
         {
           pic: `${modelPic}`,
-        }
+        },
+        config
       )
       .then(() => {
         getModelAndRepairs();
@@ -31,7 +39,8 @@ function AdminModelPic({
     axios
       .put(
         `${import.meta.env.VITE_PORT_BACKEND}/modelpic/${choosenModelId}`,
-        data
+        data,
+        config
       )
       .then(() => {
         getModelAndRepairs();

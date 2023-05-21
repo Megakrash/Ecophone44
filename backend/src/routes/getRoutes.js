@@ -18,18 +18,16 @@ router.get("/brand/:id", getRoutesFunctions.getBrandById);
 // -------------------------------
 // ----------- Models ------------
 // -------------------------------
-// by brand Id for back-office
+// by brand Id
 router.get("/modelbybrand/:id", getRoutesFunctions.getModelByBrandId);
-// by brand Id for front
-router.get("/model_front/:id", getRoutesFunctions.getModelByBrandIdForFront);
 // by model Id
 router.get("/model/:id", getRoutesFunctions.getModelById);
 // -------------------------------
 // ----------- Repairs -----------
 // -------------------------------
-// by model id for back-office
+// by model id
 router.get("/repairs/:id", getRoutesFunctions.getRepairsByModelId);
-// by model id for back-office
+// by model id
 router.get(
   "/repairs_front/:id",
   getRoutesFunctions.getRepairsByModelIdForFront

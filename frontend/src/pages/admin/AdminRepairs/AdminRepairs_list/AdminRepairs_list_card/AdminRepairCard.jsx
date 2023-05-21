@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import AdminToogle from "@pages/admin/AdminToogle/AdminToogle";
 import AdminUpdateRepair from "./AdminUpdateRepair";
+import UserContext from "../../../../../context/UserContext";
 
 function AdminRepairCard({
   repairId,
@@ -14,10 +15,15 @@ function AdminRepairCard({
   getAllModelByBrand,
 }) {
   const [showUpdateRepair, setShowUpdateRepair] = useState(false);
-
+  const { userToken } = useContext(UserContext);
   const deleteRepair = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .delete(`${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`)
+      .delete(`${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`, config)
       .then(() => {
         getModelAndRepairs();
       })

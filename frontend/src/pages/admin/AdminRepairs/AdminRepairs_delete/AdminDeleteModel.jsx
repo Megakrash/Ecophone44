@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import UserContext from "../../../../context/UserContext";
 
 function AdminDeleteModel({
   setShowDeleteRepair,
@@ -8,9 +9,18 @@ function AdminDeleteModel({
   setChoosenModelId,
   setChoosenBrandId,
 }) {
+  const { userToken } = useContext(UserContext);
   const deleteModel = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .delete(`${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`)
+      .delete(
+        `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`,
+        config
+      )
       .then(() => {
         setChoosenBrandId(0);
         setChoosenModelId(0);

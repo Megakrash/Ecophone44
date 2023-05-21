@@ -1,9 +1,12 @@
 const express = require("express");
-// const { hashPassword } = require("../handlers/auth");
+const { verifyToken } = require("../handlers/auth");
 
 const router = express.Router();
 
 const patchRoutesFunctions = require("../handlers/patchRoutesFunctions");
+
+// Use the middleware "verifyToken" for each router.put
+router.use(verifyToken);
 // -------------------------------
 // ----------- Brands ------------
 // -------------------------------

@@ -6,6 +6,7 @@ import UpdateBrand from "./Adminbrands/UpdateBrand";
 import AdminBrandsList from "./Adminbrands/AdminBrandsList";
 import AdminModelsList from "./AdminModels/AdminModelsList";
 import AdminRepairs from "./AdminRepairs/AdminRepairs";
+import AdminRefurb from "./AdminRefurb/AdminRefurb";
 
 function Admin() {
   // To stock the smartphone brand list
@@ -24,10 +25,11 @@ function Admin() {
   // To stock the repairs when a model is selected
   const [repairs, setRepairs] = useState([]);
 
-  // To show or not show create or update smartphone/tablet brand
+  // To show or not show create or update smartphone/tablet brand & adverts & partners
   const [showCreateSmartBrand, setShowCreateSmartBrand] = useState(false);
   const [showUpdateSmartBrand, setShowUpdateSmartBrand] = useState(false);
   const [showCreateTabBrand, setShowCreateTabBrand] = useState(false);
+  const [showAdminRefurb, setShowAdminRefurb] = useState(false);
 
   // Get all the smartphones & tablets brand
   const getAllBrand = async () => {
@@ -95,7 +97,7 @@ function Admin() {
     <div className="admin">
       <div className="admin_left">
         <div className="admin_left_panel1">
-          <div className="admin_left_panel1_smartphone">
+          <div className="admin_left_panel1_title">
             <p>SMARTPHONES</p>
           </div>
           <div className="admin_left_panel1_create">
@@ -110,6 +112,7 @@ function Admin() {
                 setShowCreateSmartBrand(!showCreateSmartBrand);
                 setShowUpdateSmartBrand(false);
                 setShowCreateTabBrand(false);
+                setShowAdminRefurb(false);
                 setChoosenBrandId(0);
                 setChoosenModelId(0);
                 window.scrollTo(0, 0);
@@ -119,8 +122,8 @@ function Admin() {
               AJOUTER UNE MARQUE
             </button>
           </div>
-          {smartBrands.length >= 1 && (
-            <div className="admin_left_brandlist">
+          <div className="admin_left_brandlist">
+            {smartBrands.length >= 1 && (
               <AdminBrandsList
                 brands={smartBrands}
                 getAllBrand={getAllBrand}
@@ -130,10 +133,11 @@ function Admin() {
                 setShowCreateSmartBrand={setShowCreateSmartBrand}
                 setShowUpdateSmartBrand={setShowUpdateSmartBrand}
                 setShowCreateTabBrand={setShowCreateTabBrand}
+                setShowAdminRefurb={setShowAdminRefurb}
               />
-            </div>
-          )}
-          <div className="admin_left_panel1_smartphone">
+            )}
+          </div>
+          <div className="admin_left_panel1_title">
             <p>TABLETTES</p>
           </div>
           <div className="admin_left_panel1_create">
@@ -148,6 +152,7 @@ function Admin() {
                 setShowCreateTabBrand(!showCreateTabBrand);
                 setShowCreateSmartBrand(false);
                 setShowUpdateSmartBrand(false);
+                setShowAdminRefurb(false);
                 setChoosenBrandId(0);
                 setChoosenModelId(0);
                 window.scrollTo(0, 0);
@@ -157,8 +162,8 @@ function Admin() {
               AJOUTER UNE MARQUE
             </button>
           </div>
-          {tabBrands.length >= 1 && (
-            <div className="admin_left_brandlist">
+          <div className="admin_left_brandlist">
+            {tabBrands.length >= 1 && (
               <AdminBrandsList
                 brands={tabBrands}
                 getAllBrand={getAllBrand}
@@ -168,9 +173,29 @@ function Admin() {
                 setShowCreateSmartBrand={setShowCreateSmartBrand}
                 setShowUpdateSmartBrand={setShowUpdateSmartBrand}
                 setShowCreateTabBrand={setShowCreateTabBrand}
+                setShowAdminRefurb={setShowAdminRefurb}
               />
-            </div>
-          )}
+            )}
+          </div>
+          <button
+            className={
+              showAdminRefurb
+                ? "admin_left_panel1_advert-activ"
+                : "admin_left_panel1_advert"
+            }
+            type="button"
+            onClick={() => {
+              setShowAdminRefurb(!showAdminRefurb);
+              setShowCreateSmartBrand(false);
+              setShowUpdateSmartBrand(false);
+              setShowCreateTabBrand(false);
+              setChoosenBrandId(0);
+              setChoosenModelId(0);
+              window.scrollTo(0, 0);
+            }}
+          >
+            RECONDITIONNES
+          </button>
         </div>
 
         <div className="admin_left_panel2">
@@ -192,6 +217,7 @@ function Admin() {
               getAllBrand={getAllBrand}
               getAllModelByBrand={getAllModelByBrand}
               choosenBrandId={choosenBrandId}
+              setChoosenBrandId={setChoosenBrandId}
             />
           )}
           {showCreateTabBrand === true && (
@@ -215,13 +241,13 @@ function Admin() {
               getAllModelByBrand={getAllModelByBrand}
               allModelsByBrand={allModelsByBrand}
               getModelAndRepairs={getModelAndRepairs}
+              setShowUpdateSmartBrand={setShowUpdateSmartBrand}
             />
           )}
         </div>
       </div>
-
-      {model && repairs && choosenModelId !== 0 && (
-        <div className="admin_right">
+      <div className="admin_right">
+        {model && repairs && choosenModelId !== 0 && (
           <AdminRepairs
             choosenModelId={choosenModelId}
             setChoosenModelId={setChoosenModelId}
@@ -231,8 +257,9 @@ function Admin() {
             model={model}
             getModelAndRepairs={getModelAndRepairs}
           />
-        </div>
-      )}
+        )}
+        {showAdminRefurb && <AdminRefurb />}
+      </div>
     </div>
   );
 }

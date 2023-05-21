@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import UserContext from "../../../context/UserContext";
 
 function CreateBrandOrModel({
   setShowCreateSmartBrand,
@@ -14,12 +15,17 @@ function CreateBrandOrModel({
 }) {
   const [newPic, setNewPic] = useState({});
   const [newName, setNewName] = useState("");
+  const { userToken } = useContext(UserContext);
 
   const createNewBrandOrModel = (data) => {
     const endpoint = brandOrModel === 1 ? "/brand" : "/model";
-
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .post(`${import.meta.env.VITE_PORT_BACKEND}${endpoint}`, data)
+      .post(`${import.meta.env.VITE_PORT_BACKEND}${endpoint}`, data, config)
       .then(() => {
         if (brandOrModel === 1) {
           setShowCreateSmartBrand(false);

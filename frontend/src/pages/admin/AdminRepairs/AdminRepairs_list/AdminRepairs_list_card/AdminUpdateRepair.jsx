@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import UserContext from "../../../../../context/UserContext";
 
 function AdminUpdateRepair({
   repairId,
@@ -13,15 +14,25 @@ function AdminUpdateRepair({
   const [newRepairName, setNewRepairName] = useState(name);
   const [newRepairText, setNewRepairText] = useState(text);
   const [newRepairPrice, setNewRepairPrice] = useState(price);
+  const { userToken } = useContext(UserContext);
 
   const updateRepair = (event) => {
     event.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .put(`${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`, {
-        name: `${newRepairName}`,
-        text: `${newRepairText}`,
-        price: `${newRepairPrice}`,
-      })
+      .put(
+        `${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`,
+        {
+          name: `${newRepairName}`,
+          text: `${newRepairText}`,
+          price: `${newRepairPrice}`,
+        },
+        config
+      )
       .then(() => {
         setShowUpdateRepair(false);
         getModelAndRepairs();

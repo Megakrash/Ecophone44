@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import UserContext from "../../../../context/UserContext";
 
 function AdminCreateRepair({
   choosenModelId,
@@ -10,22 +11,32 @@ function AdminCreateRepair({
   const [newRepairName, setNewRepairName] = useState("");
   const [newRepairText, setNewRepairText] = useState("");
   const [newRepairPrice, setNewRepairPrice] = useState("");
+  const { userToken } = useContext(UserContext);
 
   const createNewRepair = (event) => {
     event.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .post(`${import.meta.env.VITE_PORT_BACKEND}/repair`, {
-        name: `${newRepairName}`,
-        text: `${newRepairText}`,
-        price: `${newRepairPrice}`,
-        modelId: `${choosenModelId}`,
-      })
+      .post(
+        `${import.meta.env.VITE_PORT_BACKEND}/repair`,
+        {
+          name: `${newRepairName}`,
+          text: `${newRepairText}`,
+          price: `${newRepairPrice}`,
+          modelId: `${choosenModelId}`,
+        },
+        config
+      )
       .then(() => {
         getModelAndRepairs();
         setShowCreateRepair(false);
       })
       .catch(() => {
-        console.error("Error create new model");
+        console.error("Error create new repair");
       });
   };
 

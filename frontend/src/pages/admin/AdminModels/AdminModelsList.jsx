@@ -14,6 +14,7 @@ function AdminModelList({
   getAllModelByBrand,
   allModelsByBrand,
   getModelAndRepairs,
+  setShowUpdateSmartBrand,
 }) {
   const [showCreateModel, setShowCreateModel] = useState(false);
 
@@ -64,6 +65,7 @@ function AdminModelList({
           onClick={() => {
             setShowCreateModel(!showCreateModel);
             setChoosenModelId(0);
+            setShowUpdateSmartBrand(false);
           }}
         >
           <FaPlusCircle className="fa-plus" />
@@ -135,6 +137,7 @@ AdminModelList.propTypes = {
   choosenModelId: PropTypes.number.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
+  setShowUpdateSmartBrand: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,

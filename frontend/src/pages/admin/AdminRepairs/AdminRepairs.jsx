@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
@@ -7,6 +7,7 @@ import AdminToogle from "../AdminToogle/AdminToogle";
 import AdminRepairsList from "./AdminRepairs_list/AdminRepairsList";
 import AdminCreateRepair from "./AdminRepairs_create/AdminCreateRepair";
 import AdminDeleteModel from "./AdminRepairs_delete/AdminDeleteModel";
+import UserContext from "../../../context/UserContext";
 
 function AdminRepair({
   choosenModelId,
@@ -21,12 +22,22 @@ function AdminRepair({
   const [newName, setNewName] = useState("");
   const [showDeleteRepair, setShowDeleteRepair] = useState(false);
   const [showCreateRepair, setShowCreateRepair] = useState(false);
+  const { userToken } = useContext(UserContext);
 
   const updateModelName = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .put(`${import.meta.env.VITE_PORT_BACKEND}/modelname/${choosenModelId}`, {
-        name: `${newName}`,
-      })
+      .put(
+        `${import.meta.env.VITE_PORT_BACKEND}/modelname/${choosenModelId}`,
+        {
+          name: `${newName}`,
+        },
+        config
+      )
       .then(() => {
         getModelAndRepairs();
         getAllModelByBrand();

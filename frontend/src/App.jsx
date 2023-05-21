@@ -1,24 +1,21 @@
-import React, { lazy, Suspense } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-// import UserContext from "./context/UserContext";
+import UserContext from "./context/UserContext";
 
-const Home = lazy(() => import("@pages/home/Home"));
-const Brand = lazy(() => import("@pages/brand/Brand"));
-const Model = lazy(() => import("@pages/model/Model"));
-const Repair = lazy(() => import("@pages/repair/Repair"));
 const Navbar = lazy(() => import("@components/navbar/Navbar"));
 const Footer = lazy(() => import("@components/footer/Footer"));
 const Admin = lazy(() => import("@pages/admin/Admin"));
+const Login = lazy(() => import("@pages/login/Login"));
 
 function App() {
-  // const [showForm, setShowForm] = useState(false);
+  const [userContext, setUserContext] = useState(null);
 
-  // const [userContext] = useState({
-  //   userToken: "",
-  //   isAdmin: "",
-  //   id: "",
-  // });
+  useEffect(() => {
+    if (localStorage.getItem("Eco44Token")) {
+      setUserContext(JSON.parse(localStorage.getItem("Eco44Token")));
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -26,22 +23,24 @@ function App() {
         fallback={
           <div className="loader-container">
             <div className="spinner" />
-            <p>Loading</p>
+            <p>Chargement</p>
           </div>
         }
       >
-        {/* <UserContext.Provider value={userContext}> */}
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/marque/:id" element={<Brand />} />
-          <Route path="/model/:id" element={<Model />} />
-          <Route path="/reparation/:id" element={<Repair />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-        <Footer />
-        {/* <Contact showForm={showForm} setShowForm={setShowForm} /> */}
-        {/* </UserContext.Provider> */}
+        <UserContext.Provider value={userContext}>
+          <Navbar />
+          <Routes>
+            {userContext === null ? (
+              <Route
+                path="/"
+                element={<Login setUserContext={setUserContext} />}
+              />
+            ) : (
+              <Route path="/" element={<Admin />} />
+            )}
+          </Routes>
+          <Footer />
+        </UserContext.Provider>
       </Suspense>
     </div>
   );

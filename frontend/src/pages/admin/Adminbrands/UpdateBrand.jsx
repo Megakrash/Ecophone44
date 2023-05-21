@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import {
@@ -9,12 +9,27 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 import AdminToogle from "../AdminToogle/AdminToogle";
+import UserContext from "../../../context/UserContext";
 
-function UpdateBrand({ getAllBrand, getAllModelByBrand, choosenBrandId }) {
+function UpdateBrand({
+  getAllBrand,
+  getAllModelByBrand,
+  choosenBrandId,
+  setChoosenBrandId,
+  setShowUpdateSmartBrand,
+}) {
   // Stock selected brand infos
   const [brandSelected, setBrandSelected] = useState("");
   const [newName, setNewName] = useState("");
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
+  // Get the userToken & create config for headers Authorization
+  const { userToken } = useContext(UserContext);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
 
   // Get brand selected infos
   const getBrandSelected = () => {
@@ -40,7 +55,8 @@ function UpdateBrand({ getAllBrand, getAllModelByBrand, choosenBrandId }) {
         `${import.meta.env.VITE_PORT_BACKEND}/brandname/${brandSelected.id}`,
         {
           name: `${newName}`,
-        }
+        },
+        config
       )
       .then(() => {
         getAllBrand();
@@ -64,7 +80,8 @@ function UpdateBrand({ getAllBrand, getAllModelByBrand, choosenBrandId }) {
         }`,
         {
           pic: `${brandSelected.pic}`,
-        }
+        },
+        config
       )
       .then(() => {
         getBrandSelected(brandSelected.id);
@@ -79,7 +96,8 @@ function UpdateBrand({ getAllBrand, getAllModelByBrand, choosenBrandId }) {
     axios
       .put(
         `${import.meta.env.VITE_PORT_BACKEND}/brandpic/${brandSelected.id}`,
-        data
+        data,
+        config
       )
       .then(() => {
         getBrandSelected(brandSelected.id);
@@ -99,10 +117,14 @@ function UpdateBrand({ getAllBrand, getAllModelByBrand, choosenBrandId }) {
   // Delete the brand & all his models & repairs
   const deleteBrand = () => {
     axios
-      .delete(`${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected.id}`)
+      .delete(
+        `${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected.id}`,
+        config
+      )
       .then(() => {
         setBrandSelected("");
-        setShowDeleteWarning(false);
+        setChoosenBrandId(0);
+        setShowUpdateSmartBrand(false);
         getAllBrand();
       })
       .catch(() => {
@@ -240,4 +262,6 @@ UpdateBrand.propTypes = {
   getAllBrand: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
+  setChoosenBrandId: PropTypes.func.isRequired,
+  setShowUpdateSmartBrand: PropTypes.func.isRequired,
 };
