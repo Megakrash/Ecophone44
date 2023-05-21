@@ -32,10 +32,10 @@ const verifyPassword = (req, res) => {
       if (isVerified) {
         const payload = { sub: req.user.id };
 
-        const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "1h",
+        const userToken = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "24h",
         });
-        res.send({ token, isAdmin: req.user.is_admin, id: req.user.id });
+        res.send({ userToken, userId: req.user.id });
       }
     })
     .catch((err) => {
@@ -45,10 +45,8 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
-  console.warn("req.params.id: ", req.params.id);
-
   try {
-    const authorizationHeader = req.get("Authorization");
+    const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) throw new Error("No authorization header");
 
     const [type, token] = authorizationHeader.split(" ");

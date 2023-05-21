@@ -1,14 +1,17 @@
 const express = require("express");
 
 const deleteRoutesFunctions = require("../handlers/deleteRoutesFunctions");
+const { verifyToken } = require("../handlers/auth");
 
 const router = express.Router();
+
+// Use the middleware "verifyToken" for each router.delete
+router.use(verifyToken);
 
 // -------------------------------
 // ----------- Brands ------------
 // -------------------------------
-// Delete the pic (patch the name brands table then delete the file)
-router.delete("/brandpic/:id", deleteRoutesFunctions.deleteBrandPicByBrandId);
+
 // Delete the brand then all models and repairs link then delete all pic
 router.delete("/brand/:id", deleteRoutesFunctions.deleteBrandById);
 

@@ -1,4 +1,29 @@
 const knex = require("../../knex");
+
+// -------------------------------
+// ----------- Users -------------
+// -------------------------------
+
+const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
+  const { email } = req.body;
+
+  knex("users")
+    .where("email", email)
+    .first()
+    .then((user) => {
+      if (user) {
+        req.user = user;
+        next();
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 // -------------------------------
 // ----------- Brands -----------
 // -------------------------------
@@ -159,6 +184,7 @@ const postNewRepair = (req, res) => {
 };
 
 module.exports = {
+  getUserByEmailWithPasswordAndPassToNext,
   postNewBrand,
   postNewModel,
   postNewRepair,

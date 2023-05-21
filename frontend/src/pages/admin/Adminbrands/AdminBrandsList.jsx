@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AdminBrandsCard from "../AdminCards/AdminBrandsCard";
+import UserContext from "../../../context/UserContext";
 
 function AdminBrandList({
   choosenBrandId,
@@ -13,9 +14,16 @@ function AdminBrandList({
   setShowUpdateSmartBrand,
   setShowCreateSmartBrand,
   setShowCreateTabBrand,
+  setShowAdminRefurb,
 }) {
+  const { userToken } = useContext(UserContext);
   // To patch the index_id in database
   const updateOrderBrand = (items) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     const promises = [];
 
     items.forEach((element) => {
@@ -23,7 +31,8 @@ function AdminBrandList({
         `${import.meta.env.VITE_PORT_BACKEND}/brandindex/${element.id}`,
         {
           indexId: `${element.index_id}`,
-        }
+        },
+        config
       );
       promises.push(promise);
     });
@@ -81,6 +90,7 @@ function AdminBrandList({
                           id={id}
                           isVisible={is_visible}
                           name={name}
+                          setShowAdminRefurb={setShowAdminRefurb}
                         />
                       </div>
                     )}
@@ -105,6 +115,7 @@ AdminBrandList.propTypes = {
   setShowUpdateSmartBrand: PropTypes.func.isRequired,
   setShowCreateSmartBrand: PropTypes.func.isRequired,
   setShowCreateTabBrand: PropTypes.func.isRequired,
+  setShowAdminRefurb: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
   brands: PropTypes.arrayOf(
     PropTypes.shape({

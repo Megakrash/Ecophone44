@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { GiGearHammer } from "react-icons/gi";
+import UserContext from "../../../context/UserContext";
 
 function AdminBrandCard({
   id,
@@ -14,14 +15,25 @@ function AdminBrandCard({
   setShowUpdateSmartBrand,
   setShowCreateTabBrand,
   getAllBrand,
+  setShowAdminRefurb,
 }) {
+  const { userToken } = useContext(UserContext);
   const isActive = id === choosenBrandId;
 
   const updateIsVisibleStatut = (bool) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .put(`${import.meta.env.VITE_PORT_BACKEND}/brandisvisible/${id}`, {
-        isVisible: bool,
-      })
+      .put(
+        `${import.meta.env.VITE_PORT_BACKEND}/brandisvisible/${id}`,
+        {
+          isVisible: bool,
+        },
+        config
+      )
       .then(() => {
         getAllBrand();
       })
@@ -54,6 +66,7 @@ function AdminBrandCard({
           setShowCreateSmartBrand(false);
           setShowUpdateSmartBrand(false);
           setShowCreateTabBrand(false);
+          setShowAdminRefurb(false);
           window.scrollTo(0, 0);
         }}
       >
@@ -68,6 +81,7 @@ function AdminBrandCard({
           setShowCreateSmartBrand(false);
           setShowUpdateSmartBrand(true);
           setShowCreateTabBrand(false);
+          setShowAdminRefurb(false);
           window.scrollTo(0, 0);
         }}
       >
@@ -101,5 +115,6 @@ AdminBrandCard.propTypes = {
   setShowCreateSmartBrand: PropTypes.func.isRequired,
   setShowUpdateSmartBrand: PropTypes.func.isRequired,
   setShowCreateTabBrand: PropTypes.func.isRequired,
+  setShowAdminRefurb: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
 };

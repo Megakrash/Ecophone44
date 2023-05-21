@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import UserContext from "../../../context/UserContext";
 
 function AdminModelCard({
   id,
@@ -13,12 +14,22 @@ function AdminModelCard({
   getModelAndRepairs,
 }) {
   const isActive = id === choosenModelId;
+  const { userToken } = useContext(UserContext);
 
   const updateIsVisibleStatut = (bool) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     axios
-      .put(`${import.meta.env.VITE_PORT_BACKEND}/modelisvisible/${id}`, {
-        isVisible: bool,
-      })
+      .put(
+        `${import.meta.env.VITE_PORT_BACKEND}/modelisvisible/${id}`,
+        {
+          isVisible: bool,
+        },
+        config
+      )
       .then(() => {
         getAllModelByBrand();
         getModelAndRepairs();

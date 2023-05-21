@@ -71,3 +71,30 @@ CREATE TABLE
         CONSTRAINT `model_id` FOREIGN KEY (`model_id`) REFERENCES `ecophone44`.`models` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+    -- -----------------------------------------------------
+-- Table `ecophone44`.`users`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `ecophone44`.`users` ;
+
+CREATE TABLE
+    IF NOT EXISTS `ecophone44`.`users` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `email` VARCHAR(100) NOT NULL,
+        `password` VARCHAR(100) NOT NULL,
+        `token` VARCHAR(256) NULL DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+INSERT INTO
+  `ecophone44`.`users` ( email, password )
+VALUES
+  (
+    'contact@ecophone44.com',
+    '$argon2id$v=19$m=65536,t=5,p=1$hEeGADZLO1WVrDX6BY5/kg$vzijLuYZ6r+QnOAWq3YETH2rzWWKQgTwZJo7zmTRlnY'
+  ),
+  (
+    'jscattolini@gmail.com',
+    '$argon2id$v=19$m=65536,t=5,p=1$zZPOnktP/6elpx5YF8NeQw$Q85ZQzK9AlP6hF1oRo6flSKnZ02AJ+eBtRQQs89xTkw'
+  );

@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AdminRepairCard from "./AdminRepairs_list_card/AdminRepairCard";
+import UserContext from "../../../../context/UserContext";
 
 function AdminRepairList({ repairs, getModelAndRepairs, getAllModelByBrand }) {
+  const { userToken } = useContext(UserContext);
   // To patch the index_id in database
   const updateOrderRepairs = (items) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     const promises = [];
     items.forEach((element) => {
       const promise = axios.put(
         `${import.meta.env.VITE_PORT_BACKEND}/repairsindex/${element.id}`,
         {
           indexId: `${element.index_id}`,
-        }
+        },
+        config
       );
       promises.push(promise);
     });
