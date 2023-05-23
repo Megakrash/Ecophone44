@@ -27,7 +27,7 @@ CREATE TABLE
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
-        `is_smart` TINYINT NOT NULL,
+        `type` INT NOT NULL,
         `index_id` INT NULL DEFAULT 0,
         `is_visible` TINYINT NOT NULL DEFAULT 1,
         PRIMARY KEY (`id`)

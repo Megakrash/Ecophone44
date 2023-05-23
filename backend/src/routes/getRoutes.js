@@ -11,6 +11,8 @@ const getRoutesFunctions = require("../handlers/getRoutesFunctions");
 router.get("/smartbrand", getRoutesFunctions.getSmartBrand);
 // tablet
 router.get("/tabbrand", getRoutesFunctions.getTabBrand);
+// tablet
+router.get("/refurbbrand", getRoutesFunctions.getRefurbBrand);
 // by Id
 router.get("/brand/:id", getRoutesFunctions.getBrandById);
 
