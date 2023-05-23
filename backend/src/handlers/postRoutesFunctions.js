@@ -29,10 +29,10 @@ const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
 // -------------------------------
 // POST NEW BRAND
 const postNewBrand = (req, res) => {
-  const { name, filename, isSmart } = req.body;
+  const { name, filename, type } = req.body;
 
   knex("brands")
-    .insert({ name, pic: filename, is_smart: Number(isSmart) })
+    .insert({ name, pic: filename, type: Number(type) })
     .then(() => {
       res.status(201).send({ message: "Brand Added" });
     })

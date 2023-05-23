@@ -5,7 +5,7 @@ const getSmartBrand = (req, res) => {
   knex
     .select("*")
     .from("brands")
-    .where("is_smart", 1)
+    .where("type", 1)
     .orderBy("index_id")
     .then((brand) => res.status(200).json(brand))
     .catch((err) => console.error(err));
@@ -15,7 +15,17 @@ const getTabBrand = (req, res) => {
   knex
     .select("*")
     .from("brands")
-    .where("is_smart", 0)
+    .where("type", 2)
+    .orderBy("index_id")
+    .then((brand) => res.status(200).json(brand))
+    .catch((err) => console.error(err));
+};
+
+const getRefurbBrand = (req, res) => {
+  knex
+    .select("*")
+    .from("brands")
+    .where("type", 3)
     .orderBy("index_id")
     .then((brand) => res.status(200).json(brand))
     .catch((err) => console.error(err));
@@ -41,23 +51,6 @@ const getModelByBrandId = (req, res) => {
     .select("*")
     .from("models")
     .where("brand_id", id)
-    .orderBy("index_id")
-    .then((model) => res.status(200).json(model))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving data from database");
-    });
-};
-
-// for front
-const getModelByBrandIdForFront = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-
-  knex
-    .select("*")
-    .from("models")
-    .where("brand_id", id)
-    .andWhere("is_visible", 1)
     .orderBy("index_id")
     .then((model) => res.status(200).json(model))
     .catch((err) => {
@@ -141,9 +134,9 @@ const getRepairsByModelIdForFront = (req, res) => {
 module.exports = {
   getSmartBrand,
   getTabBrand,
+  getRefurbBrand,
   getBrandById,
   getModelByBrandId,
-  getModelByBrandIdForFront,
   getModelById,
   getRepairsByModelId,
   getRepairsByModelIdForFront,
