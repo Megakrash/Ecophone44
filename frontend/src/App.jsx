@@ -9,7 +9,7 @@ const Admin = lazy(() => import("@pages/admin/Admin"));
 const Login = lazy(() => import("@pages/login/Login"));
 
 function App() {
-  const [userContext, setUserContext] = useState(null);
+  const [userContext, setUserContext] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("Eco44Token")) {
@@ -30,13 +30,21 @@ function App() {
         <UserContext.Provider value={userContext}>
           <Navbar />
           <Routes>
-            {userContext === null ? (
+            {userContext === "" ? (
               <Route
                 path="/"
                 element={<Login setUserContext={setUserContext} />}
               />
             ) : (
-              <Route path="/" element={<Admin />} />
+              <Route
+                path="/"
+                element={
+                  <Admin
+                    setUserContext={setUserContext}
+                    userContext={userContext}
+                  />
+                }
+              />
             )}
           </Routes>
           <Footer />

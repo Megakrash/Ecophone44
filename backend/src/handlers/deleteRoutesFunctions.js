@@ -96,7 +96,7 @@ async function deleteBrandById(req, res) {
 const deleteModelPicByModelId = (req, res) => {
   const id = parseInt(req.params.id, 10);
   const { pic } = req.body;
-
+  // Update the "pic" name in "models" table to "null" then delete the file
   knex
     .transaction((trx) => {
       return trx("models")
@@ -119,22 +119,22 @@ const deleteModelPicByModelId = (req, res) => {
       console.error(err);
     });
 };
-/* Big function to delete one brand with all the models & repairs & pics 
-linked to this brand */
+/* Big function to delete one model with all the repairs & pics 
+linked to this model */
 async function deleteModelById(req, res) {
   const modelId = parseInt(req.params.id, 10);
   try {
-    // Étape 1 : Supprimer toutes les entrées dans la table "repairs" liées à ce modèle
+    // Étape 1 : Delete all repairs for this model
     await knex("repairs").where("model_id", modelId).del();
 
-    // Étape 2 : Récupérer le nom de l'image du modèle dans la colonne "pic" de la table "models"
+    // Étape 2 : Get the modelPic name
     const model = await knex("models")
       .select("pic")
       .where("id", modelId)
       .first();
 
     if (model) {
-      // Supprimer physiquement l'image du modèle du backend
+      // Delete the file
       try {
         await fs.promises.unlink(`public/assets/images/models/${model.pic}`);
       } catch (error) {
@@ -142,7 +142,7 @@ async function deleteModelById(req, res) {
       }
     }
 
-    // Étape 3 : Supprimer l'entrée du modèle dans la table "models"
+    // Étape 3 : Delete the model in models table
     await knex("models").where("id", modelId).del();
 
     res.sendStatus(200);

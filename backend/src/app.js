@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
+const allRoutes = require("./routes/allRoutes");
 const getRoutes = require("./routes/getRoutes");
 const postRoutes = require("./routes/postRoutes");
 const patchRoutes = require("./routes/patchRoutes");
@@ -22,6 +23,7 @@ app.use(express.json());
 // Serve the public folder for public resources
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.use(allRoutes);
 app.use(getRoutes);
 app.use(postRoutes);
 app.use(patchRoutes);

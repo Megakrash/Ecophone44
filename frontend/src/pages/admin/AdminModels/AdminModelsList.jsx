@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CreateBrandOrModel from "../AdminCreate/CreateBrandOrModel";
 import AdminModelsCard from "../AdminCards/AdminModelsCard";
 import { FaPlusCircle } from "react-icons/fa";
+import UserContext from "../../../context/UserContext";
 
 function AdminModelList({
   choosenBrandId,
@@ -17,9 +18,14 @@ function AdminModelList({
   setShowUpdateSmartBrand,
 }) {
   const [showCreateModel, setShowCreateModel] = useState(false);
-
+  const { userToken } = useContext(UserContext);
   // To patch the index_id in database
   const updateOrderModel = (items) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
     const promises = [];
 
     items.forEach((element) => {
@@ -27,7 +33,8 @@ function AdminModelList({
         `${import.meta.env.VITE_PORT_BACKEND}/modelindex/${element.id}`,
         {
           indexId: `${element.index_id}`,
-        }
+        },
+        config
       );
       promises.push(promise);
     });
@@ -115,6 +122,7 @@ function AdminModelList({
                             setShowCreateModel={setShowCreateModel}
                             getAllModelByBrand={getAllModelByBrand}
                             getModelAndRepairs={getModelAndRepairs}
+                            setShowUpdateSmartBrand={setShowUpdateSmartBrand}
                           />
                         </div>
                       )}
