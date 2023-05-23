@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { FaPlusCircle } from "react-icons/fa";
 import CreateBrandOrModel from "./AdminCreate/CreateBrandOrModel";
 import UpdateBrand from "./Adminbrands/UpdateBrand";
@@ -8,7 +9,7 @@ import AdminModelsList from "./AdminModels/AdminModelsList";
 import AdminRepairs from "./AdminRepairs/AdminRepairs";
 import AdminRefurb from "./AdminRefurb/AdminRefurb";
 
-function Admin() {
+function Admin({ setUserContext, userContext }) {
   // To stock the smartphone brand list
   const [smartBrands, setSmartBrands] = useState([]);
   // To stock the tablet brand list
@@ -31,35 +32,54 @@ function Admin() {
   const [showCreateTabBrand, setShowCreateTabBrand] = useState(false);
   const [showAdminRefurb, setShowAdminRefurb] = useState(false);
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userContext.userToken}`,
+    },
+  };
+
   // Get all the smartphones & tablets brand
   const getAllBrand = async () => {
     try {
       const [smartBrandRes, tabBrandRes] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_PORT_BACKEND}/smartbrand`),
-        axios.get(`${import.meta.env.VITE_PORT_BACKEND}/tabbrand`),
+        axios.get(`${import.meta.env.VITE_PORT_BACKEND}/smartbrand`, config),
+        axios.get(`${import.meta.env.VITE_PORT_BACKEND}/tabbrand`, config),
       ]);
       setSmartBrands(smartBrandRes.data);
       setTabBrands(tabBrandRes.data);
     } catch (error) {
-      console.error("error", error);
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("Eco44Token");
+        setUserContext("");
+      } else {
+        console.error("error", error);
+      }
     }
   };
 
   useEffect(() => {
-    getAllBrand();
-  }, []);
+    if (userContext !== "") {
+      getAllBrand();
+    }
+  }, [userContext]);
 
   // When a brand is selected get all the models
   const getAllModelByBrand = () => {
     axios
       .get(
-        `${import.meta.env.VITE_PORT_BACKEND}/modelbybrand/${choosenBrandId}`
+        `${import.meta.env.VITE_PORT_BACKEND}/modelbybrand/${choosenBrandId}`,
+        config
       )
       .then((res) => {
         setAllModelsByBrand(res.data);
       })
-      .catch(() => {
-        console.error("error");
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem("Eco44Token");
+          setUserContext("");
+        } else {
+          console.error("Name not updated");
+        }
       });
   };
 
@@ -74,16 +94,23 @@ function Admin() {
     try {
       const [allRepairs, getModel] = await Promise.all([
         axios.get(
-          `${import.meta.env.VITE_PORT_BACKEND}/repairs/${choosenModelId}`
+          `${import.meta.env.VITE_PORT_BACKEND}/repairs/${choosenModelId},`,
+          config
         ),
         axios.get(
-          `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`
+          `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`,
+          config
         ),
       ]);
       setRepairs(allRepairs.data);
       setModel(getModel.data);
     } catch (error) {
-      console.error("error", error);
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("Eco44Token");
+        setUserContext("");
+      } else {
+        console.error("error", error);
+      }
     }
   };
 
@@ -265,3 +292,11 @@ function Admin() {
 }
 
 export default Admin;
+
+Admin.propTypes = {
+  setUserContext: PropTypes.func.isRequired,
+  userContext: PropTypes.shape({
+    userToken: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
+};

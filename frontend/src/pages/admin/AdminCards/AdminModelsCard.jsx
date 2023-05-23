@@ -12,6 +12,7 @@ function AdminModelCard({
   setShowCreateModel,
   getAllModelByBrand,
   getModelAndRepairs,
+  setShowUpdateSmartBrand,
 }) {
   const isActive = id === choosenModelId;
   const { userToken } = useContext(UserContext);
@@ -60,6 +61,7 @@ function AdminModelCard({
         onClick={() => {
           setChoosenModelId(id);
           setShowCreateModel(false);
+          setShowUpdateSmartBrand(false);
           window.scrollTo(0, 0);
         }}
       >
@@ -92,4 +94,5 @@ AdminModelCard.propTypes = {
   setShowCreateModel: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,
+  setShowUpdateSmartBrand: PropTypes.func.isRequired,
 };

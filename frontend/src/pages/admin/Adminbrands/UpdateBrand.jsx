@@ -34,7 +34,10 @@ function UpdateBrand({
   // Get brand selected infos
   const getBrandSelected = () => {
     axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/brand/${choosenBrandId}`)
+      .get(
+        `${import.meta.env.VITE_PORT_BACKEND}/brand/${choosenBrandId}`,
+        config
+      )
       .then((res) => {
         setBrandSelected(res.data);
         setNewName("");

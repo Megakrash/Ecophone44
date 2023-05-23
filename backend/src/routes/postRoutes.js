@@ -1,7 +1,7 @@
 const express = require("express");
 const postRoutesFunctions = require("../handlers/postRoutesFunctions");
 const { uploadBrandPic, uploadModelPic } = require("./multers/multers");
-const { verifyPassword, verifyToken } = require("../handlers/auth");
+const { verifyPassword } = require("../handlers/auth");
 
 const router = express.Router();
 
@@ -11,9 +11,6 @@ router.post(
   postRoutesFunctions.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
-
-// Use the middleware "verifyToken" for each router.post
-router.use(verifyToken);
 
 // -------------------------------
 // ----------- Brands ------------

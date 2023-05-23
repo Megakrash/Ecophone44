@@ -33,7 +33,7 @@ const verifyPassword = (req, res) => {
         const payload = { sub: req.user.id };
 
         const userToken = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "24h",
+          expiresIn: "15min",
         });
         res.send({ userToken, userId: req.user.id });
       }
@@ -51,9 +51,16 @@ const verifyToken = (req, res, next) => {
 
     const [type, token] = authorizationHeader.split(" ");
     if (type !== "Bearer")
-      throw new Error("Authorization header has not the 'Bearer' type");
+      throw new Error("Authorization header does not have the 'Bearer' type");
 
-    req.payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    if (payload.exp && payload.exp < currentTimestamp) {
+      throw new Error("Token has expired");
+    }
+
+    req.payload = payload;
 
     next();
   } catch (err) {
