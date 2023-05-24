@@ -15,9 +15,9 @@ function AdminToogle({
   const updateIsVisibleStatut = (bool) => {
     let endpoint = "";
     if (type === 1) {
-      endpoint = `/brandisvisible/${id}`;
+      endpoint = `/brand/${id}`;
     } else if (type === 2) {
-      endpoint = `/modelisvisible/${id}`;
+      endpoint = `/model/${id}`;
     } else if (type === 3) {
       endpoint = `/repairisvisible/${id}`;
     }

@@ -24,7 +24,6 @@ const getBrandById = (req, res) => {
 };
 
 /* MODEL */
-// for back-office
 const getModelByBrandId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -55,7 +54,6 @@ const getModelById = (req, res) => {
 };
 
 /* REPARATION */
-// for back-office
 const getRepairsByModelId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -83,40 +81,10 @@ const getRepairsByModelId = (req, res) => {
     });
 };
 
-// for front
-const getRepairsByModelIdForFront = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-
-  knex
-    .select(
-      "r.id",
-      "r.name",
-      "r.price",
-      "r.index_id",
-      "r.is_visible",
-      "r.text",
-      "m.name AS model",
-      "m.pic AS picmodel",
-      "mar.name AS marque"
-    )
-    .from("repairs as r")
-    .join("models as m", "r.model_id", "m.id")
-    .join("brands as mar", "m.brand_id", "mar.id")
-    .where("r.model_id", id)
-    .andWhere("r.is_visible", 1)
-    .orderBy("r.index_id")
-    .then((reparation) => res.status(200).json(reparation))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving data from database");
-    });
-};
-
 module.exports = {
   getBrandsByType,
   getBrandById,
   getModelByBrandId,
   getModelById,
   getRepairsByModelId,
-  getRepairsByModelIdForFront,
 };

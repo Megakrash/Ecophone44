@@ -7,10 +7,7 @@ const patchRoutesFunctions = require("../handlers/patchRoutesFunctions");
 // -------------------------------
 // ----------- Brands ------------
 // -------------------------------
-// Update brand index_id with D&D
-router.put("/brandindex/:id", patchRoutesFunctions.updateBrandIndexById);
-// Update Name
-router.put("/brandname/:id", patchRoutesFunctions.updateBrandNameById);
+router.put("/brand/:id", patchRoutesFunctions.updateBrandById);
 // Update Pic for delete pic file
 const deleteRoutesFunctions = require("../handlers/deleteRoutesFunctions");
 
@@ -26,19 +23,11 @@ router.put(
   uploadBrandPic.single("file"),
   patchRoutesFunctions.updateBrandPicByBrandId
 );
-// Update Is visible
-router.put(
-  "/brandisvisible/:id",
-  patchRoutesFunctions.updateBrandIsVisibleById
-);
 
 // -------------------------------
 // ----------- Models ------------
 // -------------------------------
-// Update Name
-router.put("/modelname/:id", patchRoutesFunctions.updateModelNameById);
-// Update model index_id with D&D
-router.put("/modelindex/:id", patchRoutesFunctions.updateModelIndexById);
+router.put("/model/:id", patchRoutesFunctions.updateModelById);
 // Update Pic in models table then delete pic file
 router.put(
   "/modelpic_delete/:id",
@@ -51,11 +40,6 @@ router.put(
   "/modelpic/:id",
   uploadModelPic.single("file"),
   patchRoutesFunctions.updateModelPicByModelId
-);
-// Update Is visible
-router.put(
-  "/modelisvisible/:id",
-  patchRoutesFunctions.updateModelIsVisibleById
 );
 
 // -------------------------------

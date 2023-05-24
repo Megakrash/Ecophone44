@@ -26,7 +26,7 @@ function AdminBrandCard({
     };
     axios
       .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandisvisible/${id}`,
+        `${import.meta.env.VITE_PORT_BACKEND}/brand/${id}`,
         {
           isVisible: bool,
         },
