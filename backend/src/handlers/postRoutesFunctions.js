@@ -46,7 +46,7 @@ const postNewBrand = (req, res) => {
 // ----------- Models -----------
 // -------------------------------
 
-// POST NEW MODEL
+// POST NEW MODEL FOR SMARTPHONE OR TABLET
 
 const baseRepair = [
   {
@@ -161,6 +161,33 @@ const postNewModel = (req, res) => {
   });
 };
 
+// POST NEW MODEL FOR REFURB
+
+const baseNewModelRefurb = {
+  text: "Ecophone 44 vous propose des appareils reconditionnés par notre atelier technique. L'appareil est testé avec 28 points de contrôle, fourni avec tous les accessoires de charge et un verre trempé de protection directement installé sur l'écran. Le smartphone est révisé, nettoyé et garanti par notre service technique. Tous nos smartphones reconditionnés sont vendus débloqués et peuvent être utilisés avec n'importe quel opérateur.",
+  price: "199",
+};
+
+const postNewModelRefurb = (req, res) => {
+  const { name, filename, brandId } = req.body;
+
+  knex("models")
+    .insert({
+      name,
+      pic: filename,
+      brand_id: Number(brandId),
+      text: baseNewModelRefurb.text,
+      price: baseNewModelRefurb.price,
+    })
+    .then(() => {
+      res.status(201).send({ message: "Model Refurb Added" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error adding new model refurb");
+    });
+};
+
 // -------------------------------
 // ----------- Repairs -----------
 // -------------------------------
@@ -187,5 +214,6 @@ module.exports = {
   getUserByEmailWithPasswordAndPassToNext,
   postNewBrand,
   postNewModel,
+  postNewModelRefurb,
   postNewRepair,
 };

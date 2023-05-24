@@ -16,7 +16,7 @@ function UpdateBrand({
   getAllModelByBrand,
   choosenBrandId,
   setChoosenBrandId,
-  setShowUpdateSmartBrand,
+  setShowUpdateBrand,
 }) {
   // Stock selected brand infos
   const [brandSelected, setBrandSelected] = useState("");
@@ -127,7 +127,7 @@ function UpdateBrand({
       .then(() => {
         setBrandSelected("");
         setChoosenBrandId(0);
-        setShowUpdateSmartBrand(false);
+        setShowUpdateBrand(false);
         getAllBrand();
       })
       .catch(() => {
@@ -266,5 +266,5 @@ UpdateBrand.propTypes = {
   getAllModelByBrand: PropTypes.func.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
   setChoosenBrandId: PropTypes.func.isRequired,
-  setShowUpdateSmartBrand: PropTypes.func.isRequired,
+  setShowUpdateBrand: PropTypes.func.isRequired,
 };

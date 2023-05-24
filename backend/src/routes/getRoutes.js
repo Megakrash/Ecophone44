@@ -7,12 +7,8 @@ const getRoutesFunctions = require("../handlers/getRoutesFunctions");
 // -------------------------------
 // ----------- Brands ------------
 // -------------------------------
-// smartphone
-router.get("/smartbrand", getRoutesFunctions.getSmartBrand);
-// tablet
-router.get("/tabbrand", getRoutesFunctions.getTabBrand);
-// tablet
-router.get("/refurbbrand", getRoutesFunctions.getRefurbBrand);
+// All brands by type (smartphones / tablets / refurb)
+router.get("/brands/:type", getRoutesFunctions.getBrandsByType);
 // by Id
 router.get("/brand/:id", getRoutesFunctions.getBrandById);
 

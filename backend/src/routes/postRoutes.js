@@ -32,6 +32,16 @@ router.post(
 );
 
 // -------------------------------
+// ----------- Refurb ------------
+// -------------------------------
+// Add new Model
+router.post(
+  "/refurb",
+  uploadModelPic.single("file"),
+  postRoutesFunctions.postNewModelRefurb
+);
+
+// -------------------------------
 // ----------- Repairs -----------
 // -------------------------------
 // Add new repair

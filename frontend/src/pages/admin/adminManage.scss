@@ -1,0 +1,61 @@
+.adminManage {
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  gap: 2%;
+
+  &_left {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+
+    &_panel1 {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      &_btn,
+      &_btn-activ {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        width: 98%;
+        height: 50px;
+        border: 0.5px solid $fourth-color;
+        border-radius: 5px;
+        background-color: $fourth-color;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $sixte-color;
+        }
+
+        .fa-plus {
+          width: 30px;
+          height: auto;
+          color: $secondary-color;
+          margin-right: 2%;
+        }
+      }
+
+      &_btn-activ {
+        background-color: $tertiary-color;
+
+        &:hover {
+          background-color: $tertiary-color;
+        }
+      }
+    }
+
+    &_panel2 {
+      width: 50%;
+    }
+  }
+
+  &_right {
+    width: 50%;
+  }
+}

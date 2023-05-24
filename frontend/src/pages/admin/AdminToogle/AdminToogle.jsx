@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import UserContext from "../../../context/UserContext";
@@ -44,14 +44,9 @@ function AdminToogle({
       });
   };
 
-  const handleChangeIsVisible = () => {
-    if (isVisible === 1) {
-      updateIsVisibleStatut(0);
-    }
-    if (isVisible === 0) {
-      updateIsVisibleStatut(1);
-    }
-  };
+  const handleChangeIsVisible = useCallback(() => {
+    updateIsVisibleStatut(isVisible === 1 ? 0 : 1);
+  }, [isVisible, updateIsVisibleStatut]);
 
   return (
     <div className="adminToogle">
