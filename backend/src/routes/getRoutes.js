@@ -24,10 +24,5 @@ router.get("/model/:id", getRoutesFunctions.getModelById);
 // -------------------------------
 // by model id
 router.get("/repairs/:id", getRoutesFunctions.getRepairsByModelId);
-// by model id
-router.get(
-  "/repairs_front/:id",
-  getRoutesFunctions.getRepairsByModelIdForFront
-);
 
 module.exports = router;

@@ -7,6 +7,7 @@ import UpdateBrand from "./Adminbrands/UpdateBrand";
 import AdminBrandsList from "./Adminbrands/AdminBrandsList";
 import AdminModelsList from "./AdminModels/AdminModelsList";
 import AdminRepairs from "./AdminRepairs/AdminRepairs";
+import AdminRefurbs from "./AdminRefurbs/AdminRefurbs";
 
 function AdminManage({
   type,
@@ -189,6 +190,15 @@ function AdminManage({
             setChoosenBrandId={setChoosenBrandId}
             getAllModelByBrand={getAllModelByBrand}
             repairs={repairs}
+            model={model}
+            getModelAndRepairs={getModelAndRepairs}
+          />
+        )}
+        {model && choosenModelId !== 0 && type === 3 && (
+          <AdminRefurbs
+            choosenModelId={choosenModelId}
+            setChoosenModelId={setChoosenModelId}
+            getAllModelByBrand={getAllModelByBrand}
             model={model}
             getModelAndRepairs={getModelAndRepairs}
           />

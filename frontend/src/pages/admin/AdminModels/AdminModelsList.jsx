@@ -31,7 +31,7 @@ function AdminModelsList({
 
     items.forEach((element) => {
       const promise = axios.put(
-        `${import.meta.env.VITE_PORT_BACKEND}/modelindex/${element.id}`,
+        `${import.meta.env.VITE_PORT_BACKEND}/model/${element.id}`,
         {
           indexId: `${element.index_id}`,
         },

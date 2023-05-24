@@ -124,10 +124,10 @@ linked to this model */
 async function deleteModelById(req, res) {
   const modelId = parseInt(req.params.id, 10);
   try {
-    // Étape 1 : Delete all repairs for this model
+    // Step 1 : Delete all repairs for this model
     await knex("repairs").where("model_id", modelId).del();
 
-    // Étape 2 : Get the modelPic name
+    // Step 2 : Get the modelPic name
     const model = await knex("models")
       .select("pic")
       .where("id", modelId)
@@ -142,7 +142,7 @@ async function deleteModelById(req, res) {
       }
     }
 
-    // Étape 3 : Delete the model in models table
+    // Step 3 : Delete the model in models table
     await knex("models").where("id", modelId).del();
 
     res.sendStatus(200);

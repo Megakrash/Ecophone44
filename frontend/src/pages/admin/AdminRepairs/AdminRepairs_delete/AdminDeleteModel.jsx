@@ -7,7 +7,7 @@ function AdminDeleteModel({
   setShowDeleteRepair,
   choosenModelId,
   setChoosenModelId,
-  setChoosenBrandId,
+  getAllModelByBrand,
 }) {
   const { userToken } = useContext(UserContext);
   const deleteModel = () => {
@@ -22,8 +22,8 @@ function AdminDeleteModel({
         config
       )
       .then(() => {
-        setChoosenBrandId(0);
         setChoosenModelId(0);
+        getAllModelByBrand();
       })
       .catch(() => {
         console.error("Model not deleted");
@@ -62,5 +62,5 @@ AdminDeleteModel.propTypes = {
   setShowDeleteRepair: PropTypes.func.isRequired,
   choosenModelId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
-  setChoosenBrandId: PropTypes.func.isRequired,
+  getAllModelByBrand: PropTypes.func.isRequired,
 };

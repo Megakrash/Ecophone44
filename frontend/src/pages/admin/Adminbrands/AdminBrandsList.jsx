@@ -26,7 +26,7 @@ function AdminBrandsList({
 
     items.forEach((element) => {
       const promise = axios.put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandindex/${element.id}`,
+        `${import.meta.env.VITE_PORT_BACKEND}/brand/${element.id}`,
         {
           indexId: `${element.index_id}`,
         },

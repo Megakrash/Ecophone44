@@ -2,47 +2,64 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
-import AdminModelPic from "./AdminRepairs_pic/AdminModelPic";
 import AdminToogle from "../AdminToogle/AdminToogle";
-import AdminRepairsList from "./AdminRepairs_list/AdminRepairsList";
-import AdminCreateRepair from "./AdminRepairs_create/AdminCreateRepair";
-import AdminDeleteModel from "./AdminRepairs_delete/AdminDeleteModel";
+import AdminModelPic from "../AdminRepairs/AdminRepairs_pic/AdminModelPic";
+import AdminDeleteModel from "../AdminRepairs/AdminRepairs_delete/AdminDeleteModel";
 import UserContext from "../../../context/UserContext";
 
-function AdminRepair({
+function AdminRefurbs({
   choosenModelId,
   setChoosenModelId,
-  setChoosenBrandId,
   getAllModelByBrand,
   model,
-  repairs,
   getModelAndRepairs,
 }) {
-  const [showUpdateName, setShowUpdateName] = useState(false);
   const [newName, setNewName] = useState("");
+  const [newDesc, setNewDesc] = useState("");
+  const [newPrice, setNewPrice] = useState("");
+  const [showUpdateName, setShowUpdateName] = useState(false);
   const [showDeleteRepair, setShowDeleteRepair] = useState(false);
-  const [showCreateRepair, setShowCreateRepair] = useState(false);
   const { userToken } = useContext(UserContext);
 
   useEffect(() => {
     setNewName(model.name);
-    setShowDeleteRepair(false);
-    setShowCreateRepair(false);
+    setNewDesc(model.text);
+    setNewPrice(model.price);
     setShowUpdateName(false);
-  }, [model.name]);
+    setShowDeleteRepair(false);
+  }, [model.text, model.price, model.name]);
 
-  const updateModelName = () => {
+  const updateModel = (property) => {
     const config = {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
     };
+    // let apiPath = "";
+    let data = {};
+
+    switch (property) {
+      case "name":
+        // apiPath = "/modelname";
+        data = { name: newName };
+        break;
+      case "text":
+        // apiPath = "/modeltext";
+        data = { text: newDesc };
+        break;
+      case "price":
+        // apiPath = "/modelprice";
+        data = { price: newPrice };
+        break;
+      default:
+        console.error("Invalid property");
+        return;
+    }
+
     axios
       .put(
         `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`,
-        {
-          name: `${newName}`,
-        },
+        data,
         config
       )
       .then(() => {
@@ -51,17 +68,17 @@ function AdminRepair({
         setShowUpdateName(false);
       })
       .catch(() => {
-        console.error("Name not updated");
+        console.error(`${property} not updated`);
       });
   };
 
-  const handleUpdateName = (e) => {
+  const handleUpdate = (property) => (e) => {
     e.preventDefault();
-    updateModelName();
+    updateModel(property);
   };
 
   return (
-    <div className="adminRepair">
+    <div className="adminRefurbs">
       {model.name && (
         <div className="adminRepair_name">
           {showUpdateName === false ? (
@@ -80,7 +97,7 @@ function AdminRepair({
           ) : (
             <form
               className="adminRepair_name_update"
-              onSubmit={handleUpdateName}
+              onSubmit={handleUpdate("name")}
             >
               <input
                 className="adminRepair_name_update_input"
@@ -123,6 +140,60 @@ function AdminRepair({
             getModelAndRepairs={getModelAndRepairs}
           />
         )}
+        <form
+          onSubmit={handleUpdate("text")}
+          className="updateBrand_infos_name"
+        >
+          <label
+            className="updateBrand_infos_name_label label-refurb"
+            htmlFor="name"
+          >
+            Description
+          </label>
+          <div className="updateBrand_infos_name_update">
+            <textarea
+              className="updateBrand_infos_name_update_input area-refurb"
+              type="text"
+              id="name"
+              value={newDesc}
+              onChange={(e) => setNewDesc(e.target.value)}
+              required
+            />
+            <button
+              className="updateBrand_infos_name_update_submit"
+              type="submit"
+            >
+              <FaCheck className="fa-submit" />
+            </button>
+          </div>
+        </form>
+        <form
+          onSubmit={handleUpdate("price")}
+          className="updateBrand_infos_name"
+        >
+          <label
+            className="updateBrand_infos_name_label label-refurb"
+            htmlFor="name"
+          >
+            Prix
+          </label>
+          <div className="updateBrand_infos_name_update">
+            <input
+              className="updateBrand_infos_name_update_input"
+              type="text"
+              id="name"
+              value={newPrice}
+              onChange={(e) => setNewPrice(e.target.value)}
+              required
+            />
+            <button
+              className="updateBrand_infos_name_update_submit"
+              type="submit"
+            >
+              <FaCheck className="fa-submit" />
+            </button>
+          </div>
+        </form>
       </div>
       <div className="adminRepair_create">
         <button
@@ -134,7 +205,6 @@ function AdminRepair({
           type="button"
           onClick={() => {
             setShowDeleteRepair(!showDeleteRepair);
-            setShowCreateRepair(false);
           }}
         >
           SUPPRIMER CE MODELE
@@ -144,74 +214,29 @@ function AdminRepair({
             choosenModelId={choosenModelId}
             setShowDeleteRepair={setShowDeleteRepair}
             setChoosenModelId={setChoosenModelId}
-            setChoosenBrandId={setChoosenBrandId}
             getAllModelByBrand={getAllModelByBrand}
           />
         )}
       </div>
-      <div className="adminRepair_create">
-        <button
-          className={
-            showCreateRepair === true
-              ? "adminBrandList_brand_btn-activ create-repair"
-              : "adminBrandList_brand_btn create-repair"
-          }
-          type="button"
-          onClick={() => {
-            setShowCreateRepair(!showCreateRepair);
-            setShowDeleteRepair(false);
-          }}
-        >
-          AJOUTER UNE REPARATION
-        </button>
-        {showCreateRepair && (
-          <AdminCreateRepair
-            choosenModelId={choosenModelId}
-            getModelAndRepairs={getModelAndRepairs}
-            setShowCreateRepair={setShowCreateRepair}
-          />
-        )}
-      </div>
-      {repairs.length >= 1 && (
-        <AdminRepairsList
-          repairs={repairs}
-          getModelAndRepairs={getModelAndRepairs}
-          getAllModelByBrand={getAllModelByBrand}
-        />
-      )}
     </div>
   );
 }
 
-export default AdminRepair;
+export default AdminRefurbs;
 
-AdminRepair.propTypes = {
+AdminRefurbs.propTypes = {
   choosenModelId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
-  setChoosenBrandId: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
-  getModelAndRepairs: PropTypes.func.isRequired,
   model: PropTypes.shape({
     brand_id: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
     index_id: PropTypes.number.isRequired,
     is_visible: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
     pic: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   }).isRequired,
-  repairs: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      index_id: PropTypes.number.isRequired,
-      is_visible: PropTypes.number.isRequired,
-      marque: PropTypes.string.isRequired,
-      model: PropTypes.string.isRequired,
-      picmodel: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.oneOf([null]),
-      ]),
-      price: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  getModelAndRepairs: PropTypes.func.isRequired,
 };

@@ -3,31 +3,29 @@ const knex = require("../../knex");
 /* ----------- Brands -------------*/
 // -------------------------------
 
-const updateBrandIndexById = (req, res) => {
+const updateBrandById = (req, res) => {
   const { id } = req.params;
-  const { indexId } = req.body;
-  knex("brands")
-    .where("id", id)
-    .update({ index_id: Number(indexId) })
-    .then((result) => {
-      if (result === 0) {
-        res.status(404).send("Not Found");
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error editing the brand index");
-    });
-};
+  const updates = {};
 
-const updateBrandNameById = (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
+  for (const [key, value] of Object.entries(req.body)) {
+    switch (key) {
+      case "indexId":
+        updates.index_id = Number(value);
+        break;
+      case "name":
+        updates.name = value;
+        break;
+      case "isVisible":
+        updates.is_visible = Number(value);
+        break;
+      default:
+        break;
+    }
+  }
+
   knex("brands")
     .where("id", id)
-    .update({ name })
+    .update(updates)
     .then((result) => {
       if (result === 0) {
         res.status(404).send("Not Found");
@@ -37,7 +35,7 @@ const updateBrandNameById = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error editing the brand name");
+      res.status(500).send("Error editing the brand");
     });
 };
 
@@ -60,54 +58,39 @@ const updateBrandPicByBrandId = (req, res) => {
     });
 };
 
-const updateBrandIsVisibleById = (req, res) => {
-  const { id } = req.params;
-  const { isVisible } = req.body;
-  knex("brands")
-    .where("id", id)
-    .update({ is_visible: Number(isVisible) })
-    .then((result) => {
-      if (result === 0) {
-        res.status(404).send("Not Found");
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error editing the brand is visible");
-    });
-};
-
 // -------------------------------
 /* ----------- Models ------------- */
 // -------------------------------
 
-const updateModelNameById = (req, res) => {
+const updateModelById = (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
-  knex("models")
-    .where("id", id)
-    .update({ name })
-    .then((result) => {
-      if (result === 0) {
-        res.status(404).send("Not Found");
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error editing the model name");
-    });
-};
+  const updates = {};
 
-const updateModelIndexById = (req, res) => {
-  const { id } = req.params;
-  const { indexId } = req.body;
+  for (const [key, value] of Object.entries(req.body)) {
+    switch (key) {
+      case "name":
+        updates.name = value;
+        break;
+      case "text":
+        updates.text = value;
+        break;
+      case "price":
+        updates.price = value;
+        break;
+      case "isVisible":
+        updates.is_visible = Number(value);
+        break;
+      case "indexId":
+        updates.index_id = Number(value);
+        break;
+      default:
+        break;
+    }
+  }
+
   knex("models")
     .where("id", id)
-    .update({ index_id: Number(indexId) })
+    .update(updates)
     .then((result) => {
       if (result === 0) {
         res.status(404).send("Not Found");
@@ -117,7 +100,7 @@ const updateModelIndexById = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error editing the model index");
+      res.status(500).send("Error editing the model");
     });
 };
 
@@ -137,25 +120,6 @@ const updateModelPicByModelId = (req, res) => {
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error editing the new model pic");
-    });
-};
-
-const updateModelIsVisibleById = (req, res) => {
-  const { id } = req.params;
-  const { isVisible } = req.body;
-  knex("models")
-    .where("id", id)
-    .update({ is_visible: Number(isVisible) })
-    .then((result) => {
-      if (result === 0) {
-        res.status(404).send("Not Found");
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error editing the model is visible");
     });
 };
 
@@ -220,14 +184,10 @@ const updateRepairIsVisibleById = (req, res) => {
     });
 };
 module.exports = {
-  updateBrandIndexById,
-  updateBrandNameById,
+  updateBrandById,
   updateBrandPicByBrandId,
-  updateBrandIsVisibleById,
-  updateModelNameById,
-  updateModelIndexById,
+  updateModelById,
   updateModelPicByModelId,
-  updateModelIsVisibleById,
   updateRepairById,
   updateRepairIndexById,
   updateRepairIsVisibleById,

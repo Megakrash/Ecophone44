@@ -25,7 +25,7 @@ function AdminModelCard({
     };
     axios
       .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/modelisvisible/${id}`,
+        `${import.meta.env.VITE_PORT_BACKEND}/model/${id}`,
         {
           isVisible: bool,
         },

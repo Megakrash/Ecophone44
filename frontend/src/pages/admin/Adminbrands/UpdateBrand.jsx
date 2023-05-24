@@ -55,7 +55,7 @@ function UpdateBrand({
   const updateBrandName = () => {
     axios
       .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandname/${brandSelected.id}`,
+        `${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected.id}`,
         {
           name: `${newName}`,
         },
