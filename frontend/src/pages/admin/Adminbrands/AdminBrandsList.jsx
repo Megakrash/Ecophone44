@@ -5,16 +5,14 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AdminBrandsCard from "../AdminCards/AdminBrandsCard";
 import UserContext from "../../../context/UserContext";
 
-function AdminBrandList({
+function AdminBrandsList({
+  brands,
   choosenBrandId,
   setChoosenBrandId,
   setChoosenModelId,
-  brands,
   getAllBrand,
-  setShowUpdateSmartBrand,
-  setShowCreateSmartBrand,
-  setShowCreateTabBrand,
-  setShowAdminRefurb,
+  setShowCreateBrand,
+  setShowUpdateBrand,
 }) {
   const { userToken } = useContext(UserContext);
   // To patch the index_id in database
@@ -80,17 +78,15 @@ function AdminBrandList({
                         {...provided.dragHandleProps}
                       >
                         <AdminBrandsCard
-                          choosenBrandId={choosenBrandId}
-                          setChoosenBrandId={setChoosenBrandId}
-                          setChoosenModelId={setChoosenModelId}
-                          setShowCreateSmartBrand={setShowCreateSmartBrand}
-                          setShowUpdateSmartBrand={setShowUpdateSmartBrand}
-                          setShowCreateTabBrand={setShowCreateTabBrand}
-                          getAllBrand={getAllBrand}
                           id={id}
                           isVisible={is_visible}
                           name={name}
-                          setShowAdminRefurb={setShowAdminRefurb}
+                          choosenBrandId={choosenBrandId}
+                          setChoosenBrandId={setChoosenBrandId}
+                          setChoosenModelId={setChoosenModelId}
+                          setShowCreateBrand={setShowCreateBrand}
+                          setShowUpdateBrand={setShowUpdateBrand}
+                          getAllBrand={getAllBrand}
                         />
                       </div>
                     )}
@@ -106,25 +102,23 @@ function AdminBrandList({
   );
 }
 
-export default AdminBrandList;
+export default AdminBrandsList;
 
-AdminBrandList.propTypes = {
-  choosenBrandId: PropTypes.number.isRequired,
-  setChoosenBrandId: PropTypes.func.isRequired,
-  setChoosenModelId: PropTypes.func.isRequired,
-  setShowUpdateSmartBrand: PropTypes.func.isRequired,
-  setShowCreateSmartBrand: PropTypes.func.isRequired,
-  setShowCreateTabBrand: PropTypes.func.isRequired,
-  setShowAdminRefurb: PropTypes.func.isRequired,
-  getAllBrand: PropTypes.func.isRequired,
+AdminBrandsList.propTypes = {
   brands: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       index_id: PropTypes.number.isRequired,
-      is_smart: PropTypes.number.isRequired,
       is_visible: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       pic: PropTypes.string,
+      type: PropTypes.number.isRequired,
     })
   ).isRequired,
+  choosenBrandId: PropTypes.number.isRequired,
+  setChoosenBrandId: PropTypes.func.isRequired,
+  setChoosenModelId: PropTypes.func.isRequired,
+  getAllBrand: PropTypes.func.isRequired,
+  setShowCreateBrand: PropTypes.func.isRequired,
+  setShowUpdateBrand: PropTypes.func.isRequired,
 };

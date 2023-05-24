@@ -7,7 +7,7 @@ import AdminModelsCard from "../AdminCards/AdminModelsCard";
 import { FaPlusCircle } from "react-icons/fa";
 import UserContext from "../../../context/UserContext";
 
-function AdminModelList({
+function AdminModelsList({
   choosenBrandId,
   choosenModelId,
   setChoosenModelId,
@@ -15,7 +15,8 @@ function AdminModelList({
   getAllModelByBrand,
   allModelsByBrand,
   getModelAndRepairs,
-  setShowUpdateSmartBrand,
+  setShowUpdateBrand,
+  type,
 }) {
   const [showCreateModel, setShowCreateModel] = useState(false);
   const { userToken } = useContext(UserContext);
@@ -72,7 +73,7 @@ function AdminModelList({
           onClick={() => {
             setShowCreateModel(!showCreateModel);
             setChoosenModelId(0);
-            setShowUpdateSmartBrand(false);
+            setShowUpdateBrand(false);
           }}
         >
           <FaPlusCircle className="fa-plus" />
@@ -80,14 +81,12 @@ function AdminModelList({
         </button>
         {showCreateModel === true && (
           <CreateBrandOrModel
-            setShowCreateModel={setShowCreateModel}
-            showCreateModel={showCreateModel}
             getAllBrandOrAllModelsByBrand={getAllModelByBrand}
-            choosenBrandId={choosenBrandId}
-            smartOrTab={1}
+            showCreateBrandOrModel={showCreateModel}
+            setShowCreateBrandOrModel={setShowCreateModel}
+            type={type}
             brandOrModel={2}
-            setShowCreateSmartBrand={setShowCreateModel}
-            setShowCreateTabBrand={setShowCreateModel}
+            choosenBrandId={choosenBrandId}
           />
         )}
       </div>
@@ -122,7 +121,7 @@ function AdminModelList({
                             setShowCreateModel={setShowCreateModel}
                             getAllModelByBrand={getAllModelByBrand}
                             getModelAndRepairs={getModelAndRepairs}
-                            setShowUpdateSmartBrand={setShowUpdateSmartBrand}
+                            setShowUpdateBrand={setShowUpdateBrand}
                           />
                         </div>
                       )}
@@ -139,16 +138,14 @@ function AdminModelList({
   );
 }
 
-export default AdminModelList;
+export default AdminModelsList;
 
-AdminModelList.propTypes = {
-  choosenModelId: PropTypes.number.isRequired,
+AdminModelsList.propTypes = {
   choosenBrandId: PropTypes.number.isRequired,
+  choosenModelId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
-  setShowUpdateSmartBrand: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
-  getModelAndRepairs: PropTypes.func.isRequired,
   allModelsByBrand: PropTypes.arrayOf(
     PropTypes.shape({
       brand_id: PropTypes.number.isRequired,
@@ -162,4 +159,7 @@ AdminModelList.propTypes = {
       ]),
     })
   ).isRequired,
+  getModelAndRepairs: PropTypes.func.isRequired,
+  setShowUpdateBrand: PropTypes.func.isRequired,
+  type: PropTypes.number.isRequired,
 };

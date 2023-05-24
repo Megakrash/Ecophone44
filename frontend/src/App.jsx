@@ -1,6 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import UserContext from "./context/UserContext";
 
 const Navbar = lazy(() => import("@components/navbar/Navbar"));
@@ -40,8 +39,8 @@ function App() {
                 path="/"
                 element={
                   <Admin
+                    userToken={userContext.userToken}
                     setUserContext={setUserContext}
-                    userContext={userContext}
                   />
                 }
               />

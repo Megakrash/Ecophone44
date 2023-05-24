@@ -45,6 +45,8 @@ CREATE TABLE
     IF NOT EXISTS `ecophone44`.`models` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
+        `text` VARCHAR(500) NULL DEFAULT NULL,
+        `price` VARCHAR(100) NULL DEFAULT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
         `index_id` INT NULL DEFAULT 0,
         `is_visible` TINYINT NOT NULL DEFAULT 1,

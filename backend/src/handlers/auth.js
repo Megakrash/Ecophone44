@@ -33,7 +33,7 @@ const verifyPassword = (req, res) => {
         const payload = { sub: req.user.id };
 
         const userToken = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "15min",
+          expiresIn: "60min",
         });
         res.send({ userToken, userId: req.user.id });
       }

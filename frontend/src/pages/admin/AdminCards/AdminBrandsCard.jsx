@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { GiGearHammer } from "react-icons/gi";
@@ -6,16 +6,14 @@ import UserContext from "../../../context/UserContext";
 
 function AdminBrandCard({
   id,
-  name,
   isVisible,
+  name,
   choosenBrandId,
   setChoosenBrandId,
   setChoosenModelId,
-  setShowCreateSmartBrand,
-  setShowUpdateSmartBrand,
-  setShowCreateTabBrand,
+  setShowCreateBrand,
+  setShowUpdateBrand,
   getAllBrand,
-  setShowAdminRefurb,
 }) {
   const { userToken } = useContext(UserContext);
   const isActive = id === choosenBrandId;
@@ -42,14 +40,9 @@ function AdminBrandCard({
       });
   };
 
-  const handleChangeIsVisible = () => {
-    if (isVisible === 1) {
-      updateIsVisibleStatut(0);
-    }
-    if (isVisible === 0) {
-      updateIsVisibleStatut(1);
-    }
-  };
+  const handleChangeIsVisible = useCallback(() => {
+    updateIsVisibleStatut(isVisible === 1 ? 0 : 1);
+  }, [isVisible, updateIsVisibleStatut]);
 
   return (
     <div
@@ -63,10 +56,8 @@ function AdminBrandCard({
         onClick={() => {
           setChoosenBrandId(id);
           setChoosenModelId(0);
-          setShowCreateSmartBrand(false);
-          setShowUpdateSmartBrand(false);
-          setShowCreateTabBrand(false);
-          setShowAdminRefurb(false);
+          setShowCreateBrand(false);
+          setShowUpdateBrand(false);
           window.scrollTo(0, 0);
         }}
       >
@@ -78,10 +69,8 @@ function AdminBrandCard({
         onClick={() => {
           setChoosenBrandId(id);
           setChoosenModelId(0);
-          setShowCreateSmartBrand(false);
-          setShowUpdateSmartBrand(true);
-          setShowCreateTabBrand(false);
-          setShowAdminRefurb(false);
+          setShowCreateBrand(false);
+          setShowUpdateBrand(true);
           window.scrollTo(0, 0);
         }}
       >
@@ -107,14 +96,12 @@ export default AdminBrandCard;
 
 AdminBrandCard.propTypes = {
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
   isVisible: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
   setChoosenBrandId: PropTypes.func.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
-  setShowCreateSmartBrand: PropTypes.func.isRequired,
-  setShowUpdateSmartBrand: PropTypes.func.isRequired,
-  setShowCreateTabBrand: PropTypes.func.isRequired,
-  setShowAdminRefurb: PropTypes.func.isRequired,
+  setShowCreateBrand: PropTypes.func.isRequired,
+  setShowUpdateBrand: PropTypes.func.isRequired,
   getAllBrand: PropTypes.func.isRequired,
 };

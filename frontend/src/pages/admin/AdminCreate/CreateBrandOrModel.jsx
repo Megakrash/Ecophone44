@@ -4,12 +4,10 @@ import PropTypes from "prop-types";
 import UserContext from "../../../context/UserContext";
 
 function CreateBrandOrModel({
-  setShowCreateSmartBrand,
-  setShowCreateTabBrand,
-  setShowCreateModel,
-  showCreateModel,
   getAllBrandOrAllModelsByBrand,
-  smartOrTab,
+  showCreateBrandOrModel,
+  setShowCreateBrandOrModel,
+  type,
   brandOrModel,
   choosenBrandId,
 }) {
@@ -17,22 +15,25 @@ function CreateBrandOrModel({
   const [newName, setNewName] = useState("");
   const { userToken } = useContext(UserContext);
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
+
   const createNewBrandOrModel = (data) => {
-    const endpoint = brandOrModel === 1 ? "/brand" : "/model";
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
+    let endpoint = brandOrModel === 1 ? "/brand" : "/model";
+    if (brandOrModel === 2 && type === 3) {
+      endpoint = "/refurb";
+    }
     axios
       .post(`${import.meta.env.VITE_PORT_BACKEND}${endpoint}`, data, config)
       .then(() => {
         if (brandOrModel === 1) {
-          setShowCreateSmartBrand(false);
-          setShowCreateTabBrand(false);
+          setShowCreateBrandOrModel(false);
           getAllBrandOrAllModelsByBrand();
         } else {
-          setShowCreateModel(!showCreateModel);
+          setShowCreateBrandOrModel(!showCreateBrandOrModel);
           getAllBrandOrAllModelsByBrand();
         }
       })
@@ -49,7 +50,7 @@ function CreateBrandOrModel({
     data.append("name", newName);
     data.append("file", newPic);
     if (brandOrModel === 1) {
-      data.append("isSmart", smartOrTab);
+      data.append("type", type);
     }
     if (brandOrModel === 2) {
       data.append("brandId", choosenBrandId);
@@ -100,12 +101,10 @@ function CreateBrandOrModel({
 export default CreateBrandOrModel;
 
 CreateBrandOrModel.propTypes = {
-  setShowCreateSmartBrand: PropTypes.func.isRequired,
-  setShowCreateTabBrand: PropTypes.func.isRequired,
-  setShowCreateModel: PropTypes.func.isRequired,
-  showCreateModel: PropTypes.bool.isRequired,
   getAllBrandOrAllModelsByBrand: PropTypes.func.isRequired,
-  smartOrTab: PropTypes.number.isRequired,
+  showCreateBrandOrModel: PropTypes.bool.isRequired,
+  setShowCreateBrandOrModel: PropTypes.func.isRequired,
+  type: PropTypes.number.isRequired,
   brandOrModel: PropTypes.number.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
 };
