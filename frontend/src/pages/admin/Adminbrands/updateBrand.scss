@@ -36,7 +36,7 @@
       }
 
       .toogle-false {
-        background-color: $delete-color;
+        background-color: $offline-color;
       }
     }
 
@@ -78,7 +78,7 @@
         .fa-delete {
           width: 100%;
           height: auto;
-          color: $delete-color;
+          color: $offline-color;
         }
       }
     }
@@ -131,7 +131,7 @@
       border: 0.5px solid $fourth-color;
       border-radius: 5px;
       padding: 1%;
-      background-color: $delete-color;
+      background-color: $offline-color;
       transition: 0.3s ease-in-out;
       cursor: pointer;
 
@@ -157,7 +157,7 @@
         .fa-crossbones {
           width: 35px;
           height: auto;
-          color: $delete-color;
+          color: $offline-color;
         }
       }
 
@@ -177,7 +177,7 @@
         .fabig-delete {
           width: 45px;
           height: auto;
-          color: $delete-color;
+          color: $offline-color;
         }
 
         .fabig-cancel {
