@@ -57,7 +57,7 @@ function AdminToogle({
           handleChangeIsVisible();
         }}
       >
-        {isVisible === 1 ? "En ligne" : "Hors ligne"}
+        {isVisible === 1 ? "EN LIGNE" : "HORS LIGNE"}
       </button>
     </div>
   );

@@ -22,9 +22,11 @@ function AdminRefurbs({
   const { userToken } = useContext(UserContext);
 
   useEffect(() => {
-    setNewName(model.name);
-    setNewDesc(model.text);
-    setNewPrice(model.price);
+    if (model.text !== null && model.price !== null && model.name !== null) {
+      setNewName(model.name);
+      setNewDesc(model.text);
+      setNewPrice(model.price);
+    }
     setShowUpdateName(false);
     setShowDeleteRepair(false);
   }, [model.text, model.price, model.name]);
@@ -35,20 +37,16 @@ function AdminRefurbs({
         Authorization: `Bearer ${userToken}`,
       },
     };
-    // let apiPath = "";
     let data = {};
 
     switch (property) {
       case "name":
-        // apiPath = "/modelname";
         data = { name: newName };
         break;
       case "text":
-        // apiPath = "/modeltext";
         data = { text: newDesc };
         break;
       case "price":
-        // apiPath = "/modelprice";
         data = { price: newPrice };
         break;
       default:
@@ -79,7 +77,7 @@ function AdminRefurbs({
 
   return (
     <div className="adminRefurbs">
-      {model.name && (
+      {newName !== "" && (
         <div className="adminRepair_name">
           {showUpdateName === false ? (
             <>
@@ -233,9 +231,9 @@ AdminRefurbs.propTypes = {
     id: PropTypes.number.isRequired,
     index_id: PropTypes.number.isRequired,
     is_visible: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    name: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
     pic: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   }).isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,

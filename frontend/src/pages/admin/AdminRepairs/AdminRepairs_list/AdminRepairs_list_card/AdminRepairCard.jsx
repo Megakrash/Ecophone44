@@ -35,14 +35,25 @@ function AdminRepairCard({
   return (
     <div className="adminRepairCard">
       <div className="adminRepairCard_infos">
-        <div className="adminRepairCard_infos_text">
-          <p className="adminRepairCard_infos_text_name">{name}</p>
-          <p className="adminRepairCard_infos_text_desc"> {text}</p>
-          <p className="adminRepairCard_infos_text_euros">
-            {price.toUpperCase()}
-            {price === "nc" ? "" : ".00€"}
-          </p>
-        </div>
+        {showUpdateRepair === false ? (
+          <div className="adminRepairCard_infos_text">
+            <p className="adminRepairCard_infos_text_name">{name}</p>
+            <p className="adminRepairCard_infos_text_desc"> {text}</p>
+            <p className="adminRepairCard_infos_text_euros">
+              {price.toUpperCase()}
+              {price === "nc" ? "" : ".00€"}
+            </p>
+          </div>
+        ) : (
+          <AdminUpdateRepair
+            repairId={repairId}
+            name={name}
+            price={price}
+            text={text}
+            getModelAndRepairs={getModelAndRepairs}
+            setShowUpdateRepair={setShowUpdateRepair}
+          />
+        )}
         <div className="adminRepairCard_infos_modify">
           <AdminToogle
             id={repairId}
@@ -75,17 +86,6 @@ function AdminRepairCard({
       >
         Modifier
       </button>
-
-      {showUpdateRepair && (
-        <AdminUpdateRepair
-          repairId={repairId}
-          name={name}
-          price={price}
-          text={text}
-          getModelAndRepairs={getModelAndRepairs}
-          setShowUpdateRepair={setShowUpdateRepair}
-        />
-      )}
     </div>
   );
 }

@@ -1,22 +1,19 @@
 .adminUpdateRepair {
   width: 100%;
-  margin-top: 3%;
   display: flex;
   flex-direction: column;
 
   &_form {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 
     &_bloc {
       display: flex;
       flex-direction: column;
+      width: 80%;
       gap: 10px;
-
-      &_label {
-        font-size: 15px;
-      }
 
       .repair-area {
         font-family: $font-text;
@@ -24,14 +21,14 @@
       }
 
       &_input {
-        width: 60%;
+        width: 100%;
         height: 30px;
       }
     }
 
     &_submit {
-      width: 200px;
-      height: 30px;
+      width: 30%;
+      min-height: 30px;
       border: 0.5px solid $fourth-color;
       border-radius: 5px;
       padding: 1%;

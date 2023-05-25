@@ -198,7 +198,7 @@ const postNewRepair = (req, res) => {
     .insert({
       name,
       text,
-      price: Number(price),
+      price,
       model_id: Number(modelId),
     })
     .then(() => {

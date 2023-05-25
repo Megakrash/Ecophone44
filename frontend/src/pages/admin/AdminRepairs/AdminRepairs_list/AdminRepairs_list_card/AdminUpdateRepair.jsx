@@ -50,9 +50,6 @@ function AdminUpdateRepair({
         className="adminUpdateRepair_form"
       >
         <div className="adminUpdateRepair_form_bloc">
-          <label htmlFor="name" className="adminUpdateRepair_form_bloc_label">
-            Nom
-          </label>
           <input
             className="adminUpdateRepair_form_bloc_input"
             type="text"
@@ -61,14 +58,6 @@ function AdminUpdateRepair({
             onChange={(e) => setNewRepairName(e.target.value)}
             required
           />
-        </div>
-        <div className="adminUpdateRepair_form_bloc">
-          <label
-            htmlFor="description"
-            className="adminUpdateRepair_form_bloc_label"
-          >
-            Description
-          </label>
           <textarea
             className="adminUpdateRepair_form_bloc_input repair-area"
             type="text"
@@ -77,11 +66,6 @@ function AdminUpdateRepair({
             onChange={(e) => setNewRepairText(e.target.value)}
             required
           />
-        </div>
-        <div className="adminUpdateRepair_form_bloc">
-          <label htmlFor="price" className="adminUpdateRepair_form_bloc_label">
-            Prix
-          </label>
           <input
             className="adminUpdateRepair_form_bloc_input"
             type="text"
@@ -96,7 +80,7 @@ function AdminUpdateRepair({
           type="submit"
           value="update"
         >
-          Mettre à jour
+          Envoyer ou fermer
         </button>
       </form>
     </div>

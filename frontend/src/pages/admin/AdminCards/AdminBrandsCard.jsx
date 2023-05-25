@@ -2,6 +2,7 @@ import React, { useContext, useCallback } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { GiGearHammer } from "react-icons/gi";
+import { RiDragMove2Fill } from "react-icons/ri";
 import UserContext from "../../../context/UserContext";
 
 function AdminBrandCard({
@@ -50,8 +51,13 @@ function AdminBrandCard({
         isActive ? "adminBrandOrModelCard-activ" : "adminBrandOrModelCard"
       }
     >
+      <RiDragMove2Fill className="fa-hand" />
       <button
-        className="adminBrandOrModelCard_name"
+        className={
+          isActive
+            ? "adminBrandOrModelCard_name name-activ"
+            : "adminBrandOrModelCard_name"
+        }
         type="button"
         onClick={() => {
           setChoosenBrandId(id);
@@ -61,7 +67,7 @@ function AdminBrandCard({
           window.scrollTo(0, 0);
         }}
       >
-        <span>{name.toUpperCase()}</span>
+        {name.toUpperCase()}
       </button>
       <button
         className="adminBrandOrModelCard_update"
@@ -74,7 +80,9 @@ function AdminBrandCard({
           window.scrollTo(0, 0);
         }}
       >
-        <GiGearHammer className="fa-hammer" />
+        <GiGearHammer
+          className={isActive ? "fa-hammer hammer-activ" : "fa-hammer"}
+        />
       </button>
       <button
         className={
@@ -87,7 +95,9 @@ function AdminBrandCard({
         onClick={() => {
           handleChangeIsVisible();
         }}
-      />
+      >
+        <span className="blink" />
+      </button>
     </div>
   );
 }

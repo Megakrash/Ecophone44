@@ -7,7 +7,7 @@
     height: 40px;
     font-size: 17px;
     font-weight: 600;
-    color: $primary-color;
+    color: black;
     border: 0.5px solid $fourth-color;
     border-radius: 5px;
     transition: 0.3s ease-in-out;
@@ -15,11 +15,11 @@
   }
 
   .toogle-true {
-    background-color: green;
+    background-color: $online-color;
   }
 
   .toogle-false {
-    background-color: $delete-color;
+    background-color: $offline-color;
     color: initial;
   }
 }

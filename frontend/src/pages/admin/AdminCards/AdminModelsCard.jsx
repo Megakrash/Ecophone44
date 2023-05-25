@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { RiDragMove2Fill } from "react-icons/ri";
 import UserContext from "../../../context/UserContext";
 
 function AdminModelCard({
@@ -55,8 +56,13 @@ function AdminModelCard({
         isActive ? "adminBrandOrModelCard-activ" : "adminBrandOrModelCard"
       }
     >
+      <RiDragMove2Fill className="fa-hand" />
       <button
-        className="adminBrandOrModelCard_name"
+        className={
+          isActive
+            ? "adminBrandOrModelCard_name name-activ"
+            : "adminBrandOrModelCard_name"
+        }
         type="button"
         onClick={() => {
           setChoosenModelId(id);
@@ -78,7 +84,9 @@ function AdminModelCard({
         onClick={() => {
           handleChangeIsVisible();
         }}
-      />
+      >
+        <span className="blink" />
+      </button>
     </div>
   );
 }
