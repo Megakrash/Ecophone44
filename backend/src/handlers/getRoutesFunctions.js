@@ -9,6 +9,39 @@ const getUserToVerifyToken = (req, res) => {
     .catch((err) => console.error(err));
 };
 /* BRAND */
+const getSmartBrandsForFront = (req, res) => {
+  knex
+    .select("id", "pic", "name")
+    .from("brands")
+    .where("is_visible", 1)
+    .where("type", 1)
+    .orderBy("index_id")
+    .then((brand) => res.status(200).json(brand))
+    .catch((err) => console.error(err));
+};
+
+const getTabBrandsForFront = (req, res) => {
+  knex
+    .select("id", "pic", "name")
+    .from("brands")
+    .where("is_visible", 1)
+    .where("type", 2)
+    .orderBy("index_id")
+    .then((brand) => res.status(200).json(brand))
+    .catch((err) => console.error(err));
+};
+
+const getRefurbBrandsForFront = (req, res) => {
+  knex
+    .select("id", "pic", "name")
+    .from("brands")
+    .where("is_visible", 1)
+    .where("type", 3)
+    .orderBy("index_id")
+    .then((brand) => res.status(200).json(brand))
+    .catch((err) => console.error(err));
+};
+
 const getBrandsByType = (req, res) => {
   const type = parseInt(req.params.type, 10);
   knex
@@ -91,6 +124,9 @@ const getRepairsByModelId = (req, res) => {
 
 module.exports = {
   getUserToVerifyToken,
+  getSmartBrandsForFront,
+  getTabBrandsForFront,
+  getRefurbBrandsForFront,
   getBrandsByType,
   getBrandById,
   getModelByBrandId,

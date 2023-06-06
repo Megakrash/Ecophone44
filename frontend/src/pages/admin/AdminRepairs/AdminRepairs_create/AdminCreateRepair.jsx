@@ -42,55 +42,44 @@ function AdminCreateRepair({
 
   return (
     <div className="adminCreateRepair">
-      <form
-        action=""
-        onSubmit={createNewRepair}
-        className="adminUpdateRepair_form"
-      >
-        <div className="adminUpdateRepair_form_bloc">
-          <label htmlFor="name" className="adminUpdateRepair_form_bloc_label">
+      <form action="" onSubmit={createNewRepair} className="create_form">
+        <div className="adminCreateRepair_bloc">
+          <label htmlFor="name" className="create_form_label">
             Nom
           </label>
           <input
-            className="adminUpdateRepair_form_bloc_input"
+            className="create_form_input"
             type="text"
             placeholder="Nom de la réparation"
             onChange={(e) => setNewRepairName(e.target.value)}
             required
           />
         </div>
-        <div className="adminUpdateRepair_form_bloc">
-          <label
-            htmlFor="description"
-            className="adminUpdateRepair_form_bloc_label"
-          >
+        <div className="adminCreateRepair_bloc">
+          <label htmlFor="description" className="create_form_label">
             Description
           </label>
           <textarea
-            className="adminUpdateRepair_form_bloc_input repair-area"
+            className="create_form_input create-area"
             type="text"
             placeholder="Description"
             onChange={(e) => setNewRepairText(e.target.value)}
             required
           />
         </div>
-        <div className="adminUpdateRepair_form_bloc">
-          <label htmlFor="price" className="adminUpdateRepair_form_bloc_label">
+        <div className="adminCreateRepair_bloc">
+          <label htmlFor="price" className="create_form_label">
             Prix
           </label>
           <input
-            className="adminUpdateRepair_form_bloc_input"
+            className="create_form_input"
             type="text"
             placeholder="99"
             onChange={(e) => setNewRepairPrice(e.target.value)}
             required
           />
         </div>
-        <button
-          className="adminUpdateRepair_form_submit"
-          type="submit"
-          value="update"
-        >
+        <button className="create_form_submit" type="submit" value="update">
           Ajouter
         </button>
       </form>

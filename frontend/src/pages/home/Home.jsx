@@ -12,10 +12,10 @@ export default function Home() {
         Quel type d'appareil souhaitez vous réparer ?
       </h1>
       <div className="home_link">
-        <Link to="/marque/1">
+        <Link to="/brand/1">
           <p className="home_link_btn">SMARTPHONE</p>
         </Link>
-        <Link to="/marque/2">
+        <Link to="/brand/2">
           <p className="home_link_btn">TABLETTE</p>
         </Link>
       </div>
