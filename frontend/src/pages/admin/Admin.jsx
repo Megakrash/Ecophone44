@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
+import NavbarBack from "@components/navbar/NavbarBack";
 import AdminManage from "./AdminManage";
 
 const typeConfig = {
@@ -14,6 +15,7 @@ function Admin({ userToken, setUserContext }) {
   const [choosenBrandId, setChoosenBrandId] = useState(0);
   // When a model is selected
   const [choosenModelId, setChoosenModelId] = useState(0);
+  const [showCreateBrand, setShowCreateBrand] = useState(false);
 
   const handleButtonClick = useCallback((type) => {
     setShowType(type);
@@ -24,6 +26,7 @@ function Admin({ userToken, setUserContext }) {
       handleButtonClick(type);
       setChoosenBrandId(0);
       setChoosenModelId(0);
+      setShowCreateBrand(false);
     },
     []
   );
@@ -35,10 +38,13 @@ function Admin({ userToken, setUserContext }) {
     setChoosenBrandId,
     choosenModelId,
     setChoosenModelId,
+    showCreateBrand,
+    setShowCreateBrand,
   };
 
   return (
     <div className="admin">
+      <NavbarBack />
       <div className="admin_select">
         {Object.keys(typeConfig).map((type) => (
           <button

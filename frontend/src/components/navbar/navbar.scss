@@ -1,4 +1,6 @@
 .navbar {
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 90px;
   display: flex;
@@ -7,21 +9,39 @@
   background-color: white;
 
   &_logo {
-    position: absolute;
-    height: 80px;
-    margin-right: auto;
+    width: 10%;
+    margin-left: 2%;
 
     &_img {
       width: 120px;
     }
   }
 
-  &_title {
-    width: 100%;
-    text-align: center;
-    font-family: $font-title;
-    color: $secondary-color;
-    font-weight: 600;
-    font-size: 35px;
+  &_infos {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    gap: 15%;
+
+    &_box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 7px;
+
+      &_fa {
+        width: 20px;
+        height: auto;
+        color: $secondary-color;
+      }
+
+      &_text {
+        font-size: 15px;
+
+        p {
+          margin-bottom: 4px;
+        }
+      }
+    }
   }
 }

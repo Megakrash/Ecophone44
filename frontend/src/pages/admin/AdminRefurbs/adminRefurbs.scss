@@ -5,15 +5,13 @@
   padding: 1%;
   margin-bottom: 2%;
 
-  .label-refurb {
+  .text-refurb {
     margin-top: 2%;
-    font-size: 22px;
-    font-weight: 600;
-    color: $secondary-color;
+    width: 80%;
+    font-size: 15px;
   }
-
-  .area-refurb {
-    min-height: 150px;
-    font-family: $font-text;
+  .price-refurb,
+  .input-refurb {
+    margin-top: 2%;
   }
 }

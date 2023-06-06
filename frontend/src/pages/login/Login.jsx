@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import NavbarBack from "@components/navbar/NavbarBack";
 
 function Login({ setUserContext }) {
   const [loginDetails, setLoginDetails] = useState({
@@ -27,6 +28,7 @@ function Login({ setUserContext }) {
 
   return (
     <div className="login">
+      <NavbarBack />
       <form onSubmit={loginUser} className="login_form" action="">
         <label className="login_form_label" htmlFor="email">
           Email

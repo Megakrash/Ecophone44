@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import AdminToogle from "@pages/admin/AdminToogle/AdminToogle";
@@ -14,7 +14,6 @@ function AdminRepairCard({
   getModelAndRepairs,
   getAllModelByBrand,
 }) {
-  const [showUpdateRepair, setShowUpdateRepair] = useState(false);
   const { userToken } = useContext(UserContext);
   const deleteRepair = () => {
     const config = {
@@ -35,25 +34,14 @@ function AdminRepairCard({
   return (
     <div className="adminRepairCard">
       <div className="adminRepairCard_infos">
-        {showUpdateRepair === false ? (
-          <div className="adminRepairCard_infos_text">
-            <p className="adminRepairCard_infos_text_name">{name}</p>
-            <p className="adminRepairCard_infos_text_desc"> {text}</p>
-            <p className="adminRepairCard_infos_text_euros">
-              {price.toUpperCase()}
-              {price === "nc" ? "" : ".00€"}
-            </p>
-          </div>
-        ) : (
-          <AdminUpdateRepair
-            repairId={repairId}
-            name={name}
-            price={price}
-            text={text}
-            getModelAndRepairs={getModelAndRepairs}
-            setShowUpdateRepair={setShowUpdateRepair}
-          />
-        )}
+        <AdminUpdateRepair
+          repairId={repairId}
+          name={name}
+          price={price}
+          text={text}
+          getModelAndRepairs={getModelAndRepairs}
+        />
+
         <div className="adminRepairCard_infos_modify">
           <AdminToogle
             id={repairId}
@@ -73,19 +61,6 @@ function AdminRepairCard({
           </button>
         </div>
       </div>
-      <button
-        className={
-          !showUpdateRepair
-            ? "adminRepairCard_btn-inactiv"
-            : "adminRepairCard_btn-activ"
-        }
-        type="button"
-        onClick={() => {
-          setShowUpdateRepair(!showUpdateRepair);
-        }}
-      >
-        Modifier
-      </button>
     </div>
   );
 }
