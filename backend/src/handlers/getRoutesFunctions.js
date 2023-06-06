@@ -1,5 +1,13 @@
 const knex = require("../../knex");
 
+/* FIRST VERIFY TOKEN */
+const getUserToVerifyToken = (req, res) => {
+  knex
+    .select("id")
+    .from("users")
+    .then((user) => res.status(200).json(user))
+    .catch((err) => console.error(err));
+};
 /* BRAND */
 const getBrandsByType = (req, res) => {
   const type = parseInt(req.params.type, 10);
@@ -82,6 +90,7 @@ const getRepairsByModelId = (req, res) => {
 };
 
 module.exports = {
+  getUserToVerifyToken,
   getBrandsByType,
   getBrandById,
   getModelByBrandId,

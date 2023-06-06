@@ -11,25 +11,31 @@ function AdminRefurbs({
   choosenModelId,
   setChoosenModelId,
   getAllModelByBrand,
-  model,
+  name,
+  text,
+  price,
+  isVisible,
+  pic,
   getModelAndRepairs,
 }) {
   const [newName, setNewName] = useState("");
-  const [newDesc, setNewDesc] = useState("");
-  const [newPrice, setNewPrice] = useState("");
   const [showUpdateName, setShowUpdateName] = useState(false);
+  const [newText, setNewText] = useState("");
+  const [showUpdateText, setShowUpdateText] = useState(false);
+  const [newPrice, setNewPrice] = useState("");
+  const [showUpdatePrice, setShowUpdatePrice] = useState(false);
   const [showDeleteRepair, setShowDeleteRepair] = useState(false);
   const { userToken } = useContext(UserContext);
 
   useEffect(() => {
-    if (model.text !== null && model.price !== null && model.name !== null) {
-      setNewName(model.name);
-      setNewDesc(model.text);
-      setNewPrice(model.price);
+    if (text !== null && price !== null && name !== null) {
+      setNewName(name);
+      setNewText(text);
+      setNewPrice(price);
     }
     setShowUpdateName(false);
     setShowDeleteRepair(false);
-  }, [model.text, model.price, model.name]);
+  }, [text, price, name]);
 
   const updateModel = (property) => {
     const config = {
@@ -44,7 +50,7 @@ function AdminRefurbs({
         data = { name: newName };
         break;
       case "text":
-        data = { text: newDesc };
+        data = { text: newText };
         break;
       case "price":
         data = { price: newPrice };
@@ -64,6 +70,8 @@ function AdminRefurbs({
         getModelAndRepairs();
         getAllModelByBrand();
         setShowUpdateName(false);
+        setShowUpdateText(false);
+        setShowUpdatePrice(false);
       })
       .catch(() => {
         console.error(`${property} not updated`);
@@ -82,7 +90,7 @@ function AdminRefurbs({
           {showUpdateName === false ? (
             <>
               <h2 className="adminRepair_name_title">
-                {model.name.toUpperCase()}
+                {newName.toUpperCase()}
               </h2>
               <button
                 className="adminRepair_name_btn"
@@ -117,82 +125,104 @@ function AdminRefurbs({
             </form>
           )}
           <div className="adminRepair_name_toogle">
-            {model && (
-              <AdminToogle
-                id={choosenModelId}
-                type={2}
-                isVisible={model.is_visible}
-                getBrandOrModelAndRepairs={getModelAndRepairs}
-                getAllModelByBrand={getAllModelByBrand}
-              />
-            )}
+            <AdminToogle
+              id={choosenModelId}
+              type={2}
+              isVisible={isVisible}
+              getBrandOrModelAndRepairs={getModelAndRepairs}
+              getAllModelByBrand={getAllModelByBrand}
+            />
           </div>
         </div>
       )}
       <div className="adminRepair_infos">
-        {model.name && (
-          <AdminModelPic
-            choosenModelId={choosenModelId}
-            modelPic={model.pic}
-            modelName={model.name}
-            getModelAndRepairs={getModelAndRepairs}
-          />
-        )}
-        <form
-          onSubmit={handleUpdate("text")}
-          className="updateBrand_infos_name"
-        >
-          <label
-            className="updateBrand_infos_name_label label-refurb"
-            htmlFor="name"
+        <AdminModelPic
+          choosenModelId={choosenModelId}
+          modelPic={pic}
+          modelName={name}
+          getModelAndRepairs={getModelAndRepairs}
+        />
+
+        {showUpdateText === false ? (
+          <div className="adminUpdateRepair_bloc">
+            <p className="adminUpdateRepair_bloc_text text-refurb">{newText}</p>
+            <button
+              className="adminUpdateRepair_bloc_btn"
+              type="button"
+              onClick={() => setShowUpdateText(!showUpdateText)}
+            >
+              <FaPen className="adminUpdateRepair_bloc_btn_fa" />
+            </button>
+          </div>
+        ) : (
+          <form
+            action=""
+            onSubmit={handleUpdate("text")}
+            className="adminUpdateRepair_form"
           >
-            Description
-          </label>
-          <div className="updateBrand_infos_name_update">
             <textarea
-              className="updateBrand_infos_name_update_input area-refurb"
+              className="adminUpdateRepair_form_bloc_input repair-area input-refurb"
               type="text"
-              id="name"
-              value={newDesc}
-              onChange={(e) => setNewDesc(e.target.value)}
+              value={newText}
+              placeholder={text}
+              onChange={(e) => setNewText(e.target.value)}
               required
             />
             <button
-              className="updateBrand_infos_name_update_submit"
-              type="submit"
+              className="adminRepair_name_update_btn"
+              type="button"
+              onClick={() => setShowUpdateText(false)}
             >
-              <FaCheck className="fa-submit" />
+              <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
+            </button>
+            <button className="adminRepair_name_update_btn" type="submit">
+              <FaCheck className="adminRepair_name_update_btn_fa" />
+            </button>
+          </form>
+        )}
+
+        {showUpdatePrice === false ? (
+          <div className="adminUpdateRepair_bloc">
+            <p className="adminRepairCard_infos_text_euros price-refurb">
+              {newPrice.toUpperCase()}
+              {newPrice === "nc" ? "" : ".00€"}
+            </p>
+            <button
+              className="adminUpdateRepair_bloc_btn"
+              type="button"
+              onClick={() => setShowUpdatePrice(!showUpdatePrice)}
+            >
+              <FaPen className="adminUpdateRepair_bloc_btn_fa" />
             </button>
           </div>
-        </form>
-        <form
-          onSubmit={handleUpdate("price")}
-          className="updateBrand_infos_name"
-        >
-          <label
-            className="updateBrand_infos_name_label label-refurb"
-            htmlFor="name"
+        ) : (
+          <form
+            action=""
+            onSubmit={handleUpdate("price")}
+            className="adminUpdateRepair_form"
           >
-            Prix
-          </label>
-          <div className="updateBrand_infos_name_update">
             <input
-              className="updateBrand_infos_name_update_input"
+              className="adminUpdateRepair_form_input input-refurb"
               type="text"
-              id="name"
               value={newPrice}
+              placeholder={price}
               onChange={(e) => setNewPrice(e.target.value)}
               required
             />
             <button
-              className="updateBrand_infos_name_update_submit"
-              type="submit"
+              className="adminRepair_name_update_btn"
+              type="button"
+              onClick={() => setShowUpdatePrice(false)}
             >
-              <FaCheck className="fa-submit" />
+              <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
             </button>
-          </div>
-        </form>
+            <button className="adminRepair_name_update_btn" type="submit">
+              <FaCheck className="adminRepair_name_update_btn_fa" />
+            </button>
+          </form>
+        )}
       </div>
+
       <div className="adminRepair_create">
         <button
           className={
@@ -226,15 +256,18 @@ AdminRefurbs.propTypes = {
   choosenModelId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
-  model: PropTypes.shape({
-    brand_id: PropTypes.number.isRequired,
-    id: PropTypes.number.isRequired,
-    index_id: PropTypes.number.isRequired,
-    is_visible: PropTypes.number.isRequired,
-    name: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-    text: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-    price: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-    pic: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-  }).isRequired,
+  name: PropTypes.string,
+  text: PropTypes.string,
+  price: PropTypes.string,
+  isVisible: PropTypes.number,
+  pic: PropTypes.string,
   getModelAndRepairs: PropTypes.func.isRequired,
+};
+
+AdminRefurbs.defaultProps = {
+  name: undefined,
+  text: undefined,
+  price: undefined,
+  isVisible: undefined,
+  pic: undefined,
 };

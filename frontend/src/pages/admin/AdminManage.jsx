@@ -17,6 +17,8 @@ function AdminManage({
   setChoosenBrandId,
   choosenModelId,
   setChoosenModelId,
+  showCreateBrand,
+  setShowCreateBrand,
 }) {
   // Stock the brands
   const [brands, setBrands] = useState([]);
@@ -27,7 +29,6 @@ function AdminManage({
   // To stock the repairs when a model is selected
   const [repairs, setRepairs] = useState([]);
   // To show components
-  const [showCreateBrand, setShowCreateBrand] = useState(false);
   const [showUpdateBrand, setShowUpdateBrand] = useState(false);
 
   const config = {
@@ -199,7 +200,11 @@ function AdminManage({
             choosenModelId={choosenModelId}
             setChoosenModelId={setChoosenModelId}
             getAllModelByBrand={getAllModelByBrand}
-            model={model}
+            name={model.name}
+            text={model.text}
+            price={model.price}
+            pic={model.pic}
+            isVisible={model.is_visible}
             getModelAndRepairs={getModelAndRepairs}
           />
         )}
@@ -218,4 +223,6 @@ AdminManage.propTypes = {
   setChoosenBrandId: PropTypes.func.isRequired,
   choosenModelId: PropTypes.number.isRequired,
   setChoosenModelId: PropTypes.func.isRequired,
+  showCreateBrand: PropTypes.bool.isRequired,
+  setShowCreateBrand: PropTypes.func.isRequired,
 };

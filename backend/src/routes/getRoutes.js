@@ -3,7 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 const getRoutesFunctions = require("../handlers/getRoutesFunctions");
-
+// First verify token
+router.get("/user", getRoutesFunctions.getUserToVerifyToken);
 // -------------------------------
 // ----------- Brands ------------
 // -------------------------------

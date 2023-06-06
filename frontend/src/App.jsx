@@ -1,21 +1,44 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
+import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import UserContext from "./context/UserContext";
 
-const Navbar = lazy(() => import("@components/navbar/Navbar"));
 const Footer = lazy(() => import("@components/footer/Footer"));
-const Admin = lazy(() => import("@pages/admin/Admin"));
+const Home = lazy(() => import("@pages/home/Home"));
 const Login = lazy(() => import("@pages/login/Login"));
+const Admin = lazy(() => import("@pages/admin/Admin"));
 
 function App() {
   const [userContext, setUserContext] = useState("");
+  const verifyToken = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userContext.userToken}`,
+      },
+    };
+    axios
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/user`, config)
+      .then(() => {
+        setUserContext(JSON.parse(localStorage.getItem("Eco44Token")));
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem("Eco44Token");
+          setUserContext("");
+        } else {
+          console.error("Error database");
+        }
+      });
+  };
 
   useEffect(() => {
     if (localStorage.getItem("Eco44Token")) {
       setUserContext(JSON.parse(localStorage.getItem("Eco44Token")));
     }
+    if (userContext !== "") {
+      verifyToken();
+    }
   }, []);
-
   return (
     <div className="App">
       <Suspense
@@ -27,16 +50,16 @@ function App() {
         }
       >
         <UserContext.Provider value={userContext}>
-          <Navbar />
           <Routes>
+            <Route path="/" element={<Home />} />
             {userContext === "" ? (
               <Route
-                path="/"
+                path="/admin"
                 element={<Login setUserContext={setUserContext} />}
               />
             ) : (
               <Route
-                path="/"
+                path="/admin"
                 element={
                   <Admin
                     userToken={userContext.userToken}
