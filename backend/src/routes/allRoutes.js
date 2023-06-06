@@ -10,7 +10,12 @@ const router = express.Router();
 
 // Use the middleware "verifyToken" for all other routes except "/login"
 router.use((req, res, next) => {
-  if (req.path === "/login") {
+  if (
+    req.path === "/login" ||
+    req.path === "/smartbrands" ||
+    req.path === "/tabbrands" ||
+    req.path === "/refurbbrands"
+  ) {
     next();
   } else {
     verifyToken(req, res, next);
