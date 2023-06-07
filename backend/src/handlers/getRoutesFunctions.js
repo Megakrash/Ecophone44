@@ -65,6 +65,21 @@ const getBrandById = (req, res) => {
 };
 
 /* MODEL */
+const getModelByBrandIdForFront = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  knex
+    .select("id", "pic", "name")
+    .from("models")
+    .where("brand_id", id)
+    .where("is_visible", 1)
+    .orderBy("index_id")
+    .then((model) => res.status(200).json(model))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
 const getModelByBrandId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -129,6 +144,7 @@ module.exports = {
   getRefurbBrandsForFront,
   getBrandsByType,
   getBrandById,
+  getModelByBrandIdForFront,
   getModelByBrandId,
   getModelById,
   getRepairsByModelId,
