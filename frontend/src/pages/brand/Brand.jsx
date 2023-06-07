@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "@components/navbar/Navbar";
-import Header from "@components/header/Header";
+import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 
 export default function Brand() {
@@ -37,7 +37,7 @@ export default function Brand() {
   return (
     <div className="brand">
       <Navbar />
-      <Header />
+      <Breadcrumbs type="brand" />
       {allBrands.length >= 1 ? (
         <>
           <p className="brand_title">
