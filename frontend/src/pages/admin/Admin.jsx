@@ -44,7 +44,12 @@ function Admin({ userToken, setUserContext }) {
 
   return (
     <div className="admin">
-      <NavbarBack />
+      <NavbarBack
+        setChoosenBrandId={setChoosenBrandId}
+        setChoosenModelId={setChoosenModelId}
+        setShowCreateBrand={setShowCreateBrand}
+        setShowType={setShowType}
+      />
       <div className="admin_select">
         {Object.keys(typeConfig).map((type) => (
           <button

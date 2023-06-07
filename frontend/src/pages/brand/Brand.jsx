@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "@components/navbar/Navbar";
-// import Header from "@components/header/Header";
+import Header from "@components/header/Header";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 
 export default function Brand() {
@@ -36,11 +36,15 @@ export default function Brand() {
 
   return (
     <div className="brand">
-      {/* <Header /> */}
       <Navbar />
+      <Header />
       {allBrands.length >= 1 ? (
         <>
-          <p className="brand_title">Quelle est votre marque ?</p>
+          <p className="brand_title">
+            {id === "3"
+              ? "Quelle marque recherchez vous ?"
+              : "Quelle est votre marque ?"}
+          </p>
           <div className="brand_search">
             <FaSearch className="brand_search_fa" />
             <input
@@ -74,7 +78,7 @@ export default function Brand() {
           .map((infos) => {
             return (
               <li className="brand_brand_li" key={infos.id}>
-                <Link to={`/model/${infos.id}`}>
+                <Link to={`/models/${infos.id}`}>
                   <img
                     className="brand_brand_li_pic"
                     src={picPath + infos.pic}

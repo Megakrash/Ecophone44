@@ -11,8 +11,12 @@
     height: 80px;
     margin-right: auto;
 
-    &_img {
-      width: 120px;
+    &_btn {
+      background-color: transparent;
+      cursor: pointer;
+      &_img {
+        width: 120px;
+      }
     }
   }
 

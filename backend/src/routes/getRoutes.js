@@ -10,6 +10,10 @@ router.get("/user", getRoutesFunctions.getUserToVerifyToken);
 router.get("/smartbrands", getRoutesFunctions.getSmartBrandsForFront);
 router.get("/tabbrands", getRoutesFunctions.getTabBrandsForFront);
 router.get("/refurbbrands", getRoutesFunctions.getRefurbBrandsForFront);
+router.get(
+  "/modelbybrandforfront/:id",
+  getRoutesFunctions.getModelByBrandIdForFront
+);
 
 // ------------ Back-office -------
 // -------------------------------
