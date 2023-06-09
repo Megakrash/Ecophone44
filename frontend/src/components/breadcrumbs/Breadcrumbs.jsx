@@ -59,7 +59,11 @@ function Breadcrumbs({ type }) {
         ) : (
           <>
             <button
-              className="breadcrumbs_step_ring"
+              className={
+                type !== "brand"
+                  ? "breadcrumbs_step_ring ring-navigate"
+                  : "breadcrumbs_step_ring"
+              }
               type="button"
               onClick={() => {
                 if (type === "repair") {
@@ -70,7 +74,11 @@ function Breadcrumbs({ type }) {
                 }
               }}
             >
-              <p className="breadcrumbs_step_ring_number">2</p>
+              {type !== "brand" ? (
+                <FaCheck className="fa-home" />
+              ) : (
+                <p className="breadcrumbs_step_ring_number">3</p>
+              )}
             </button>
             <p className="breadcrumbs_step_name">Modèle</p>
           </>

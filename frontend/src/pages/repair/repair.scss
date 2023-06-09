@@ -1,0 +1,35 @@
+@import "./repair_card/repairCard.scss";
+
+.repair {
+  margin: auto;
+  min-height: calc(100vh - 130px);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2%;
+
+  &_bloc {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+
+    &_img {
+      width: 45%;
+      height: auto;
+    }
+
+    &_card {
+      width: 60%;
+
+      &_text {
+        margin: 4% 0 3% 0;
+        font-size: 1.7rem;
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
@@ -7,6 +7,7 @@ import UserContext from "../../../../../context/UserContext";
 
 function AdminUpdateRepair({
   repairId,
+  icons,
   icon,
   iconId,
   name,
@@ -14,7 +15,6 @@ function AdminUpdateRepair({
   text,
   getModelAndRepairs,
 }) {
-  const [icons, setIcons] = useState([]);
   const [newRepairName, setNewRepairName] = useState(name);
   const [showUpdateName, setShowUpdateName] = useState(false);
   const [newRepairText, setNewRepairText] = useState(text);
@@ -30,22 +30,6 @@ function AdminUpdateRepair({
       Authorization: `Bearer ${userToken}`,
     },
   };
-
-  const getIcons = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/icons`, config)
-      .then((res) => {
-        setIcons(res.data);
-      })
-
-      .catch(() => {
-        console.error("error");
-      });
-  };
-
-  useEffect(() => {
-    getIcons();
-  }, []);
 
   const updateRepair = (event) => {
     event.preventDefault();
@@ -255,4 +239,10 @@ AdminUpdateRepair.propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
     .isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,
+  icons: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      pic: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

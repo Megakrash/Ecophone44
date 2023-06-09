@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -6,14 +6,33 @@ import AdminRepairCard from "./AdminRepairs_list_card/AdminRepairCard";
 import UserContext from "../../../../context/UserContext";
 
 function AdminRepairList({ repairs, getModelAndRepairs, getAllModelByBrand }) {
+  const [icons, setIcons] = useState([]);
   const { userToken } = useContext(UserContext);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
+
+  const getIcons = () => {
+    axios
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/icons`, config)
+      .then((res) => {
+        setIcons(res.data);
+      })
+
+      .catch(() => {
+        console.error("error");
+      });
+  };
+
+  useEffect(() => {
+    getIcons();
+  }, []);
+
   // To patch the index_id in database
   const updateOrderRepairs = (items) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
     const promises = [];
     items.forEach((element) => {
       const promise = axios.put(
@@ -70,6 +89,7 @@ function AdminRepairList({ repairs, getModelAndRepairs, getAllModelByBrand }) {
                         >
                           <AdminRepairCard
                             repairId={id}
+                            icons={icons}
                             icon={picIcon}
                             iconId={iconId}
                             name={name}

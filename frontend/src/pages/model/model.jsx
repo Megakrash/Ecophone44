@@ -9,7 +9,7 @@ function Model() {
   const [model, setModel] = useState([]);
   const [modelQuery, setModelQuery] = useState("");
 
-  const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/models/`;
+  const picPath = `${import.meta.env.VITE_PATH_IMAGE}models/`;
   const { id } = useParams();
 
   const getAllModelByBrand = () => {

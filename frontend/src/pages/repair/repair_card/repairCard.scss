@@ -1,0 +1,30 @@
+.repairCard {
+  width: 95%;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 0.0625rem solid $fourth-color;
+  border-radius: 5px;
+  margin-bottom: 2%;
+  cursor: pointer;
+
+  &_bloc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 1%;
+    gap: 10px;
+    &_img {
+      width: 35px;
+    }
+    &_name {
+      font-size: 16px;
+    }
+  }
+}
+
+.card-selected {
+  border: 0.0625rem solid $sixte-color;
+}
