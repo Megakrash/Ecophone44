@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaCheck } from "react-icons/fa";
 
 function Breadcrumbs({ type }) {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ function Breadcrumbs({ type }) {
                 }
               }}
             >
-              <p className="breadcrumbs_step_ring_number">1</p>
+              <FaCheck className="fa-home" />
             </button>
             <p className="breadcrumbs_step_name">Marque</p>
           </>

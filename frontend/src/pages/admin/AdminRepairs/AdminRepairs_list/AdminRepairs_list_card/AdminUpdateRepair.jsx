@@ -1,31 +1,54 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
+import Select from "react-select";
 import UserContext from "../../../../../context/UserContext";
 
 function AdminUpdateRepair({
   repairId,
+  icon,
+  iconId,
   name,
   price,
   text,
   getModelAndRepairs,
 }) {
+  const [icons, setIcons] = useState([]);
   const [newRepairName, setNewRepairName] = useState(name);
   const [showUpdateName, setShowUpdateName] = useState(false);
   const [newRepairText, setNewRepairText] = useState(text);
   const [showUpdateText, setShowUpdateText] = useState(false);
   const [newRepairPrice, setNewRepairPrice] = useState(price);
   const [showUpdatePrice, setShowUpdatePrice] = useState(false);
+  const [newRepairIcon, setNewRepairIcon] = useState(iconId);
+  const [showUpdateIcon, setShowUpdateIcon] = useState(false);
   const { userToken } = useContext(UserContext);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
+
+  const getIcons = () => {
+    axios
+      .get(`${import.meta.env.VITE_PORT_BACKEND}/icons`, config)
+      .then((res) => {
+        setIcons(res.data);
+      })
+
+      .catch(() => {
+        console.error("error");
+      });
+  };
+
+  useEffect(() => {
+    getIcons();
+  }, []);
 
   const updateRepair = (event) => {
     event.preventDefault();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
     axios
       .put(
         `${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`,
@@ -33,6 +56,7 @@ function AdminUpdateRepair({
           name: `${newRepairName}`,
           text: `${newRepairText}`,
           price: `${newRepairPrice}`,
+          iconId: `${newRepairIcon}`,
         },
         config
       )
@@ -41,14 +65,65 @@ function AdminUpdateRepair({
         setShowUpdateName(false);
         setShowUpdateText(false);
         setShowUpdatePrice(false);
+        setShowUpdateIcon(false);
       })
       .catch(() => {
         console.error("Error update repair");
       });
   };
 
+  const options = icons.map((infos) => ({
+    value: infos.id,
+    label: (
+      <img
+        className="adminUpdateRepair_bloc_icon"
+        src={`${import.meta.env.VITE_PATH_IMAGE}/icons/${infos.pic}`}
+        alt="icon"
+      />
+    ),
+  }));
+
+  const handleChangeIcon = (e) => {
+    setNewRepairIcon(e.value);
+  };
+
   return (
     <div className="adminUpdateRepair">
+      {showUpdateIcon === false ? (
+        <div className="adminUpdateRepair_bloc">
+          <img
+            className="adminUpdateRepair_bloc_icon"
+            src={`${import.meta.env.VITE_PATH_IMAGE}/icons/${icon}`}
+            alt="icon"
+          />
+          <button
+            className="adminUpdateRepair_bloc_btn"
+            type="button"
+            onClick={() => setShowUpdateIcon(!showUpdateIcon)}
+          >
+            <FaPen className="adminUpdateRepair_bloc_btn_fa" />
+          </button>
+        </div>
+      ) : (
+        <form
+          action=""
+          onSubmit={updateRepair}
+          className="adminUpdateRepair_form"
+        >
+          <Select className="" options={options} onChange={handleChangeIcon} />
+          <button
+            className="adminRepair_name_update_btn"
+            type="button"
+            onClick={() => setShowUpdateIcon(false)}
+          >
+            <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
+          </button>
+          <button className="adminRepair_name_update_btn" type="submit">
+            <FaCheck className="adminRepair_name_update_btn_fa" />
+          </button>
+        </form>
+      )}
+
       {showUpdateName === false ? (
         <div className="adminUpdateRepair_bloc">
           <p className="adminUpdateRepair_bloc_text">{name}</p>
@@ -173,6 +248,8 @@ export default AdminUpdateRepair;
 
 AdminUpdateRepair.propTypes = {
   repairId: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired,
+  iconId: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])

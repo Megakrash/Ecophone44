@@ -112,7 +112,6 @@ function AdminManage({
       getModelAndRepairs();
     }
   }, [choosenModelId]);
-
   return (
     <div className="adminManage">
       <div className="adminManage_left">

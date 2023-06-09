@@ -8,7 +8,7 @@ const getUserToVerifyToken = (req, res) => {
     .then((user) => res.status(200).json(user))
     .catch((err) => console.error(err));
 };
-/* BRAND */
+/* BRANDS */
 const getSmartBrandsForFront = (req, res) => {
   knex
     .select("id", "pic", "name")
@@ -64,7 +64,7 @@ const getBrandById = (req, res) => {
     .catch((err) => console.error(err));
 };
 
-/* MODEL */
+/* MODELS */
 const getModelByBrandIdForFront = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -109,7 +109,7 @@ const getModelById = (req, res) => {
     });
 };
 
-/* REPARATION */
+/* REPAIRS */
 const getRepairsByModelId = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -121,13 +121,16 @@ const getRepairsByModelId = (req, res) => {
       "r.index_id",
       "r.is_visible",
       "r.text",
+      "r.icon_id AS iconId",
       "m.name AS model",
-      "m.pic AS picmodel",
-      "mar.name AS marque"
+      "m.pic AS picModel",
+      "mar.name AS marque",
+      "i.pic AS picIcon"
     )
     .from("repairs as r")
     .join("models as m", "r.model_id", "m.id")
     .join("brands as mar", "m.brand_id", "mar.id")
+    .join("icons as i", "r.icon_id", "i.id")
     .where("r.model_id", id)
     .orderBy("r.index_id")
     .then((reparation) => res.status(200).json(reparation))
@@ -135,6 +138,15 @@ const getRepairsByModelId = (req, res) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
     });
+};
+
+/* ICONS */
+const getIcons = (req, res) => {
+  knex
+    .select("*")
+    .from("icons")
+    .then((icons) => res.status(200).json(icons))
+    .catch((err) => console.error(err));
 };
 
 module.exports = {
@@ -148,4 +160,5 @@ module.exports = {
   getModelByBrandId,
   getModelById,
   getRepairsByModelId,
+  getIcons,
 };

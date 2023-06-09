@@ -201,12 +201,14 @@ AdminRepair.propTypes = {
   }).isRequired,
   repairs: PropTypes.arrayOf(
     PropTypes.shape({
+      picIcon: PropTypes.string.isRequired,
+      iconId: PropTypes.number.isRequired,
       id: PropTypes.number.isRequired,
       index_id: PropTypes.number.isRequired,
       is_visible: PropTypes.number.isRequired,
       marque: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired,
-      picmodel: PropTypes.oneOfType([
+      picModel: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.oneOf([null]),
       ]),
