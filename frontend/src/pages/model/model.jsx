@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import Navbar from "@components/navbar/Navbar";
-import Header from "@components/header/Header";
+import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
 
 function Model() {
   const [model, setModel] = useState([]);
@@ -30,28 +30,34 @@ function Model() {
   return (
     <div className="brand">
       <Navbar />
-      <Header />
-      <p className="brand_title">Quel est votre modèle ?</p>
-      {model.length >= 1 && (
-        <div className="brand_search">
-          <FaSearch className="brand_search_fa" />
-          <input
-            className="brand_search_input"
-            value={modelQuery}
-            type="search"
-            placeholder={`Recherchez parmis nos ${model.length} modèles ...`}
-            onChange={(e) => setModelQuery(e.target.value)}
-          />
-          {modelQuery !== "" && (
-            <button
-              type="button"
-              className="brand_search_trash"
-              onClick={() => setModelQuery("")}
-            >
-              <FaTrashAlt className="brand_search_trash_fa" />
-            </button>
-          )}
-        </div>
+      <Breadcrumbs type="model" />
+      {model.length >= 1 ? (
+        <>
+          <p className="brand_title">Quel est votre modèle ?</p>
+          <div className="brand_search">
+            <FaSearch className="brand_search_fa" />
+            <input
+              className="brand_search_input"
+              value={modelQuery}
+              type="search"
+              placeholder={`Recherchez parmis nos ${model.length} modèles ...`}
+              onChange={(e) => setModelQuery(e.target.value)}
+            />
+            {modelQuery !== "" && (
+              <button
+                type="button"
+                className="brand_search_trash"
+                onClick={() => setModelQuery("")}
+              >
+                <FaTrashAlt className="brand_search_trash_fa" />
+              </button>
+            )}
+          </div>
+        </>
+      ) : (
+        <p className="brand_title">
+          Oups ! Aucun modèle disponible dans cette catégorie pour le moment...
+        </p>
       )}
       {model.length >= 1 && (
         <div className="brand_brand">

@@ -7,6 +7,8 @@ import UserContext from "../../../../../context/UserContext";
 
 function AdminRepairCard({
   repairId,
+  icon,
+  iconId,
   name,
   price,
   text,
@@ -36,6 +38,8 @@ function AdminRepairCard({
       <div className="adminRepairCard_infos">
         <AdminUpdateRepair
           repairId={repairId}
+          icon={icon}
+          iconId={iconId}
           name={name}
           price={price}
           text={text}
@@ -69,6 +73,8 @@ export default AdminRepairCard;
 
 AdminRepairCard.propTypes = {
   repairId: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired,
+  iconId: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   isVisible: PropTypes.number.isRequired,

@@ -23,11 +23,12 @@
 
 .admin {
   width: 98%;
-  min-height: calc(100vh - 130px);
+  min-height: calc(100vh - 155px);
   display: flex;
   margin: auto;
   flex-direction: column;
   gap: 2%;
+  margin-bottom: 2%;
 
   &_select {
     display: flex;

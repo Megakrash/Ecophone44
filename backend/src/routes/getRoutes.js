@@ -36,5 +36,8 @@ router.get("/model/:id", getRoutesFunctions.getModelById);
 // -------------------------------
 // by model id
 router.get("/repairs/:id", getRoutesFunctions.getRepairsByModelId);
-
+// -------------------------------
+// ----------- Icons  ------------
+// -------------------------------
+router.get("/icons", getRoutesFunctions.getIcons);
 module.exports = router;

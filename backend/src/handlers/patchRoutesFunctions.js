@@ -129,10 +129,10 @@ const updateModelPicByModelId = (req, res) => {
 
 const updateRepairById = (req, res) => {
   const { id } = req.params;
-  const { name, text, price } = req.body;
+  const { name, text, price, iconId } = req.body;
   knex("repairs")
     .where("id", id)
-    .update({ name, text, price })
+    .update({ name, text, price, icon_id: iconId })
     .then((result) => {
       if (result === 0) {
         res.status(404).send("Not Found");

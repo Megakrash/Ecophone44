@@ -67,14 +67,46 @@ CREATE TABLE
         `name` VARCHAR(255) NOT NULL,
         `text` VARCHAR(255) NOT NULL,
         `price` VARCHAR(100) NOT NULL,
+        `icon_id` INT NOT NULL,
         `index_id` INT NULL DEFAULT 0,
         `is_visible` TINYINT NOT NULL DEFAULT 0,
         `model_id` INT NOT NULL,
+        CONSTRAINT `icon_id` FOREIGN KEY (`icon_id`) REFERENCES `ecophone44`.`icons` (`id`),
         CONSTRAINT `model_id` FOREIGN KEY (`model_id`) REFERENCES `ecophone44`.`models` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
-    -- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Table `ecophone44`.`icons`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `ecophone44`.`icons` ;
+
+CREATE TABLE
+    IF NOT EXISTS `ecophone44`.`icons` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `pic` VARCHAR(255) NULL DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+INSERT INTO
+  `ecophone44`.`icons` ( pic )
+VALUES
+  ('screen.png'),
+  ('batterie.png'),
+  ('back.png'),
+  ('dock.png'),
+  ('camback.png'),
+  ('hublot.png'),
+  ('ecouteur.png'),
+  ('camfront.png'),
+  ('water.png'),
+  ('tools.png'),
+  ('autres.png'),
+  ('hp.png');
+
+-- -----------------------------------------------------
 -- Table `ecophone44`.`users`
 -- -----------------------------------------------------
 
