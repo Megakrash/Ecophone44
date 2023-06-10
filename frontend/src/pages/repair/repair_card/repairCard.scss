@@ -5,7 +5,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border: 0.0625rem solid $fourth-color;
+  border: 0.0625rem solid $seventh-color;
+  background-color: transparent;
   border-radius: 5px;
   margin-bottom: 2%;
   cursor: pointer;
@@ -23,8 +24,39 @@
       font-size: 16px;
     }
   }
+
+  &_price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-right: 2%;
+    &_checkbox {
+      width: 20px;
+      height: 20px;
+      border: 0.2rem solid $seventh-color;
+      border-radius: 5px;
+    }
+    .activ-price {
+      color: $sixte-color;
+      font-weight: 600;
+    }
+    .activ-checkbox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $sixte-color;
+      border-color: $sixte-color;
+
+      .fa-checkbox {
+        width: 15px;
+        height: 15px;
+        color: white;
+      }
+    }
+  }
 }
 
 .card-selected {
-  border: 0.0625rem solid $sixte-color;
+  border-color: $sixte-color;
 }

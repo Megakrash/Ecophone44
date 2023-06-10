@@ -1,18 +1,33 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { FaCheck } from "react-icons/fa";
 
-function RepairCard({ picIcon, name, price, setTotalCardPrice }) {
+function RepairCard({
+  picIcon,
+  name,
+  price,
+  handleTotalPrice,
+  handleRepairSelect,
+  handleRepairDeselect,
+}) {
   const [selected, setSelected] = useState(false);
   const picPath = `${import.meta.env.VITE_PATH_IMAGE}icons/`;
+
+  const handleClick = () => {
+    setSelected(!selected);
+    handleTotalPrice(price, !selected);
+    if (selected) {
+      handleRepairDeselect(name);
+    } else {
+      handleRepairSelect(name, price);
+    }
+  };
 
   return (
     <button
       className={!selected ? "repairCard" : "repairCard card-selected"}
       type="button"
-      onClick={() => {
-        setSelected(true);
-        setTotalCardPrice(Number(price));
-      }}
+      onClick={handleClick}
     >
       <div className="repairCard_bloc">
         <img
@@ -22,7 +37,26 @@ function RepairCard({ picIcon, name, price, setTotalCardPrice }) {
         />
         <p className="repairCard_bloc_name"> {name.toUpperCase()}</p>
       </div>
-      <p className="repairCard_bloc_name">{price}.00€</p>
+      <div className="repairCard_price">
+        <p
+          className={
+            !selected
+              ? "repairCard_bloc_name"
+              : " repairCard_bloc_name activ-price"
+          }
+        >
+          {price}.00€
+        </p>
+        <div
+          className={
+            !selected
+              ? "repairCard_price_checkbox"
+              : "repairCard_price_checkbox activ-checkbox"
+          }
+        >
+          {selected && <FaCheck className="fa-checkbox" />}
+        </div>
+      </div>
     </button>
   );
 }
@@ -33,5 +67,7 @@ RepairCard.propTypes = {
   picIcon: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  setTotalCardPrice: PropTypes.func.isRequired,
+  handleTotalPrice: PropTypes.func.isRequired,
+  handleRepairSelect: PropTypes.func.isRequired,
+  handleRepairDeselect: PropTypes.func.isRequired,
 };
