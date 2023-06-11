@@ -14,6 +14,10 @@ router.get(
   "/modelbybrandforfront/:id",
   getRoutesFunctions.getModelByBrandIdForFront
 );
+router.get(
+  "/repairsforfront/:id",
+  getRoutesFunctions.getRepairsByModelIdForFront
+);
 
 // ------------ Back-office -------
 // -------------------------------

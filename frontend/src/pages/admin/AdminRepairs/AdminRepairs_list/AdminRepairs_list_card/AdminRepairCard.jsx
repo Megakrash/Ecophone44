@@ -7,6 +7,7 @@ import UserContext from "../../../../../context/UserContext";
 
 function AdminRepairCard({
   repairId,
+  icons,
   icon,
   iconId,
   name,
@@ -38,6 +39,7 @@ function AdminRepairCard({
       <div className="adminRepairCard_infos">
         <AdminUpdateRepair
           repairId={repairId}
+          icons={icons}
           icon={icon}
           iconId={iconId}
           name={name}
@@ -81,4 +83,10 @@ AdminRepairCard.propTypes = {
   text: PropTypes.string.isRequired,
   getModelAndRepairs: PropTypes.func.isRequired,
   getAllModelByBrand: PropTypes.func.isRequired,
+  icons: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      pic: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

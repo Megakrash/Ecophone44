@@ -1,6 +1,6 @@
 .breadcrumbs {
   margin-top: 2%;
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -27,6 +27,7 @@
       .fa-home {
         width: 25px;
         height: 25px;
+        color: $secondary-color;
       }
 
       &_number {

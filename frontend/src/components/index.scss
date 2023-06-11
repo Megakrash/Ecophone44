@@ -5,10 +5,13 @@
 @import "../pages/home/home.scss";
 @import "../pages/brand/brand.scss";
 @import "../pages/repair/repair.scss";
-@import "./header/header.scss";
+@import "../pages/reservation/reservation.scss";
+
 @import "./navbar/navbar.scss";
-@import "./breadcrumbs/breadcrumbs.scss";
 @import "./navbar/navbarBack.scss";
+@import "./navbar/navbarRepair.scss";
+@import "./breadcrumbs/breadcrumbs.scss";
+@import "./header/header.scss";
 @import "./footer/footer.scss";
 @import "../pages/admin/admin.scss";
 @import "../pages/login/login.scss";
