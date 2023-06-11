@@ -101,7 +101,7 @@ function Breadcrumbs({ type }) {
                 type="button"
                 onClick={() => navigate(-1)}
               >
-                <p className="breadcrumbs_step_ring_number">3</p>
+                <FaCheck className="fa-home" />
               </button>
             ) : (
               <div className="breadcrumbs_step_ring">
