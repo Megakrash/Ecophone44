@@ -16,6 +16,7 @@ router.use((req, res, next) => {
     path === "/smartbrands" ||
     path === "/tabbrands" ||
     path === "/refurbbrands" ||
+    path === "/calendar" ||
     path.startsWith("/modelbybrandforfront/") ||
     path.startsWith("/repairsforfront/")
   ) {

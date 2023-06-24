@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import NavbarRepair from "@components/navbar/NavbarRepair";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
+import Agenda from "./reservation_calendar/Agenda";
 
 function Reservation() {
   // Retrieve repair component information from location
@@ -133,7 +134,12 @@ function Reservation() {
           </form>
         </>
       )}
-      {completedForm && <p>youhou</p>}
+      {completedForm && (
+        <>
+          <p className="reservation_title">Choisissez votre créneau horaire</p>
+          <Agenda />
+        </>
+      )}
     </div>
   );
 }

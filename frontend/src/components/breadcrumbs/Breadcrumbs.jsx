@@ -36,7 +36,7 @@ function Breadcrumbs({ type }) {
                 if (type === "repair") {
                   navigate(-2);
                 }
-                if (type === "reservation") {
+                if (type === "reservation" || type === "confirmation") {
                   navigate(-3);
                 }
               }}
@@ -69,7 +69,7 @@ function Breadcrumbs({ type }) {
                 if (type === "repair") {
                   navigate(-1);
                 }
-                if (type === "reservation") {
+                if (type === "reservation" || type === "confirmation") {
                   navigate(-2);
                 }
               }}
@@ -95,7 +95,7 @@ function Breadcrumbs({ type }) {
           </>
         ) : (
           <>
-            {type === "reservation" ? (
+            {type === "reservation" || type === "confirmation" ? (
               <button
                 className="breadcrumbs_step_ring ring-navigate"
                 type="button"
@@ -115,7 +115,7 @@ function Breadcrumbs({ type }) {
       </div>
       <div className="breadcrumbs_line" />
       <div className="breadcrumbs_step">
-        {type === "reservation" ? (
+        {type === "reservation" || type === "confirmation" ? (
           <>
             <div className="breadcrumbs_step_ring ring-activ">
               <p className="breadcrumbs_step_ring_number number-activ">4</p>
