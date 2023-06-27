@@ -1,5 +1,4 @@
 import React, { lazy, Suspense, useState, useEffect } from "react";
-import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import UserContext from "./context/UserContext";
 
@@ -13,36 +12,15 @@ const Login = lazy(() => import("@pages/login/Login"));
 const Admin = lazy(() => import("@pages/admin/Admin"));
 
 function App() {
+  // Context user with user Id & Token
   const [userContext, setUserContext] = useState("");
-  const verifyToken = () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userContext.userToken}`,
-      },
-    };
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/user`, config)
-      .then(() => {
-        setUserContext(JSON.parse(localStorage.getItem("Eco44Token")));
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          localStorage.removeItem("Eco44Token");
-          setUserContext("");
-        } else {
-          console.error("Error database");
-        }
-      });
-  };
 
   useEffect(() => {
     if (localStorage.getItem("Eco44Token")) {
       setUserContext(JSON.parse(localStorage.getItem("Eco44Token")));
     }
-    if (userContext !== "") {
-      verifyToken();
-    }
   }, []);
+
   return (
     <div className="App">
       <Suspense
@@ -60,22 +38,19 @@ function App() {
             <Route path="/models/:id" element={<Model />} />
             <Route path="/repairs/:id" element={<Repair />} />
             <Route path="/reservation" element={<Reservation />} />
-            {userContext === "" ? (
-              <Route
-                path="/admin"
-                element={<Login setUserContext={setUserContext} />}
-              />
-            ) : (
-              <Route
-                path="/admin"
-                element={
-                  <Admin
-                    userToken={userContext.userToken}
-                    setUserContext={setUserContext}
-                  />
-                }
-              />
-            )}
+            <Route
+              path="/login"
+              element={<Login setUserContext={setUserContext} />}
+            />
+            <Route
+              path="/admin"
+              element={
+                <Admin
+                  userToken={userContext.userToken}
+                  setUserContext={setUserContext}
+                />
+              }
+            />
           </Routes>
           <Footer />
         </UserContext.Provider>

@@ -6,7 +6,7 @@ const getRoutesFunctions = require("../handlers/getRoutesFunctions");
 // First verify token
 router.get("/user", getRoutesFunctions.getUserToVerifyToken);
 
-// ------------- Front ------------
+// ---- Front user no verify token ---
 router.get("/smartbrands", getRoutesFunctions.getSmartBrandsForFront);
 router.get("/tabbrands", getRoutesFunctions.getTabBrandsForFront);
 router.get("/refurbbrands", getRoutesFunctions.getRefurbBrandsForFront);
@@ -18,6 +18,7 @@ router.get(
   "/repairsforfront/:id",
   getRoutesFunctions.getRepairsByModelIdForFront
 );
+router.get("/calendar", getRoutesFunctions.getCalendarForFront);
 
 // ------------ Back-office -------
 // -------------------------------

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 import NavbarBack from "@components/navbar/NavbarBack";
 
 function Login({ setUserContext }) {
+  const [showError, setShowError] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const loginUser = (e) => {
     e.preventDefault();
     axios
@@ -22,8 +24,12 @@ function Login({ setUserContext }) {
             userId: res.data.userId,
           })
         );
+        navigate("/admin");
       })
-      .catch((err) => console.error("error", err));
+      .catch(() => {
+        setLoginDetails({ email: "", password: "" });
+        setShowError(true);
+      });
   };
 
   return (
@@ -37,8 +43,10 @@ function Login({ setUserContext }) {
           className="login_form_input"
           type="email"
           name="email"
+          value={loginDetails.email}
           onChange={(e) => {
             setLoginDetails({ ...loginDetails, email: e.target.value });
+            setShowError(false);
           }}
           required
         />
@@ -49,11 +57,16 @@ function Login({ setUserContext }) {
           className="login_form_input"
           type="password"
           name="password"
-          onChange={(e) =>
-            setLoginDetails({ ...loginDetails, password: e.target.value })
-          }
+          value={loginDetails.password}
+          onChange={(e) => {
+            setLoginDetails({ ...loginDetails, password: e.target.value });
+            setShowError(false);
+          }}
           required
         />
+        {showError === true && (
+          <p className="login_form_error">Wrong email or password</p>
+        )}
         <button className="login_form_submit" type="submit">
           LOGIN
         </button>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaPlusCircle } from "react-icons/fa";
 import CreateBrandOrModel from "./AdminCreate/CreateBrandOrModel";
@@ -20,6 +21,7 @@ function AdminManage({
   showCreateBrand,
   setShowCreateBrand,
 }) {
+  const navigate = useNavigate();
   // Stock the brands
   const [brands, setBrands] = useState([]);
   // To stock all models when a brand is selected
@@ -46,6 +48,7 @@ function AdminManage({
         if (error.response && error.response.status === 401) {
           localStorage.removeItem("Eco44Token");
           setUserContext("");
+          navigate("/login");
         } else {
           console.error("Error database");
         }
@@ -70,8 +73,9 @@ function AdminManage({
         if (error.response && error.response.status === 401) {
           localStorage.removeItem("Eco44Token");
           setUserContext("");
+          navigate("/login");
         } else {
-          console.error("Name not updated");
+          console.error("Error Database");
         }
       });
   };
@@ -101,6 +105,7 @@ function AdminManage({
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("Eco44Token");
         setUserContext("");
+        navigate("/login");
       } else {
         console.error("error", error);
       }

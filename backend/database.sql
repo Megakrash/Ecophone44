@@ -12,18 +12,18 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema ecophone44
 -- -----------------------------------------------------
 
-CREATE SCHEMA IF NOT EXISTS `ecophone44` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE SCHEMA IF NOT EXISTS `yflt5483_ecophone44` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
-USE `ecophone44` ;
+USE `yflt5483_ecophone44` ;
 
 -- -----------------------------------------------------
 -- Table `ecophone44`.`brands`
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`brands` ;
+DROP TABLE IF EXISTS `yflt5483_ecophone44`.`brands` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`brands` (
+    IF NOT EXISTS `yflt5483_ecophone44`.`brands` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
@@ -39,10 +39,10 @@ CREATE TABLE
 
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`models` ;
+DROP TABLE IF EXISTS `yflt5483_ecophone44`.`models` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`models` (
+    IF NOT EXISTS `yflt5483_ecophone44`.`models` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(100) NOT NULL,
         `text` VARCHAR(500) NULL DEFAULT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE
         `index_id` INT NULL DEFAULT 0,
         `is_visible` TINYINT NOT NULL DEFAULT 1,
         `brand_id` INT NOT NULL,
-        CONSTRAINT `brand_id` FOREIGN KEY (`brand_id`) REFERENCES `ecophone44`.`brands` (`id`),
+        CONSTRAINT `brand_id` FOREIGN KEY (`brand_id`) REFERENCES `yflt5483_ecophone44`.`brands` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -59,10 +59,10 @@ CREATE TABLE
 -- Table `ecophone44`.`repairs`
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`repairs` ;
+DROP TABLE IF EXISTS `yflt5483_ecophone44`.`repairs` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`repairs` (
+    IF NOT EXISTS `yflt5483_ecophone44`.`repairs` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `name` VARCHAR(255) NOT NULL,
         `text` VARCHAR(255) NOT NULL,
@@ -71,8 +71,8 @@ CREATE TABLE
         `index_id` INT NULL DEFAULT 0,
         `is_visible` TINYINT NOT NULL DEFAULT 0,
         `model_id` INT NOT NULL,
-        CONSTRAINT `icon_id` FOREIGN KEY (`icon_id`) REFERENCES `ecophone44`.`icons` (`id`),
-        CONSTRAINT `model_id` FOREIGN KEY (`model_id`) REFERENCES `ecophone44`.`models` (`id`),
+        CONSTRAINT `icon_id` FOREIGN KEY (`icon_id`) REFERENCES `yflt5483_ecophone44`.`icons` (`id`),
+        CONSTRAINT `model_id` FOREIGN KEY (`model_id`) REFERENCES `yflt5483_ecophone44`.`models` (`id`),
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -81,17 +81,17 @@ CREATE TABLE
 -- Table `ecophone44`.`icons`
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`icons` ;
+DROP TABLE IF EXISTS `yflt5483_ecophone44`.`icons` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`icons` (
+    IF NOT EXISTS `yflt5483_ecophone44`.`icons` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `pic` VARCHAR(255) NULL DEFAULT NULL,
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
-  `ecophone44`.`icons` ( pic )
+  `yflt5483_ecophone44`.`icons` ( pic )
 VALUES
   ('screen.png'),
   ('batterie.png'),
@@ -110,10 +110,10 @@ VALUES
 -- Table `ecophone44`.`users`
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `ecophone44`.`users` ;
+DROP TABLE IF EXISTS `yflt5483_ecophone44`.`users` ;
 
 CREATE TABLE
-    IF NOT EXISTS `ecophone44`.`users` (
+    IF NOT EXISTS `yflt5483_ecophone44`.`users` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `email` VARCHAR(100) NOT NULL,
         `password` VARCHAR(100) NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
-  `ecophone44`.`users` ( email, password )
+  `yflt5483_ecophone44`.`users` ( email, password )
 VALUES
   (
     'contact@ecophone44.com',
@@ -132,3 +132,22 @@ VALUES
     'jscattolini@gmail.com',
     '$argon2id$v=19$m=65536,t=5,p=1$zZPOnktP/6elpx5YF8NeQw$Q85ZQzK9AlP6hF1oRo6flSKnZ02AJ+eBtRQQs89xTkw'
   );
+
+-- -----------------------------------------------------
+-- Table `ecophone44`.`calendar`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `yflt5483_ecophone44`.`calendar` ;
+
+CREATE TABLE
+    IF NOT EXISTS `yflt5483_ecophone44`.`calendar` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `firstName` VARCHAR(100) NOT NULL,
+        `lastName` VARCHAR(100) NOT NULL,
+        `email` VARCHAR(100) NOT NULL,
+        `phoneNumber` VARCHAR(100) NOT NULL,
+        `zipCode` VARCHAR(100) NOT NULL,
+        `start_date` DATETIME NOT NULL,
+        `end_date` DATETIME NOT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;

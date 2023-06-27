@@ -179,6 +179,15 @@ const getIcons = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+/* CALENDAR */
+const getCalendarForFront = (req, res) => {
+  knex
+    .select("*")
+    .from("calendar")
+    .then((calendar) => res.status(200).json(calendar))
+    .catch((err) => console.error(err));
+};
+
 module.exports = {
   getUserToVerifyToken,
   getSmartBrandsForFront,
@@ -192,4 +201,5 @@ module.exports = {
   getRepairsByModelId,
   getRepairsByModelIdForFront,
   getIcons,
+  getCalendarForFront,
 };
