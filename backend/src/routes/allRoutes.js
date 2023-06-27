@@ -8,7 +8,7 @@ const postRoutes = require("./postRoutes");
 
 const router = express.Router();
 
-// Use the middleware "verifyToken" for all other routes except "/login"
+// Use the middleware "verifyToken" for all routes except "/login" & front-user path
 router.use((req, res, next) => {
   const { path } = req;
   if (

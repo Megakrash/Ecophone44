@@ -36,6 +36,8 @@ const verifyPassword = (req, res) => {
           expiresIn: "24hours",
         });
         res.send({ userToken, userId: req.user.id });
+      } else {
+        res.status(401).send("Incorrect password");
       }
     })
     .catch((err) => {

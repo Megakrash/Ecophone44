@@ -6,7 +6,6 @@ const knex = require("../../knex");
 
 const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
   const { email } = req.body;
-
   knex("users")
     .where("email", email)
     .first()
@@ -212,6 +211,7 @@ const postNewRepair = (req, res) => {
       name,
       text,
       price,
+      icon_id: 1,
       model_id: Number(modelId),
     })
     .then(() => {

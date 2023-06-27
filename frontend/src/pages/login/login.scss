@@ -26,6 +26,11 @@
       margin-bottom: 15px;
     }
 
+    &_error {
+      color: $offline-color;
+      font-size: 15px;
+    }
+
     &_submit {
       width: 180px;
       height: 45px;
