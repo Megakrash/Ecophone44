@@ -47,4 +47,10 @@ router.post(
 // Add new repair
 router.post("/repair", postRoutesFunctions.postNewRepair);
 
+// -------------------------------
+// ----------- Calendat ----------
+// -------------------------------
+// Add new event
+router.post("/calendar", postRoutesFunctions.postNewEvent);
+
 module.exports = router;

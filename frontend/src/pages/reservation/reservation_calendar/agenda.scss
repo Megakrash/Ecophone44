@@ -2,3 +2,11 @@
   width: 95%;
   margin-top: 3%;
 }
+.agenda .rbc-calendar .rbc-event {
+  cursor: not-allowed;
+  background-color: grey;
+}
+
+.agenda .rbc-calendar .rbc-time-column {
+  cursor: pointer;
+}
