@@ -223,10 +223,44 @@ const postNewRepair = (req, res) => {
     });
 };
 
+// -------------------------------
+// ----------- Calendar ----------
+// -------------------------------
+const postNewEvent = (req, res, next) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    zipCode,
+    startDate,
+    endDate,
+  } = req.body;
+
+  knex("calendar")
+    .insert({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      zipCode,
+      start_date: startDate,
+      end_date: endDate,
+    })
+    .then(() => {
+      next();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error adding new event");
+    });
+};
+
 module.exports = {
   getUserByEmailWithPasswordAndPassToNext,
   postNewBrand,
   postNewModel,
   postNewModelRefurb,
   postNewRepair,
+  postNewEvent,
 };

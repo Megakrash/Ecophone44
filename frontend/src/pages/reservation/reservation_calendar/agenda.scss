@@ -1,4 +1,65 @@
 .agenda {
   width: 95%;
   margin-top: 3%;
+  .rbc-header {
+    font-size: 15px;
+  }
+  .rbc-row {
+    cursor: not-allowed;
+    background-color: grey;
+  }
+  .rbc-calendar .rbc-event {
+    cursor: not-allowed;
+    background-color: grey;
+  }
+  .rbc-calendar .rbc-time-column {
+    cursor: pointer;
+  }
+
+  &_box {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 0.0625rem solid $seventh-color;
+    background-color: white;
+    border-radius: 5px;
+    gap: 12px;
+    padding: 1%;
+
+    &_text {
+      font-size: 18px;
+
+      span {
+        font-weight: 600;
+      }
+    }
+
+    &_buttons {
+      margin-top: 2%;
+      align-self: center;
+      display: flex;
+      gap: 15px;
+
+      &_btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 180px;
+        height: 75px;
+        align-self: center;
+        background-color: $sixte-color;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        &:hover {
+          background-color: $fifte-color;
+          color: $primary-color;
+        }
+      }
+    }
+  }
 }

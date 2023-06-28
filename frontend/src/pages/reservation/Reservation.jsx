@@ -12,7 +12,7 @@ function Reservation() {
   const { modelName } = location.state;
   const { modelPic } = location.state;
   const { totalCardPrice } = location.state;
-  // const { selectedRepairs } = location.state;
+  const { selectedRepairs } = location.state;
 
   // Create state for form
   const [formDetails, setFormDetails] = useState({
@@ -69,7 +69,7 @@ function Reservation() {
                 name="lastName"
                 placeholder="Votre nom"
                 onChange={(e) => {
-                  setFormDetails({ ...formDetails, lestName: e.target.value });
+                  setFormDetails({ ...formDetails, lastName: e.target.value });
                 }}
                 required
               />
@@ -136,8 +136,14 @@ function Reservation() {
       )}
       {completedForm && (
         <>
-          <p className="reservation_title">Choisissez votre créneau horaire</p>
-          <Agenda />
+          <p className="reservation_title">Choisissez un créneau disponible</p>
+          <Agenda
+            selectedRepairs={selectedRepairs}
+            formDetails={formDetails}
+            brandName={brandName}
+            modelName={modelName}
+            totalCardPrice={totalCardPrice}
+          />
         </>
       )}
     </div>
