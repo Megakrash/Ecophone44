@@ -111,6 +111,7 @@ function Agenda({
           onSelectSlot={handleSelectSlot}
           selectable
           eventPropGetter={eventStyleGetter}
+          titleAccessor={() => "Non disponible"}
           defaultView="week"
           views={["week"]}
           step={60}
@@ -118,7 +119,7 @@ function Agenda({
           startAccessor="start"
           endAccessor="end"
           min={new Date(2000, 1, 1, 10)}
-          max={new Date(2000, 1, 1, 18)}
+          max={new Date(2000, 1, 1, 19)}
           messages={{
             next: ">",
             previous: "<",
@@ -132,26 +133,50 @@ function Agenda({
           formats={formats}
         />
       ) : (
-        <>
-          <p>{`Vous avez sélectionné le créneau du ${format(
-            selectedSlot.start,
-            "EEEE d MMMM 'à' HH'h'mm",
-            { locale: fr }
-          )}`}</p>
-          <p>{`Votre marque : ${brandName.toUpperCase()}`}</p>
-          <p>{`Votre modèle : ${modelName.toUpperCase()}`}</p>
-          <p>Réparation(s) :</p>
+        <div className="agenda_box">
+          <p className="agenda_box_text">
+            Vous avez sélectionné le créneau du{" "}
+            <span>
+              {format(selectedSlot.start, "EEEE d MMMM 'à' HH'h'mm", {
+                locale: fr,
+              })}
+            </span>
+            .
+          </p>
+          <p className="agenda_box_text">
+            Votre marque : <span>{brandName.toUpperCase()}</span>
+          </p>
+          <p className="agenda_box_text">
+            Votre modèle : <span>{modelName.toUpperCase()}</span>
+          </p>
+          <p className="agenda_box_text">Réparation(s) :</p>
           {selectedRepairs.map((repair) => {
-            return <p key={repair.name}>- {repair.name}</p>;
+            return (
+              <p className="agenda_box_text" key={repair.name}>
+                - {repair.name}
+              </p>
+            );
           })}
-          <p>{`Montant total : ${totalCardPrice}.00€`}</p>
-          <button type="button" onClick={() => newEventForCalendar()}>
-            CONFIRMER
-          </button>
-          <button type="button" onClick={() => setShowConfirmation(false)}>
-            CHANGER DE CRENEAU
-          </button>
-        </>
+          <p className="agenda_box_text">
+            Montant total : <span>{totalCardPrice}.00€</span>
+          </p>
+          <div className="agenda_box_buttons">
+            <button
+              className="agenda_box_buttons_btn"
+              type="button"
+              onClick={() => newEventForCalendar()}
+            >
+              CONFIRMER
+            </button>
+            <button
+              className="agenda_box_buttons_btn"
+              type="button"
+              onClick={() => setShowConfirmation(false)}
+            >
+              MODIFIER MON CRENEAU
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
