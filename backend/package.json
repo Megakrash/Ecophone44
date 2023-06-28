@@ -23,6 +23,7 @@
     "mega-template": "file:..",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^2.3.3",
+    "nodemailer": "^6.9.3",
     "save": "^2.9.0",
     "template-fullstack": "file:..",
     "util": "^0.12.5"

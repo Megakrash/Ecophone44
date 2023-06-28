@@ -90,7 +90,10 @@ function Agenda({
         startDate: format(selectedSlot.start, "yyyy-MM-dd HH:mm:ss"),
         endDate: format(selectedSlot.end, "yyyy-MM-dd HH:mm:ss"),
         selectedRepairs,
+        formDetails,
         modelName,
+        brandName,
+        totalCardPrice,
       })
       .then(() => {
         navigate("/confirmation");

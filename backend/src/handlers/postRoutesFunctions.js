@@ -248,7 +248,6 @@ const postNewEvent = (req, res, next) => {
       end_date: endDate,
     })
     .then(() => {
-      res.status(201).send({ message: "Event Added" });
       next();
     })
     .catch((err) => {
