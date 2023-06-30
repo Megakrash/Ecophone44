@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { FaExclamationCircle } from "react-icons/fa";
 import NavbarRepair from "@components/navbar/NavbarRepair";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
 import RepairCard from "./repair_card/RepairCard";
@@ -89,21 +90,44 @@ function Repair() {
                 />
               );
             })}
+            <RepairCard
+              picIcon="xforce.webp"
+              name={"Protection d'écran XFORCE"}
+              price="20"
+              handleTotalPrice={handleTotalPrice}
+              handleRepairSelect={handleRepairSelect}
+              handleRepairDeselect={handleRepairDeselect}
+            />
             {totalCardPrice !== 0 && (
-              <Link
-                to="/reservation"
-                state={{
-                  brandName: allRepairs[0].brandName,
-                  modelName: allRepairs[0].modelName,
-                  modelPic: allRepairs[0].modelPic,
-                  totalCardPrice,
-                  selectedRepairs,
-                }}
-                className="repair_bloc_card_btn"
-              >
-                <p>PRENDRE RENDEZ-VOUS</p>
-                <p>(c'est gratuit !)</p>
-              </Link>
+              <>
+                <div className="repair_bloc_card_price">
+                  <p className="repair_bloc_card_price_text">TOTAL (TTC)</p>
+                  <p className="repair_bloc_card_price_total">
+                    {totalCardPrice}.00€
+                  </p>
+                </div>
+                <Link
+                  to="/reservation"
+                  state={{
+                    brandName: allRepairs[0].brandName,
+                    modelName: allRepairs[0].modelName,
+                    modelPic: allRepairs[0].modelPic,
+                    totalCardPrice,
+                    selectedRepairs,
+                  }}
+                  className="repair_bloc_card_btn"
+                >
+                  <p>PRENDRE RENDEZ-VOUS</p>
+                  <p>(c'est gratuit !)</p>
+                </Link>
+                <div className="repair_bloc_card_warning">
+                  <FaExclamationCircle className="fa-warning" />
+                  <p className="repair_bloc_card_warning_text">
+                    Nos tarifs sont indiqués à titre indicatif et pourront
+                    évoluer selon le diagnostic effectué en boutique.
+                  </p>
+                </div>
+              </>
             )}
           </div>
         </div>

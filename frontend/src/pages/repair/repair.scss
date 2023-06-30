@@ -44,11 +44,32 @@
         }
       }
 
+      &_price {
+        width: 95%;
+        margin-top: 2%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 0.0625rem solid $seventh-color;
+        &_text {
+          font-size: 2rem;
+          font-weight: 600;
+        }
+        &_total {
+          font-size: 3rem;
+          margin-right: 2%;
+          font-weight: 600;
+          color: $sixte-color;
+        }
+      }
+
       &_btn {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin-top: 2%;
         gap: 5px;
         width: 350px;
         height: 75px;
@@ -58,9 +79,31 @@
         font-size: 18px;
         font-weight: 600;
         cursor: pointer;
+        transition: 0.2s ease-in-out;
         &:hover {
           background-color: $fifte-color;
           color: $primary-color;
+        }
+      }
+
+      &_warning {
+        width: 95%;
+        margin-top: 2%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+        min-height: 75px;
+        background-color: $seventh-color;
+        border-radius: 5px;
+        .fa-warning {
+          margin-left: 2%;
+          width: 30px;
+          height: auto;
+        }
+        &_text {
+          font-size: 17px;
+          font-weight: 600;
         }
       }
     }

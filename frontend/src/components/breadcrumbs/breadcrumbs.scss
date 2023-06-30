@@ -32,12 +32,14 @@
 
       &_number {
         font-size: 13px;
+        font-weight: 600;
       }
     }
     .ring-activ {
       border: 2px solid $sixte-color;
 
       .number-activ {
+        font-size: 16px;
         font-weight: 600;
         color: $sixte-color;
       }
