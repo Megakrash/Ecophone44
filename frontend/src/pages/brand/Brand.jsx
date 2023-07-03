@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
+import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 
 export default function Brand() {
@@ -37,7 +38,11 @@ export default function Brand() {
   return (
     <div className="brand">
       <Navbar />
-      <Breadcrumbs type="brand" />
+      {id === "3" ? (
+        <BreadcrumbsRefurb type="brand" />
+      ) : (
+        <Breadcrumbs type="brand" />
+      )}
       {allBrands.length >= 1 ? (
         <>
           <p className="brand_title">
@@ -78,7 +83,12 @@ export default function Brand() {
           .map((infos) => {
             return (
               <li className="brand_brand_li" key={infos.id}>
-                <Link to={`/models/${infos.id}`}>
+                <Link
+                  to={`/models/${infos.id}`}
+                  state={{
+                    type: id,
+                  }}
+                >
                   <img
                     className="brand_brand_li_pic"
                     src={picPath + infos.pic}

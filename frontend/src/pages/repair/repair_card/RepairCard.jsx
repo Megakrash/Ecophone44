@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaCheckCircle } from "react-icons/fa";
 
 function RepairCard({
   picIcon,
@@ -11,7 +11,11 @@ function RepairCard({
   handleRepairDeselect,
 }) {
   const [selected, setSelected] = useState(false);
-  const picPath = `${import.meta.env.VITE_PATH_IMAGE}icons/`;
+
+  const picPath =
+    picIcon === "xforce.webp"
+      ? `${import.meta.env.VITE_PATH_IMAGE}general/`
+      : `${import.meta.env.VITE_PATH_IMAGE}/icons/`;
 
   const handleClick = () => {
     setSelected(!selected);
@@ -35,7 +39,22 @@ function RepairCard({
           src={picPath + picIcon}
           alt={name}
         />
-        <p className="repairCard_bloc_name"> {name.toUpperCase()}</p>
+
+        {picIcon !== "xforce.webp" ? (
+          <p className="repairCard_bloc_name"> {name.toUpperCase()}</p>
+        ) : (
+          <div className="repairCard_bloc_xforce">
+            <p className="repairCard_bloc_name"> {name.toUpperCase()}</p>
+            <p className="repairCard_bloc_xforce_infos">
+              <FaCheckCircle className="fa-xforce" />
+              Ultra résistant
+            </p>
+            <p className="repairCard_bloc_xforce_infos">
+              <FaCheckCircle className="fa-xforce" />
+              Sur-mesure
+            </p>
+          </div>
+        )}
       </div>
       <div className="repairCard_price">
         <p

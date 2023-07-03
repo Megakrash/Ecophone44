@@ -10,15 +10,36 @@ const router = express.Router();
 
 // Use the middleware "verifyToken" for all routes except "/login" & front-user path
 router.use((req, res, next) => {
-  const { path } = req;
+  const { path, method } = req;
+  const unauthenticatedPaths = [
+    "/login",
+    "/smartbrands",
+    "/tabbrands",
+    "/refurbbrands",
+  ];
+
+  const unauthenticatedPathsForGetAndPost = [
+    "/calendar",
+    "/sendemailreservation",
+  ];
+
+  const unauthenticatedPrefixes = [
+    "/refurbbyidforfront",
+    "/modelbybrandforfront/",
+    "/repairsforfront/",
+  ];
+
+  const isUnauthenticatedPath =
+    unauthenticatedPaths.includes(path) ||
+    unauthenticatedPrefixes.some((prefix) => path.startsWith(prefix));
+
+  const isUnauthenticatedPathForGetAndPost =
+    unauthenticatedPathsForGetAndPost.includes(path);
+
   if (
-    path === "/login" ||
-    path === "/smartbrands" ||
-    path === "/tabbrands" ||
-    path === "/refurbbrands" ||
-    path === "/calendar" ||
-    path.startsWith("/modelbybrandforfront/") ||
-    path.startsWith("/repairsforfront/")
+    (isUnauthenticatedPath && method === "GET") ||
+    (isUnauthenticatedPathForGetAndPost &&
+      (method === "GET" || method === "POST"))
   ) {
     next();
   } else {

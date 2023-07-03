@@ -7,6 +7,7 @@ const Home = lazy(() => import("@pages/home/Home"));
 const Brand = lazy(() => import("@pages/brand/Brand"));
 const Model = lazy(() => import("@pages/model/model"));
 const Repair = lazy(() => import("@pages/repair/Repair"));
+const Refurb = lazy(() => import("@pages/refurb/Refurb"));
 const Reservation = lazy(() => import("@pages/reservation/Reservation"));
 const Confirmation = lazy(() => import("@pages/confirmation/Confirmation"));
 const Login = lazy(() => import("@pages/login/Login"));
@@ -38,6 +39,7 @@ function App() {
             <Route path="/brands/:id" element={<Brand />} />
             <Route path="/models/:id" element={<Model />} />
             <Route path="/repairs/:id" element={<Repair />} />
+            <Route path="/refurbs/:id" element={<Refurb />} />
             <Route path="/reservation" element={<Reservation />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route

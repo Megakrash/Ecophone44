@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
+import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
 
 function Model() {
   const [model, setModel] = useState([]);
@@ -12,6 +13,11 @@ function Model() {
   const picPath = `${import.meta.env.VITE_PATH_IMAGE}models/`;
   const { id } = useParams();
 
+  // Use location to have the type. If type === "3" === refurbs
+  const location = useLocation();
+  const { type } = location.state;
+
+  // Get all the models from the choosen brand
   const getAllModelByBrand = () => {
     axios
       .get(`${import.meta.env.VITE_PORT_BACKEND}/modelbybrandforfront/${id}`)
@@ -30,10 +36,18 @@ function Model() {
   return (
     <div className="brand">
       <Navbar />
-      <Breadcrumbs type="model" />
+      {type === "3" ? (
+        <BreadcrumbsRefurb type="model" />
+      ) : (
+        <Breadcrumbs type="model" />
+      )}
       {model.length >= 1 ? (
         <>
-          <p className="brand_title">Quel est votre modèle ?</p>
+          {type === "3" ? (
+            <p className="brand_title">Quel modèle recherchez vous ?</p>
+          ) : (
+            <p className="brand_title">Quel est votre modèle ?</p>
+          )}
           <div className="brand_search">
             <FaSearch className="brand_search_fa" />
             <input
@@ -66,7 +80,13 @@ function Model() {
             .map((infos) => {
               return (
                 <li className="brand_brand_li" key={infos.id}>
-                  <Link to={`/repairs/${infos.id}`}>
+                  <Link
+                    to={
+                      type === "3"
+                        ? `/refurbs/${infos.id}`
+                        : `/repairs/${infos.id}`
+                    }
+                  >
                     <img
                       className="brand_brand_li_pic"
                       src={picPath + infos.pic}

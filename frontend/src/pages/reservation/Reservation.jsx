@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import NavbarRepair from "@components/navbar/NavbarRepair";
+import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
+import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
 import Agenda from "./reservation_calendar/Agenda";
 
 function Reservation() {
+  const navigate = useNavigate();
   // Retrieve repair component information from location
   const location = useLocation();
   const { brandName } = location.state;
@@ -13,6 +17,7 @@ function Reservation() {
   const { modelPic } = location.state;
   const { totalCardPrice } = location.state;
   const { selectedRepairs } = location.state;
+  const { type } = location.state;
 
   // Create state for form
   const [formDetails, setFormDetails] = useState({
@@ -31,26 +36,60 @@ function Reservation() {
     setCompletedForm(true);
   };
 
+  const sendEmailReservation = (e) => {
+    e.preventDefault();
+    axios
+      .post(`${import.meta.env.VITE_PORT_BACKEND}/sendemailreservation`, {
+        formDetails,
+        modelName,
+        price: totalCardPrice,
+      })
+      .then(() => {
+        navigate("/confirmation");
+      })
+
+      .catch(() => {
+        console.error("error");
+      });
+  };
+
   return (
     <div className="reservation">
-      <NavbarRepair
-        brandName={brandName}
-        modelName={modelName}
-        modelPic={modelPic}
-        price={totalCardPrice}
-      />
+      {type === "repair" ? (
+        <NavbarRepair
+          brandName={brandName}
+          modelName={modelName}
+          modelPic={modelPic}
+          price={totalCardPrice}
+        />
+      ) : (
+        <Navbar />
+      )}
       <div className="repair_breadcrumbs">
-        <Breadcrumbs type={!completedForm ? "reservation" : "confirmation"} />
+        {type === "repair" ? (
+          <Breadcrumbs type={!completedForm ? "reservation" : "confirmation"} />
+        ) : (
+          <BreadcrumbsRefurb type="reservation" />
+        )}
       </div>
       {!completedForm && (
         <>
-          <p className="reservation_title">
-            Complétez le formulaire pour prendre rendez-vous
-          </p>
+          {type === "repair" ? (
+            <p className="reservation_title">
+              Complétez le formulaire pour prendre rendez-vous
+            </p>
+          ) : (
+            <p className="reservation_title">
+              Complétez le formulaire pour reserver votre appareil
+            </p>
+          )}
+
           <form
             action="reservation_form"
             className="reservation_form"
-            onSubmit={formIsCompleted}
+            onSubmit={
+              type === "repair" ? formIsCompleted : sendEmailReservation
+            }
           >
             <div className="reservation_form_box">
               <input
@@ -129,7 +168,7 @@ function Reservation() {
               </p>
             </button>
             <button className="repair_bloc_card_btn btn-form" type="submit">
-              PRENDRE RDV
+              {type === "repair" ? "PRENDRE RDV" : "RESERVER L'APPAREIL"}
             </button>
           </form>
         </>
