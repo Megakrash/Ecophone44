@@ -7,7 +7,7 @@ function Confirmation() {
   return (
     <div className="confirmation">
       <Navbar />
-      <h1 className="home_title">
+      <h1 className="confirmation_title">
         Merci de nous faire confiance ! Un email de confirmation viens de vous
         être envoyé.
       </h1>

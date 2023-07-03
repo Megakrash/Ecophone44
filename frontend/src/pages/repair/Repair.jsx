@@ -114,6 +114,7 @@ function Repair() {
                     modelPic: allRepairs[0].modelPic,
                     totalCardPrice,
                     selectedRepairs,
+                    type: "repair",
                   }}
                   className="repair_bloc_card_btn"
                 >

@@ -1,0 +1,25 @@
+.refurb {
+  min-height: calc(100vh - 130px);
+  display: flex;
+  flex-direction: column;
+
+  &_bloc_card {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    &_title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    &_text {
+      font-size: 18px;
+    }
+
+    &_price {
+      color: $sixte-color;
+      font-size: 25px;
+      font-weight: 600;
+    }
+  }
+}

@@ -188,6 +188,23 @@ const getCalendarForFront = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+/* REFURBS */
+const getRefurbByIdForFront = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  knex
+    .select("m.name", "m.text", "m.price", "m.pic", "b.name as brandName")
+    .from("models as m")
+    .join("brands as b", "m.brand_id", "b.id")
+    .where("m.id", id)
+    .where("m.is_visible", 1)
+    .then((refurb) => res.status(200).json(refurb))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 module.exports = {
   getUserToVerifyToken,
   getSmartBrandsForFront,
@@ -202,4 +219,5 @@ module.exports = {
   getRepairsByModelIdForFront,
   getIcons,
   getCalendarForFront,
+  getRefurbByIdForFront,
 };

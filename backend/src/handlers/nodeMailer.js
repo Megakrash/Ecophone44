@@ -107,7 +107,81 @@ const sendConfirmationEmail = (req, res) => {
       res.status(500).send("Une erreur s'est produite");
     });
 };
+const sendReservationEmail = (req, res) => {
+  const { modelName, price, formDetails } = req.body;
+
+  const mailOptions1 = {
+    from: process.env.MAIL_USER,
+    to: formDetails.email,
+    subject: "Réservation de votre reconditionné chez Ecophone 44",
+    html: `<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Réservation confirmée</title>
+    </head>
+    <body>
+      <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+        <div style="margin:50px auto;width:70%;padding:20px 0">
+          <div style="border-bottom 1px solid #eee">
+          <p>Cher client,</p>
+          <p>La réservation de votre smartphone reconditionné par Ecophone 44 est confirmée.</p>
+          <p>Modèle choisi : ${modelName}.</p>
+          <p>Prix : ${price}.00€.</p>
+          <p>Cette réservation est valable 48H. Passé ce délai, l'appareil sera remis à disposition sur internet ainsi qu'en boutique.</p>
+
+          <div style="float:left;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+            <p>Ecophone 44</p>
+            <p>2 rue deurbroucq</p>
+            <p>44000 Nantes</p>
+            <p>02 52 10 37 71</p>
+            <p>contact@ecophone44.com</p>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+    `,
+  };
+
+  const mailOptions2 = {
+    from: process.env.MAIL_USER,
+    to: process.env.MAIL_USER,
+    subject: "Nouvelle réservation reconditionné",
+    html: `<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Email Réservation reconditionné</title>
+    </head>
+    <body>
+      <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+        <div style="margin:50px auto;width:70%;padding:20px 0">
+          <div style="border-bottom 1px solid #eee">
+          <p>Nouvelle réservation :</p>
+          <p>Nom : ${formDetails.lastName}</p>
+          <p>Prénom : ${formDetails.firstName}</p>
+          <p>Email : ${formDetails.email}</p>
+          <p>Téléphone : ${formDetails.phoneNumber}</p>
+          <p>Modèle : ${modelName}.</p>
+          <p>Prix : ${price}.00€.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+    `,
+  };
+
+  Promise.all([sendEmail(mailOptions1), sendEmail(mailOptions2)])
+    .then(() => {
+      res.status(200).send("Emails envoyés avec succès");
+    })
+    .catch(() => {
+      res.status(500).send("Une erreur s'est produite");
+    });
+};
 
 module.exports = {
   sendConfirmationEmail,
+  sendReservationEmail,
 };

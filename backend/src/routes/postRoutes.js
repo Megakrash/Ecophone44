@@ -2,7 +2,10 @@ const express = require("express");
 const postRoutesFunctions = require("../handlers/postRoutesFunctions");
 const { uploadBrandPic, uploadModelPic } = require("./multers/multers");
 const { verifyPassword } = require("../handlers/auth");
-const { sendConfirmationEmail } = require("../handlers/nodeMailer");
+const {
+  sendConfirmationEmail,
+  sendReservationEmail,
+} = require("../handlers/nodeMailer");
 
 const router = express.Router();
 
@@ -57,5 +60,10 @@ router.post(
   postRoutesFunctions.postNewEvent,
   sendConfirmationEmail
 );
+
+// -------------------------------
+// ---Refurb Reservation Mail ----
+// -------------------------------
+router.post("/sendemailreservation", sendReservationEmail);
 
 module.exports = router;

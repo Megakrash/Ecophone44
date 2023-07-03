@@ -14,6 +14,7 @@ router.get(
   "/modelbybrandforfront/:id",
   getRoutesFunctions.getModelByBrandIdForFront
 );
+router.get("/refurbbyidforfront/:id", getRoutesFunctions.getRefurbByIdForFront);
 router.get(
   "/repairsforfront/:id",
   getRoutesFunctions.getRepairsByModelIdForFront
