@@ -8,7 +8,7 @@ function Confirmation() {
     <div className="confirmation">
       <Navbar />
       <h1 className="confirmation_title">
-        Merci de nous faire confiance ! Un email de confirmation viens de vous
+        Merci de nous faire confiance ! Un e-mail de confirmation vient de vous
         être envoyé.
       </h1>
       <button

@@ -107,6 +107,7 @@ const sendConfirmationEmail = (req, res) => {
       res.status(500).send("Une erreur s'est produite");
     });
 };
+
 const sendReservationEmail = (req, res) => {
   const { modelName, price, formDetails } = req.body;
 

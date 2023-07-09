@@ -11,14 +11,10 @@ const router = express.Router();
 // Use the middleware "verifyToken" for all routes except "/login" & front-user path
 router.use((req, res, next) => {
   const { path, method } = req;
-  const unauthenticatedPaths = [
-    "/login",
-    "/smartbrands",
-    "/tabbrands",
-    "/refurbbrands",
-  ];
+  const unauthenticatedPaths = ["/smartbrands", "/tabbrands", "/refurbbrands"];
 
   const unauthenticatedPathsForGetAndPost = [
+    "/login",
     "/calendar",
     "/sendemailreservation",
   ];
