@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import {
+  getAllBrandByType,
+  getAllModelByBrandAndByType,
+  getModelAndRepairsByType,
+} from "@components/apiRest/ApiRestGet";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaPlusCircle } from "react-icons/fa";
@@ -12,7 +16,6 @@ import AdminRefurbs from "./AdminRefurbs/AdminRefurbs";
 
 function AdminManage({
   type,
-  userToken,
   setUserContext,
   choosenBrandId,
   setChoosenBrandId,
@@ -30,54 +33,27 @@ function AdminManage({
   const [model, setModel] = useState();
   // To stock the repairs when a model is selected
   const [repairs, setRepairs] = useState([]);
-  // To show components
+  // To show components UpdateBrand.jsx
   const [showUpdateBrand, setShowUpdateBrand] = useState(false);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  };
+  // Launch ApiRest to get brands / models and repairs to dispatch
   const getAllBrand = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/brands/${type}`, config)
-      .then((res) => {
-        setBrands(res.data);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          localStorage.removeItem("Eco44Token");
-          setUserContext("");
-          navigate("/login");
-        } else {
-          console.error("Error database");
-        }
-      });
+    getAllBrandByType(type, setBrands, setUserContext, navigate);
   };
 
   useEffect(() => {
-    getAllBrand();
+    if (type) {
+      getAllBrand();
+    }
   }, [type]);
 
-  // When a brand is selected get all the models
   const getAllModelByBrand = () => {
-    axios
-      .get(
-        `${import.meta.env.VITE_PORT_BACKEND}/modelbybrand/${choosenBrandId}`,
-        config
-      )
-      .then((res) => {
-        setAllModelsByBrand(res.data);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          localStorage.removeItem("Eco44Token");
-          setUserContext("");
-          navigate("/login");
-        } else {
-          console.error("Error Database");
-        }
-      });
+    getAllModelByBrandAndByType(
+      choosenBrandId,
+      setAllModelsByBrand,
+      setUserContext,
+      navigate
+    );
   };
 
   useEffect(() => {
@@ -86,30 +62,14 @@ function AdminManage({
     }
   }, [choosenBrandId]);
 
-  // When a model is selected get the model infos and all repairs for this model
-  const getModelAndRepairs = async () => {
-    try {
-      const [allRepairs, getModel] = await Promise.all([
-        axios.get(
-          `${import.meta.env.VITE_PORT_BACKEND}/repairs/${choosenModelId},`,
-          config
-        ),
-        axios.get(
-          `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`,
-          config
-        ),
-      ]);
-      setRepairs(allRepairs.data);
-      setModel(getModel.data);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        localStorage.removeItem("Eco44Token");
-        setUserContext("");
-        navigate("/login");
-      } else {
-        console.error("error", error);
-      }
-    }
+  const getModelAndRepairs = () => {
+    getModelAndRepairsByType(
+      choosenModelId,
+      setRepairs,
+      setModel,
+      setUserContext,
+      navigate
+    );
   };
 
   useEffect(() => {
@@ -117,6 +77,7 @@ function AdminManage({
       getModelAndRepairs();
     }
   }, [choosenModelId]);
+
   return (
     <div className="adminManage">
       <div className="adminManage_left">
@@ -221,7 +182,6 @@ export default AdminManage;
 
 AdminManage.propTypes = {
   type: PropTypes.number.isRequired,
-  userToken: PropTypes.string.isRequired,
   setUserContext: PropTypes.func.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
   setChoosenBrandId: PropTypes.func.isRequired,

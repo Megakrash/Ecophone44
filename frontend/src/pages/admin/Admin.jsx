@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import axios from "axios";
+import { verifyToken } from "@components/apiRest/ApiRestGet";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import NavbarBack from "@components/navbar/NavbarBack";
@@ -11,39 +11,13 @@ const typeConfig = {
   reconditionnes: { type: 3 },
 };
 
-function Admin({ userToken, setUserContext }) {
+function Admin({ setUserContext }) {
   const navigate = useNavigate();
 
-  // First verify the user Token
-  const verifyToken = () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/user`, config)
-      .then(() => {
-        setUserContext(JSON.parse(localStorage.getItem("Eco44Token")));
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          localStorage.removeItem("Eco44Token");
-          setUserContext("");
-          navigate("/login");
-        } else {
-          console.error("Error Token");
-        }
-      });
-  };
-
   useEffect(() => {
-    if (userToken !== "") {
-      verifyToken();
-    } else {
-      navigate("/login");
-    }
+    verifyToken(setUserContext, navigate);
   }, []);
+
   const [showType, setShowType] = useState(null);
   // When a brand is selected
   const [choosenBrandId, setChoosenBrandId] = useState(0);
@@ -66,7 +40,6 @@ function Admin({ userToken, setUserContext }) {
   );
 
   const adminSectionProps = {
-    userToken,
     setUserContext,
     choosenBrandId,
     setChoosenBrandId,
@@ -113,6 +86,5 @@ function Admin({ userToken, setUserContext }) {
 export default Admin;
 
 Admin.propTypes = {
-  userToken: PropTypes.string.isRequired,
   setUserContext: PropTypes.func.isRequired,
 };

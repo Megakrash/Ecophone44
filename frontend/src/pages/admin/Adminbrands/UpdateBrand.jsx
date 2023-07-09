@@ -1,5 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { getBrandSelectedById } from "@components/apiRest/ApiRestGet";
+import {
+  updateBrandName,
+  deleteBrandPic,
+  uploadNewBrandPic,
+} from "@components/apiRest/ApiRestPut";
+import { deleteBrand } from "@components/apiRest/ApiRestDelete";
 import PropTypes from "prop-types";
 import {
   FaCheck,
@@ -9,7 +15,6 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 import AdminToogle from "../AdminToogle/AdminToogle";
-import UserContext from "../../../context/UserContext";
 
 function UpdateBrand({
   getAllBrand,
@@ -23,116 +28,27 @@ function UpdateBrand({
   const [newName, setNewName] = useState("");
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
 
-  // Get the userToken & create config for headers Authorization
-  const { userToken } = useContext(UserContext);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  };
-
-  // Get brand selected infos
   const getBrandSelected = () => {
-    axios
-      .get(
-        `${import.meta.env.VITE_PORT_BACKEND}/brand/${choosenBrandId}`,
-        config
-      )
-      .then((res) => {
-        setBrandSelected(res.data);
-        setNewName("");
-      })
-      .catch(() => {
-        console.error("Error to get the brand selected");
-      });
+    getBrandSelectedById(choosenBrandId, setBrandSelected);
   };
 
   useEffect(() => {
-    getBrandSelected();
+    if (choosenBrandId) {
+      getBrandSelected();
+      setNewName("");
+    }
   }, [choosenBrandId, getAllBrand]);
-
-  // Patch the new brand name
-  const updateBrandName = () => {
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected.id}`,
-        {
-          name: `${newName}`,
-        },
-        config
-      )
-      .then(() => {
-        getAllBrand();
-      })
-      .catch(() => {
-        console.error("Name not updated");
-      });
-  };
 
   const handleUpdateName = (e) => {
     e.preventDefault();
-    updateBrandName();
-  };
-
-  // Delete the brand pic then patch the name in brands table to null
-  const deleteBrandPic = () => {
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandpic_delete/${
-          brandSelected.id
-        }`,
-        {
-          pic: `${brandSelected.pic}`,
-        },
-        config
-      )
-      .then(() => {
-        getBrandSelected(brandSelected.id);
-      })
-      .catch(() => {
-        console.error("Error delete brand pic");
-      });
-  };
-
-  // Post new brand pic then patch name in brands table
-  const uploadNewBrandPic = (data) => {
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brandpic/${brandSelected.id}`,
-        data,
-        config
-      )
-      .then(() => {
-        getBrandSelected(brandSelected.id);
-      })
-      .catch(() => {
-        console.error("Error upload new brand pic");
-      });
+    updateBrandName(brandSelected, newName, getAllBrand);
   };
 
   const handleUploadPic = (file) => {
     const data = new FormData();
     data.append("name", `${brandSelected.name}`);
     data.append("file", file);
-    uploadNewBrandPic(data);
-  };
-
-  // Delete the brand & all his models & repairs
-  const deleteBrand = () => {
-    axios
-      .delete(
-        `${import.meta.env.VITE_PORT_BACKEND}/brand/${brandSelected.id}`,
-        config
-      )
-      .then(() => {
-        setBrandSelected("");
-        setChoosenBrandId(0);
-        setShowUpdateBrand(false);
-        getAllBrand();
-      })
-      .catch(() => {
-        console.error("Error delete brand");
-      });
+    uploadNewBrandPic(brandSelected, getBrandSelected, data);
   };
 
   return (
@@ -180,7 +96,7 @@ function UpdateBrand({
                 className="updateBrand_infos_pic_delete"
                 type="button"
                 onClick={() => {
-                  deleteBrandPic();
+                  deleteBrandPic(brandSelected, getBrandSelected);
                 }}
               >
                 <FaTrashAlt className="fa-delete" />
@@ -237,7 +153,13 @@ function UpdateBrand({
                 className="updateBrand_infos_confirm_delete"
                 type="button"
                 onClick={() => {
-                  deleteBrand();
+                  deleteBrand(
+                    brandSelected,
+                    setBrandSelected,
+                    setChoosenBrandId,
+                    setShowUpdateBrand,
+                    getAllBrand
+                  );
                 }}
               >
                 <FaSkull className="fabig-delete" />

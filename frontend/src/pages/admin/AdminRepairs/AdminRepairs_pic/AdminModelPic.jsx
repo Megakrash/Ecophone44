@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
-import axios from "axios";
+import React from "react";
+import {
+  deleteModelPic,
+  uploadNewModelPic,
+} from "@components/apiRest/ApiRestPut";
 import PropTypes from "prop-types";
 import { FaTrashAlt } from "react-icons/fa";
-import UserContext from "../../../../context/UserContext";
 
 function AdminModelPic({
   choosenModelId,
@@ -10,51 +12,11 @@ function AdminModelPic({
   modelName,
   getModelAndRepairs,
 }) {
-  const { userToken } = useContext(UserContext);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  };
-  const deleteModelPic = () => {
-    axios
-      .put(
-        `${
-          import.meta.env.VITE_PORT_BACKEND
-        }/modelpic_delete/${choosenModelId}`,
-        {
-          pic: `${modelPic}`,
-        },
-        config
-      )
-      .then(() => {
-        getModelAndRepairs();
-      })
-      .catch(() => {
-        console.error("Error delete model pic");
-      });
-  };
-
-  const uploadNewModelPic = (data) => {
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/modelpic/${choosenModelId}`,
-        data,
-        config
-      )
-      .then(() => {
-        getModelAndRepairs();
-      })
-      .catch(() => {
-        console.error("Error upload new model pic");
-      });
-  };
-
   const handleUploadPic = (file) => {
     const data = new FormData();
     data.append("name", `${modelName}`);
     data.append("file", file);
-    uploadNewModelPic(data);
+    uploadNewModelPic(choosenModelId, getModelAndRepairs, data);
   };
 
   return (
@@ -87,7 +49,7 @@ function AdminModelPic({
             className="updateBrand_infos_pic_delete"
             type="button"
             onClick={() => {
-              deleteModelPic();
+              deleteModelPic(choosenModelId, modelPic, getModelAndRepairs);
             }}
           >
             <FaTrashAlt className="fa-delete" />

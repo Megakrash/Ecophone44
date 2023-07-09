@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import axios from "axios";
+import React from "react";
+import { updateOrderBrand } from "@components/apiRest/ApiRestPut";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AdminBrandsCard from "../AdminCards/AdminBrandsCard";
-import UserContext from "../../../context/UserContext";
 
 function AdminBrandsList({
   brands,
@@ -14,34 +13,6 @@ function AdminBrandsList({
   setShowCreateBrand,
   setShowUpdateBrand,
 }) {
-  const { userToken } = useContext(UserContext);
-  // To patch the index_id in database
-  const updateOrderBrand = (items) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
-    const promises = [];
-
-    items.forEach((element) => {
-      const promise = axios.put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brand/${element.id}`,
-        {
-          indexId: `${element.index_id}`,
-        },
-        config
-      );
-      promises.push(promise);
-    });
-
-    Promise.all(promises)
-      .then(() => {
-        getAllBrand();
-      })
-      .catch((err) => console.error(err));
-  };
-
   // Reorder the index_id when D&D
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -51,7 +22,7 @@ function AdminBrandsList({
     for (const [index, value] of items.entries()) {
       value.index_id = index + 1;
     }
-    updateOrderBrand(items);
+    updateOrderBrand(items, getAllBrand);
   }
 
   return (

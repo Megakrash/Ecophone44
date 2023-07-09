@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { updateOrderModel } from "@components/apiRest/ApiRestPut";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CreateBrandOrModel from "../AdminCreate/CreateBrandOrModel";
 import AdminModelsCard from "../AdminCards/AdminModelsCard";
 import { FaPlusCircle } from "react-icons/fa";
-import UserContext from "../../../context/UserContext";
 
 function AdminModelsList({
   choosenBrandId,
@@ -19,34 +18,6 @@ function AdminModelsList({
   type,
 }) {
   const [showCreateModel, setShowCreateModel] = useState(false);
-  const { userToken } = useContext(UserContext);
-  // To patch the index_id in database
-  const updateOrderModel = (items) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
-    const promises = [];
-
-    items.forEach((element) => {
-      const promise = axios.put(
-        `${import.meta.env.VITE_PORT_BACKEND}/model/${element.id}`,
-        {
-          indexId: `${element.index_id}`,
-        },
-        config
-      );
-      promises.push(promise);
-    });
-
-    Promise.all(promises)
-      .then(() => {
-        getAllBrand();
-        getAllModelByBrand();
-      })
-      .catch((err) => console.error(err));
-  };
 
   // Reorder the index_id when D&D
   function handleOnDragEnd(result) {
@@ -57,7 +28,7 @@ function AdminModelsList({
     for (const [index, value] of items.entries()) {
       value.index_id = index + 1;
     }
-    updateOrderModel(items);
+    updateOrderModel(items, getAllBrand, getAllModelByBrand);
   }
 
   return (
