@@ -65,7 +65,9 @@ function Reservation() {
       ) : (
         <Navbar />
       )}
-      <div className="repair_breadcrumbs">
+      <div
+        className={type === "repair" ? "repair_breadcrumbs" : "bread-refurb"}
+      >
         {type === "repair" ? (
           <Breadcrumbs type={!completedForm ? "reservation" : "confirmation"} />
         ) : (

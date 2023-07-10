@@ -1,6 +1,7 @@
-import React, { lazy, Suspense, useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import UserContext from "./context/UserContext";
+import ThemeContext from "./context/ThemeContext";
 
 const Footer = lazy(() => import("@components/footer/Footer"));
 const Home = lazy(() => import("@pages/home/Home"));
@@ -23,8 +24,15 @@ function App() {
     }
   }, []);
 
+  // Context theme dark / light mode
+  const [themeToggle, setThemeToggle] = useState(false);
+
+  const themeControlObject = useMemo(() => {
+    return { themeToggle, setThemeToggle };
+  }, [themeToggle]);
+
   return (
-    <div className="App">
+    <div className={themeToggle ? "App dark-theme" : "App light-theme"}>
       <Suspense
         fallback={
           <div className="loader-container">
@@ -33,31 +41,33 @@ function App() {
           </div>
         }
       >
-        <UserContext.Provider value={userContext}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/brands/:id" element={<Brand />} />
-            <Route path="/models/:id" element={<Model />} />
-            <Route path="/repairs/:id" element={<Repair />} />
-            <Route path="/refurbs/:id" element={<Refurb />} />
-            <Route path="/reservation" element={<Reservation />} />
-            <Route path="/confirmation" element={<Confirmation />} />
-            <Route
-              path="/login"
-              element={<Login setUserContext={setUserContext} />}
-            />
-            <Route
-              path="/admin"
-              element={
-                <Admin
-                  // userToken={userContext.userToken}
-                  setUserContext={setUserContext}
-                />
-              }
-            />
-          </Routes>
-          <Footer />
-        </UserContext.Provider>
+        <ThemeContext.Provider value={themeControlObject}>
+          <UserContext.Provider value={userContext}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/brands/:id" element={<Brand />} />
+              <Route path="/models/:id" element={<Model />} />
+              <Route path="/repairs/:id" element={<Repair />} />
+              <Route path="/refurbs/:id" element={<Refurb />} />
+              <Route path="/reservation" element={<Reservation />} />
+              <Route path="/confirmation" element={<Confirmation />} />
+              <Route
+                path="/login"
+                element={<Login setUserContext={setUserContext} />}
+              />
+              <Route
+                path="/admin"
+                element={
+                  <Admin
+                    // userToken={userContext.userToken}
+                    setUserContext={setUserContext}
+                  />
+                }
+              />
+            </Routes>
+            <Footer />
+          </UserContext.Provider>
+        </ThemeContext.Provider>
       </Suspense>
     </div>
   );

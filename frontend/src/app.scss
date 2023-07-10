@@ -46,3 +46,58 @@
   font-family: $font-text;
   font-weight: 400;
 }
+
+//--------------DARK THEME---------------
+
+.App.dark-theme {
+  background-color: $fifte-color;
+  color: $primary-color;
+
+  // Navbar
+  .navbar {
+    background-color: $fourth-color;
+  }
+  .navbarRepair {
+    background-color: $fourth-color;
+  }
+  // Repair
+  .repair_bloc_card_btn:hover,
+  .repair_bloc_card_warning {
+    background-color: $fourth-color;
+  }
+  // Repair Card
+  .repairCard {
+    background-color: $primary-color;
+  }
+  // Reservation
+  .reservation_form_box_input,
+  .reservation_form_subscribe {
+    color: $primary-color;
+    &:hover {
+      color: $fifte-color;
+    }
+  }
+  .reservation_form_box_input::placeholder {
+    color: $primary-color;
+  }
+  // Agenda
+  .agenda {
+    .rbc-row {
+      color: $fifte-color;
+      background-color: $primary-color;
+    }
+    .rbc-toolbar button {
+      color: $primary-color;
+      &:hover {
+        color: $fifte-color;
+      }
+    }
+    &_box_buttons_btn:hover {
+      background-color: $fourth-color;
+    }
+  }
+  // Footer
+  .footer {
+    background-color: $fourth-color;
+  }
+}
