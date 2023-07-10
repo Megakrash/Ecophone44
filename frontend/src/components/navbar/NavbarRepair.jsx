@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
+import ThemeToggle from "./themeToogle/ThemeToogle";
 
 function NavbarRepair({ brandName, modelName, modelPic, price }) {
   const picPath = `${import.meta.env.VITE_PATH_IMAGE}models/`;
@@ -35,6 +36,9 @@ function NavbarRepair({ brandName, modelName, modelPic, price }) {
       <div className="navbarRepair_cart">
         <p className="navbarRepair_infos_name_brand">Total de votre devis :</p>
         <p className="navbarRepair_infos_name_model">{price}.00€</p>
+      </div>
+      <div className="navbar_toogle">
+        <ThemeToggle />
       </div>
     </div>
   );

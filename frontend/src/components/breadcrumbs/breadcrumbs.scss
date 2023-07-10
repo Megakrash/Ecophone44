@@ -20,6 +20,7 @@
       height: 40px;
       border: 1px solid $fourth-color;
       border-radius: 50%;
+      background-color: $primary-color;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -31,6 +32,7 @@
       }
 
       &_number {
+        color: black;
         font-size: 13px;
         font-weight: 600;
       }

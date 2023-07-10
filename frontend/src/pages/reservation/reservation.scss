@@ -7,6 +7,9 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 2%;
+  .bread-refurb {
+    margin-top: 2%;
+  }
   &_title {
     font-family: $font-title;
     font-size: 35px;
@@ -81,7 +84,7 @@
       }
     }
     .email-input {
-      width: 100%;
+      width: 99%;
     }
     .btn-form {
       margin-top: 2%;

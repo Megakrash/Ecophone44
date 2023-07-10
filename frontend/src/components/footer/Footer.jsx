@@ -7,9 +7,10 @@ function Footer() {
         className="footer_img"
         src={`${
           import.meta.env.VITE_PORT_BACKEND
-        }/assets/images/general/logo-simple.png`}
+        }/assets/images/general/logo-simple.svg`}
         alt="Ecophone 44"
       />
+
       <p className="footer_baseline">
         © Tous droits réservés. Ecophone 44 - 2023.
       </p>

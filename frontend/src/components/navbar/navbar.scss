@@ -1,6 +1,4 @@
 .navbar {
-  // position: fixed;
-  // top: 0;
   width: 100%;
   height: 90px;
   display: flex;
@@ -43,5 +41,8 @@
         }
       }
     }
+  }
+  &_toogle {
+    margin-right: 2%;
   }
 }

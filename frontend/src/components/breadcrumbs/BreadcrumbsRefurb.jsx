@@ -71,7 +71,7 @@ function BreadcrumbsRefurb({ type }) {
               {type !== "brand" ? (
                 <FaCheck className="fa-home" />
               ) : (
-                <p className="breadcrumbs_step_ring_number">3</p>
+                <p className="breadcrumbs_step_ring_number">2</p>
               )}
             </button>
             <p className="breadcrumbs_step_name">Modèle</p>

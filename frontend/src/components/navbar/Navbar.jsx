@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaInfoCircle, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import ThemeToggle from "./themeToogle/ThemeToogle";
 
 function Navbar() {
   return (
@@ -38,6 +39,9 @@ function Navbar() {
             <p>10:00 à 19:00</p>
           </div>
         </div>
+      </div>
+      <div className="navbar_toogle">
+        <ThemeToggle />
       </div>
     </div>
   );
