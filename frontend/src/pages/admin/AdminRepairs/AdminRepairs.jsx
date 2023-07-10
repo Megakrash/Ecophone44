@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { updateModelName } from "@components/apiRest/ApiRestPut";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
 import AdminModelPic from "./AdminRepairs_pic/AdminModelPic";
@@ -7,7 +7,6 @@ import AdminToogle from "../AdminToogle/AdminToogle";
 import AdminRepairsList from "./AdminRepairs_list/AdminRepairsList";
 import AdminCreateRepair from "./AdminRepairs_create/AdminCreateRepair";
 import AdminDeleteModel from "./AdminRepairs_delete/AdminDeleteModel";
-import UserContext from "../../../context/UserContext";
 
 function AdminRepair({
   choosenModelId,
@@ -22,7 +21,6 @@ function AdminRepair({
   const [newName, setNewName] = useState("");
   const [showDeleteRepair, setShowDeleteRepair] = useState(false);
   const [showCreateRepair, setShowCreateRepair] = useState(false);
-  const { userToken } = useContext(UserContext);
 
   useEffect(() => {
     setNewName(model.name);
@@ -31,33 +29,15 @@ function AdminRepair({
     setShowUpdateName(false);
   }, [model.name]);
 
-  const updateModelName = () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`,
-        {
-          name: `${newName}`,
-        },
-        config
-      )
-      .then(() => {
-        getModelAndRepairs();
-        getAllModelByBrand();
-        setShowUpdateName(false);
-      })
-      .catch(() => {
-        console.error("Name not updated");
-      });
-  };
-
   const handleUpdateName = (e) => {
     e.preventDefault();
-    updateModelName();
+    updateModelName(
+      choosenModelId,
+      newName,
+      getModelAndRepairs,
+      getAllModelByBrand,
+      setShowUpdateName
+    );
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { getRefurbById } from "@components/apiRest/ApiRestGet";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@components/navbar/Navbar";
 import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
@@ -9,20 +9,8 @@ function Refurb() {
   const picPath = `${import.meta.env.VITE_PATH_IMAGE}models/`;
   const { id } = useParams();
 
-  // Get the refurb model infos
-  const getRefurbById = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/refurbbyidforfront/${id}`)
-      .then((res) => {
-        setDetails(res.data);
-      })
-      .catch(() => {
-        console.error("error");
-      });
-  };
-
   useEffect(() => {
-    getRefurbById();
+    getRefurbById(id, setDetails);
   }, []);
 
   return (

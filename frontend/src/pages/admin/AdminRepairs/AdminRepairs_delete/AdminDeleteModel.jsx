@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import axios from "axios";
+import React from "react";
+import { deleteModel } from "@components/apiRest/ApiRestDelete";
 import PropTypes from "prop-types";
-import UserContext from "../../../../context/UserContext";
 
 function AdminDeleteModel({
   setShowDeleteRepair,
@@ -9,27 +8,6 @@ function AdminDeleteModel({
   setChoosenModelId,
   getAllModelByBrand,
 }) {
-  const { userToken } = useContext(UserContext);
-  const deleteModel = () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
-    axios
-      .delete(
-        `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`,
-        config
-      )
-      .then(() => {
-        setChoosenModelId(0);
-        getAllModelByBrand();
-      })
-      .catch(() => {
-        console.error("Model not deleted");
-      });
-  };
-
   return (
     <div className="adminDeleteModel">
       <p className="adminDeleteModel_title">
@@ -40,7 +18,9 @@ function AdminDeleteModel({
         <button
           className="adminDeleteModel_choice_btn yes"
           type="button"
-          onClick={() => deleteModel()}
+          onClick={() =>
+            deleteModel(choosenModelId, setChoosenModelId, getAllModelByBrand)
+          }
         >
           OUI
         </button>

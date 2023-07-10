@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { getAllBrands } from "@components/apiRest/ApiRestGet";
 import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
 import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
@@ -12,27 +12,8 @@ export default function Brand() {
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/brands/`;
   const { id } = useParams();
 
-  const getAllBrands = () => {
-    const brandRoutes = {
-      1: "/smartbrands",
-      2: "/tabbrands",
-      3: "/refurbbrands",
-    };
-    const url = brandRoutes[id];
-
-    if (url) {
-      axios
-        .get(`${import.meta.env.VITE_PORT_BACKEND}${url}`)
-        .then((res) => {
-          setAllBrands(res.data);
-        })
-        .catch(() => {
-          console.error("error");
-        });
-    }
-  };
   useEffect(() => {
-    getAllBrands();
+    getAllBrands(id, setAllBrands);
   }, []);
 
   return (
@@ -75,30 +56,32 @@ export default function Brand() {
           Oups ! Aucune marque disponible dans cette catégorie pour le moment...
         </p>
       )}
-      <div className="brand_brand">
-        {allBrands
-          .filter((search) =>
-            search.name.toLowerCase().includes(brandQuery.toLowerCase())
-          )
-          .map((infos) => {
-            return (
-              <li className="brand_brand_li" key={infos.id}>
-                <Link
-                  to={`/models/${infos.id}`}
-                  state={{
-                    type: id,
-                  }}
-                >
-                  <img
-                    className="brand_brand_li_pic"
-                    src={picPath + infos.pic}
-                    alt={infos.name}
-                  />
-                </Link>
-              </li>
-            );
-          })}
-      </div>
+      {allBrands.length >= 1 && (
+        <div className="brand_brand">
+          {allBrands
+            .filter((search) =>
+              search.name.toLowerCase().includes(brandQuery.toLowerCase())
+            )
+            .map((infos) => {
+              return (
+                <li className="brand_brand_li" key={infos.id}>
+                  <Link
+                    to={`/models/${infos.id}`}
+                    state={{
+                      type: id,
+                    }}
+                  >
+                    <img
+                      className="brand_brand_li_pic"
+                      src={picPath + infos.pic}
+                      alt={infos.name}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 }

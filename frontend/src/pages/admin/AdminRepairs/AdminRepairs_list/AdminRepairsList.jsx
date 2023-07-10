@@ -1,57 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { getIcons } from "@components/apiRest/ApiRestGet";
+import { updateOrderRepairs } from "@components/apiRest/ApiRestPut";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AdminRepairCard from "./AdminRepairs_list_card/AdminRepairCard";
-import UserContext from "../../../../context/UserContext";
 
 function AdminRepairList({ repairs, getModelAndRepairs, getAllModelByBrand }) {
   const [icons, setIcons] = useState([]);
-  const { userToken } = useContext(UserContext);
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  };
-
-  const getIcons = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/icons`, config)
-      .then((res) => {
-        setIcons(res.data);
-      })
-
-      .catch(() => {
-        console.error("error");
-      });
-  };
 
   useEffect(() => {
-    getIcons();
+    getIcons(setIcons);
   }, []);
 
-  // To patch the index_id in database
-  const updateOrderRepairs = (items) => {
-    const promises = [];
-    items.forEach((element) => {
-      const promise = axios.put(
-        `${import.meta.env.VITE_PORT_BACKEND}/repairsindex/${element.id}`,
-        {
-          indexId: `${element.index_id}`,
-        },
-        config
-      );
-      promises.push(promise);
-    });
-    Promise.all(promises)
-      .then(() => {
-        getModelAndRepairs();
-      })
-      .catch((err) => console.error(err));
-  };
-
-  // Reorder the index_id when D&D
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(repairs);
@@ -60,7 +20,7 @@ function AdminRepairList({ repairs, getModelAndRepairs, getAllModelByBrand }) {
     for (const [index, value] of items.entries()) {
       value.index_id = index + 1;
     }
-    updateOrderRepairs(items);
+    updateOrderRepairs(items, getModelAndRepairs);
   }
 
   return (

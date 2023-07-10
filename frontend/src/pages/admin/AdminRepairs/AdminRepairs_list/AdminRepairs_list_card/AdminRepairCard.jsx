@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import axios from "axios";
+import React from "react";
+import { deleteRepair } from "@components/apiRest/ApiRestDelete";
 import PropTypes from "prop-types";
 import AdminToogle from "@pages/admin/AdminToogle/AdminToogle";
 import AdminUpdateRepair from "./AdminUpdateRepair";
-import UserContext from "../../../../../context/UserContext";
 
 function AdminRepairCard({
   repairId,
@@ -17,23 +16,6 @@ function AdminRepairCard({
   getModelAndRepairs,
   getAllModelByBrand,
 }) {
-  const { userToken } = useContext(UserContext);
-  const deleteRepair = () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
-    axios
-      .delete(`${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`, config)
-      .then(() => {
-        getModelAndRepairs();
-      })
-      .catch(() => {
-        console.error("Error delete repair");
-      });
-  };
-
   return (
     <div className="adminRepairCard">
       <div className="adminRepairCard_infos">
@@ -60,7 +42,7 @@ function AdminRepairCard({
             className="adminRepairCard_infos_modify_delete"
             type="button"
             onClick={() => {
-              deleteRepair();
+              deleteRepair(repairId, getModelAndRepairs);
             }}
           >
             SUPPRIMER

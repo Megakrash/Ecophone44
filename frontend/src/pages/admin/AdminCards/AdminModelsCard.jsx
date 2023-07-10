@@ -90,7 +90,6 @@ function AdminModelCard({
     </div>
   );
 }
-
 export default AdminModelCard;
 
 AdminModelCard.propTypes = {
