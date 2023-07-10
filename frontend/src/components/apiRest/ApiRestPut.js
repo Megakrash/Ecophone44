@@ -1,61 +1,68 @@
-import axios from "axios";
+import api from "./ApiRest";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_PORT_BACKEND,
-});
-
-api.interceptors.request.use(
-  function (config) {
-    const eco44Token = JSON.parse(localStorage.getItem("Eco44Token"));
-    const userToken = eco44Token && eco44Token.userToken;
-    config.headers.Authorization = userToken ? `Bearer ${userToken}` : "";
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
+const apiRequest = async (
+  method,
+  url,
+  body,
+  onSuccessCallback,
+  onErrorCallback
+) => {
+  try {
+    const response = await api[method](url, body);
+    onSuccessCallback();
+    return response;
+  } catch (error) {
+    onErrorCallback();
   }
-);
+};
+
+// const apiRequestMultiple = async (
+//   items,
+//   url,
+//   field,
+//   onSuccessCallback,
+//   onErrorCallback
+// ) => {
+//   const promises = items.map((item) =>
+//     api.put(`${url}/${item.id}`, {
+//       [field]: `${item[field]}`,
+//     })
+//   );
+
+//   return Promise.all(promises).then(onSuccessCallback).catch(onErrorCallback);
+// };
 
 // -------------------------------------------
 // -------------- BACK-OFFICE ----------------
 // -------------------------------------------
 
 // UpdateBrand.jsx
-export const updateBrandName = async (brandSelected, newName, getAllBrand) => {
-  try {
-    const response = await api.put(`/brand/${brandSelected.id}`, {
-      name: `${newName}`,
-    });
-    getAllBrand();
-    return response;
-  } catch (error) {
-    console.error("Name not updated");
-  }
-};
-export const deleteBrandPic = async (brandSelected, getBrandSelected) => {
-  try {
-    const response = await api.put(`/brandpic_delete/${brandSelected.id}`, {
-      pic: `${brandSelected.pic}`,
-    });
-    getBrandSelected();
-    return response;
-  } catch (error) {
-    console.error("Error delete brand pic");
-  }
-};
-export const uploadNewBrandPic = async (
-  brandSelected,
-  getBrandSelected,
-  data
-) => {
-  try {
-    const response = await api.put(`/brandpic/${brandSelected.id}`, data);
-    getBrandSelected();
-    return response;
-  } catch (error) {
-    console.error("Error upload new brand pic");
-  }
-};
+export const updateBrandName = (brandSelected, newName, getAllBrand) =>
+  apiRequest(
+    "put",
+    `/brand/${brandSelected.id}`,
+    { name: `${newName}` },
+    getAllBrand,
+    () => console.error("Name not updated")
+  );
+
+export const deleteBrandPic = (brandSelected, getBrandSelected) =>
+  apiRequest(
+    "put",
+    `/brandpic_delete/${brandSelected.id}`,
+    { pic: `${brandSelected.pic}` },
+    getBrandSelected,
+    () => console.error("Error delete brand pic")
+  );
+
+export const uploadNewBrandPic = (brandSelected, getBrandSelected, data) =>
+  apiRequest(
+    "put",
+    `/brandpic/${brandSelected.id}`,
+    data,
+    getBrandSelected,
+    () => console.error("Error upload new brand pic")
+  );
 
 // AdminBrandsList.jsx
 export const updateOrderBrand = async (items, getAllBrand) => {
@@ -115,54 +122,42 @@ export const updateOrderRepairs = async (items, getModelAndRepairs) => {
     })
     .catch((err) => console.error(err));
 };
+
 // AdminRepairs.jsx
-export const updateModelName = async (
+export const updateModelName = (
   choosenModelId,
   newName,
   getModelAndRepairs,
   getAllModelByBrand,
   setShowUpdateName
-) => {
-  try {
-    const response = await api.put(`/model/${choosenModelId}`, {
-      name: `${newName}`,
-    });
-    getModelAndRepairs();
-    getAllModelByBrand();
-    setShowUpdateName(false);
-    return response;
-  } catch (error) {
-    console.error("Name not updated");
-  }
-};
+) =>
+  apiRequest(
+    "put",
+    `/model/${choosenModelId}`,
+    { name: `${newName}` },
+    () => {
+      getModelAndRepairs();
+      getAllModelByBrand();
+      setShowUpdateName(false);
+    },
+    () => console.error("Name not updated")
+  );
 
 // AdminModelPic.jsx
-export const deleteModelPic = async (
-  choosenModelId,
-  modelPic,
-  getModelAndRepairs
-) => {
-  try {
-    const response = await api.put(`/modelpic_delete/${choosenModelId}`, {
-      pic: `${modelPic}`,
-    });
-    getModelAndRepairs();
-    return response;
-  } catch (error) {
-    console.error("Error delete brand pic");
-  }
-};
+export const deleteModelPic = (choosenModelId, modelPic, getModelAndRepairs) =>
+  apiRequest(
+    "put",
+    `/modelpic_delete/${choosenModelId}`,
+    { pic: `${modelPic}` },
+    getModelAndRepairs,
+    () => console.error("Error delete brand pic")
+  );
 
-export const uploadNewModelPic = async (
-  choosenModelId,
-  getModelAndRepairs,
-  data
-) => {
-  try {
-    const response = await api.put(`/modelpic/${choosenModelId}`, data);
-    getModelAndRepairs();
-    return response;
-  } catch (error) {
-    console.error("Error upload new model pic");
-  }
-};
+export const uploadNewModelPic = (choosenModelId, getModelAndRepairs, data) =>
+  apiRequest(
+    "put",
+    `/modelpic/${choosenModelId}`,
+    data,
+    getModelAndRepairs,
+    () => console.error("Error upload new model pic")
+  );

@@ -1,20 +1,4 @@
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_PORT_BACKEND,
-});
-
-api.interceptors.request.use(
-  function (config) {
-    const eco44Token = JSON.parse(localStorage.getItem("Eco44Token"));
-    const userToken = eco44Token && eco44Token.userToken;
-    config.headers.Authorization = userToken ? `Bearer ${userToken}` : "";
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
+import api from "./ApiRest";
 
 // Helper function to handle errors 401 token
 const handleError = (error, setUserContext, navigate) => {
@@ -27,51 +11,52 @@ const handleError = (error, setUserContext, navigate) => {
   }
 };
 
+// Helper function to handle Api requests
+const apiRequest = async (
+  method,
+  url,
+  setUserContext,
+  navigate,
+  setResponseData
+) => {
+  try {
+    const response = await api[method](url);
+    if (setResponseData) {
+      setResponseData(response.data);
+    }
+    return response;
+  } catch (error) {
+    handleError(error, setUserContext, navigate);
+  }
+};
+
 // -------------------------------------------
 // -------------- BACK-OFFICE ----------------
 // -------------------------------------------
 
 // Admin.jsx
-export const verifyToken = async (setUserContext, navigate) => {
-  try {
-    const response = await api.get("/user");
+export const verifyToken = (setUserContext, navigate) =>
+  apiRequest("get", "/user", setUserContext, navigate, () => {
     setUserContext(JSON.parse(localStorage.getItem("Eco44Token")));
-    return response;
-  } catch (error) {
-    handleError(error, setUserContext, navigate);
-  }
-};
+  });
 
 // AdminManage.jsx
-export const getAllBrandByType = async (
-  type,
-  setBrands,
-  setUserContext,
-  navigate
-) => {
-  try {
-    const response = await api.get(`/brands/${type}`);
-    setBrands(response.data);
-    return response;
-  } catch (error) {
-    handleError(error, setUserContext, navigate);
-  }
-};
+export const getAllBrandByType = (type, setBrands, setUserContext, navigate) =>
+  apiRequest("get", `/brands/${type}`, setUserContext, navigate, setBrands);
 
-export const getAllModelByBrandAndByType = async (
+export const getAllModelByBrandAndByType = (
   choosenBrandId,
   setAllModelsByBrand,
   setUserContext,
   navigate
-) => {
-  try {
-    const response = await api.get(`/modelbybrand/${choosenBrandId}`);
-    setAllModelsByBrand(response.data);
-    return response;
-  } catch (error) {
-    handleError(error, setUserContext, navigate);
-  }
-};
+) =>
+  apiRequest(
+    "get",
+    `/modelbybrand/${choosenBrandId}`,
+    setUserContext,
+    navigate,
+    setAllModelsByBrand
+  );
 
 export const getModelAndRepairsByType = async (
   choosenModelId,
@@ -93,26 +78,32 @@ export const getModelAndRepairsByType = async (
   }
 };
 // UpdateBrand.jsx
-export const getBrandSelectedById = async (
-  choosenBrandId,
-  setBrandSelected
-) => {
-  try {
-    const response = await api.get(`/brand/${choosenBrandId}`);
-    setBrandSelected(response.data);
-    return response;
-  } catch (error) {
-    console.error("Error to get the brand selected");
-  }
-};
+export const getBrandSelectedById = (choosenBrandId, setBrandSelected) =>
+  apiRequest("get", `/brand/${choosenBrandId}`, null, null, setBrandSelected);
 
 // AdminRepairsList.jsx
-export const getIcons = async (setIcons) => {
-  try {
-    const response = await api.get(`/icons`);
-    setIcons(response.data);
-    return response;
-  } catch (error) {
-    console.error("Error to get the icons");
-  }
+export const getIcons = (setIcons) =>
+  apiRequest("get", `/icons`, null, null, setIcons);
+
+// -------------------------------------------
+// -------------- FRONT-USER -----------------
+// -------------------------------------------
+// Brand.jsx
+export const getAllBrands = (id, setAllBrands) => {
+  const brandRoutes = {
+    1: "/smartbrands",
+    2: "/tabbrands",
+    3: "/refurbbrands",
+  };
+  const url = brandRoutes[id];
+  apiRequest("get", url, null, null, setAllBrands);
 };
+// Model.jsx
+export const getAllModelByBrand = (id, setModel) =>
+  apiRequest("get", `/modelbybrandforfront/${id}`, null, null, setModel);
+//Repair.jsx
+export const getAllRepairsByModel = (id, setAllRepairs) =>
+  apiRequest("get", `/repairsforfront/${id}`, null, null, setAllRepairs);
+//Refurb.jsx
+export const getRefurbById = (id, setDetails) =>
+  apiRequest("get", `/refurbbyidforfront/${id}`, null, null, setDetails);

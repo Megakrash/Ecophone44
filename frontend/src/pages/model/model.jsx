@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
-import axios from "axios";
+import { getAllModelByBrand } from "@components/apiRest/ApiRestGet";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
@@ -17,20 +17,8 @@ function Model() {
   const location = useLocation();
   const { type } = location.state;
 
-  // Get all the models from the choosen brand
-  const getAllModelByBrand = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/modelbybrandforfront/${id}`)
-      .then((res) => {
-        setModel(res.data);
-      })
-      .catch(() => {
-        console.error("error");
-      });
-  };
-
   useEffect(() => {
-    getAllModelByBrand();
+    getAllModelByBrand(id, setModel);
   }, []);
 
   return (

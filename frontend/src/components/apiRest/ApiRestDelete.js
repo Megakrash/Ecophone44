@@ -1,69 +1,48 @@
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_PORT_BACKEND,
-});
-
-api.interceptors.request.use(
-  function (config) {
-    const eco44Token = JSON.parse(localStorage.getItem("Eco44Token"));
-    const userToken = eco44Token && eco44Token.userToken;
-    config.headers.Authorization = userToken ? `Bearer ${userToken}` : "";
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
+import api from "./ApiRest";
 
 // -------------------------------------------
 // -------------- BACK-OFFICE ----------------
 // -------------------------------------------
 
+const deleteEntity = async (entityType, id, updateFunctions) => {
+  try {
+    const response = await api.delete(`/${entityType}/${id}`);
+    updateFunctions.forEach((func) => func());
+    return response;
+  } catch (error) {
+    console.error(`Error delete ${entityType}`);
+  }
+};
+
 // UpdateBrand.jsx
-export const deleteBrand = async (
+export const deleteBrand = (
   brandSelected,
   setBrandSelected,
   setChoosenBrandId,
   setShowUpdateBrand,
   getAllBrand
 ) => {
-  try {
-    const response = await api.delete(`/brand/${brandSelected.id}`);
-    setBrandSelected("");
-    setChoosenBrandId(0);
-    setShowUpdateBrand(false);
-    getAllBrand();
-    return response;
-  } catch (error) {
-    console.error("Error delete brand");
-  }
+  return deleteEntity("brand", brandSelected.id, [
+    () => setBrandSelected(""),
+    () => setChoosenBrandId(0),
+    () => setShowUpdateBrand(false),
+    getAllBrand,
+  ]);
 };
 
 // AdminDeleteModel.jsx
-export const deleteModel = async (
+export const deleteModel = (
   choosenModelId,
   setChoosenModelId,
   getAllModelByBrand
 ) => {
-  try {
-    const response = await api.delete(`/model/${choosenModelId}`);
-    setChoosenModelId(0);
-    getAllModelByBrand();
-    return response;
-  } catch (error) {
-    console.error("Error delete model");
-  }
+  return deleteEntity("model", choosenModelId, [
+    () => setChoosenModelId(0),
+    getAllModelByBrand,
+  ]);
 };
 
 // AdminRepairCard
-
-export const deleteRepair = async (repairId, getModelAndRepairs) => {
-  try {
-    const response = await api.delete(`/repair/${repairId}`);
-    getModelAndRepairs();
-    return response;
-  } catch (error) {
-    console.error("Error delete repair");
-  }
+export const deleteRepair = (repairId, getModelAndRepairs) => {
+  return deleteEntity("repair", repairId, [getModelAndRepairs]);
 };

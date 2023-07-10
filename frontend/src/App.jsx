@@ -5,7 +5,7 @@ import UserContext from "./context/UserContext";
 const Footer = lazy(() => import("@components/footer/Footer"));
 const Home = lazy(() => import("@pages/home/Home"));
 const Brand = lazy(() => import("@pages/brand/Brand"));
-const Model = lazy(() => import("@pages/model/model"));
+const Model = lazy(() => import("@pages/model/Model"));
 const Repair = lazy(() => import("@pages/repair/Repair"));
 const Refurb = lazy(() => import("@pages/refurb/Refurb"));
 const Reservation = lazy(() => import("@pages/reservation/Reservation"));

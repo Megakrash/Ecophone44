@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { getAllRepairsByModel } from "@components/apiRest/ApiRestGet";
 import { FaExclamationCircle } from "react-icons/fa";
 import NavbarRepair from "@components/navbar/NavbarRepair";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
@@ -34,19 +34,8 @@ function Repair() {
     );
   }, []);
 
-  const getAllRepairsByModel = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/repairsforfront/${id}`)
-      .then((res) => {
-        setAllRepairs(res.data);
-      })
-      .catch(() => {
-        console.error("error");
-      });
-  };
-
   useEffect(() => {
-    getAllRepairsByModel();
+    getAllRepairsByModel(id, setAllRepairs);
   }, []);
 
   return (
