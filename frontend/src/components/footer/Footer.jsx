@@ -7,7 +7,7 @@ function Footer() {
         className="footer_img"
         src={`${
           import.meta.env.VITE_PORT_BACKEND
-        }/assets/images/general/logo-simple.svg`}
+        }/assets/images/general/logo-simple.png`}
         alt="Ecophone 44"
       />
 
