@@ -18,21 +18,21 @@ function Navbar() {
         </NavLink>
       </div>
       <div className="navbar_infos">
-        <div className="navbar_infos_box">
+        <div className="navbar_infos_box address">
           <FaMapMarkerAlt className="navbar_infos_box_fa" />
           <div className="navbar_infos_box_text">
             <p>2 rue Deurbroucq</p>
             <p>44000 Nantes</p>
           </div>
         </div>
-        <div className="navbar_infos_box">
+        <div className="navbar_infos_box contact">
           <FaInfoCircle className="navbar_infos_box_fa" />
           <div className="navbar_infos_box_text">
             <p>02 52 10 37 71</p>
             <p>contact@ecophone44.com</p>
           </div>
         </div>
-        <div className="navbar_infos_box">
+        <div className="navbar_infos_box schedule">
           <FaClock className="navbar_infos_box_fa" />
           <div className="navbar_infos_box_text">
             <p>Lundi au samedi</p>

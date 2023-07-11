@@ -30,6 +30,13 @@ function Refurb() {
             <p className="refurb_bloc_card_title">
               {details[0].name.toUpperCase()}
             </p>
+            <div className="refurb_bloc_card_img">
+              <img
+                className="refurb_bloc_card_img_pic"
+                src={`${picPath}${details[0].pic}`}
+                alt={details[0].name}
+              />
+            </div>
             <p className="refurb_bloc_card_text">{details[0].text}</p>
             <p className="refurb_bloc_card_price">{details[0].price}.00€</p>
             <Link

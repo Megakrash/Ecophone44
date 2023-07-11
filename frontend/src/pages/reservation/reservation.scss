@@ -15,10 +15,11 @@
     font-size: 35px;
     font-weight: 600;
     margin-top: 2%;
+    text-align: center;
   }
   &_form {
     margin-top: 3%;
-    width: 40%;
+    width: 610px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +31,7 @@
       justify-content: space-between;
 
       &_input {
-        width: 47%;
+        width: 290px;
         height: 50px;
         border: 0.2rem solid $seventh-color;
         background-color: transparent;
@@ -84,12 +85,32 @@
       }
     }
     .email-input {
-      width: 99%;
+      width: 600px;
     }
     .btn-form {
       margin-top: 2%;
       width: 30%;
       height: 50px;
+    }
+  }
+}
+@media screen and (max-width: 700px) {
+  .reservation {
+    &_title {
+      font-family: $font-title;
+      font-size: 28px;
+    }
+    &_form {
+      width: 360px;
+      &_box_input {
+        width: 170px;
+      }
+      .email-input {
+        width: 355px;
+      }
+      &_subscribe {
+        gap: 5px;
+      }
     }
   }
 }

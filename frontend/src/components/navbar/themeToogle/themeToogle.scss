@@ -39,7 +39,7 @@
     border-radius: 50%;
     left: 10%;
     bottom: 15%;
-    box-shadow: inset 8px -4px 0px 0px $sixte-color;
+    box-shadow: inset 15px 15px 15px 15px $sixte-color;
     background: $fourth-color;
     transition: 0.5s;
   }
@@ -50,6 +50,14 @@
 
   input:checked + .slider:before {
     transform: translateX(100%);
-    box-shadow: inset 15px -4px 0px 15px $sixte-color;
+    box-shadow: inset 8px -4px 0px 0px $sixte-color;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .toggle-theme {
+    transform: rotate(90deg);
+    .switch {
+    }
   }
 }
