@@ -24,7 +24,7 @@ function App() {
     }
   }, []);
 
-  // Context theme dark / light mode
+  // Context theme dark / light mode false === Light mode
   const [themeToggle, setThemeToggle] = useState(false);
 
   const themeControlObject = useMemo(() => {

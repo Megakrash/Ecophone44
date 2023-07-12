@@ -5,10 +5,20 @@ function ThemeToggle() {
   const { themeToggle, setThemeToggle } = useContext(ThemeContext);
 
   return (
-    <div className="toggle-theme">
+    <div
+      className={
+        themeToggle === false ? "theme theme-light" : "theme theme-dark"
+      }
+    >
       <label className="switch">
-        <input type="checkbox" onChange={() => setThemeToggle(!themeToggle)} />
-        <span className="slider" />
+        <input
+          className="fakeinput"
+          type="checkbox"
+          onChange={() => setThemeToggle(!themeToggle)}
+        />
+        <div className="slider">
+          <span className="moon" />
+        </div>
       </label>
     </div>
   );
