@@ -62,3 +62,11 @@
     }
   }
 }
+@media screen and (max-width: 700px) {
+  .agenda_box {
+    width: 350px;
+    &_buttons_btn {
+      width: 150px;
+    }
+  }
+}

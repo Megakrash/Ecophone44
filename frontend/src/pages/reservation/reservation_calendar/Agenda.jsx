@@ -69,6 +69,18 @@ function Agenda({
 
     return newStyle;
   };
+  // Check screen size and change default view calendar between week & day
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const updateScreenWidth = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateScreenWidth);
+    return () => window.removeEventListener("resize", updateScreenWidth);
+  }, []);
+
   // Show confirmation when the user select a free slot
   const [showConfirmation, setShowConfirmation] = useState(false);
   // Stock info when the user select a free slot
@@ -112,8 +124,8 @@ function Agenda({
           selectable
           eventPropGetter={eventStyleGetter}
           titleAccessor={() => "Non disponible"}
-          defaultView="week"
-          views={["week"]}
+          defaultView={screenWidth > 700 ? "week" : "day"}
+          views={screenWidth > 700 ? ["week"] : ["day"]}
           step={60}
           timeslots={1}
           startAccessor="start"
