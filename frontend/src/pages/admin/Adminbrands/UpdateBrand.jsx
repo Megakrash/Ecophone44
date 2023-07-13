@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { getBrandSelectedById } from "@components/apiRest/ApiRestGet";
 import {
+  getBrandSelectedById,
   updateBrandName,
   deleteBrandPic,
   uploadNewBrandPic,
-} from "@components/apiRest/ApiRestPut";
-import { deleteBrand } from "@components/apiRest/ApiRestDelete";
+  deleteBrand,
+} from "@components/apiRest/ApiRestBrand";
 import PropTypes from "prop-types";
 import {
   FaCheck,

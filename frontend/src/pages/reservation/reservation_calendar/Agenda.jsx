@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "@components/apiRest/ApiRest";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -38,8 +38,8 @@ function Agenda({
   // Get the events already taken in the calendar
   const [events, setEvents] = useState([]);
   const getEventsForCalendar = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/calendar`)
+    api
+      .get(`/calendar`)
       .then((response) => {
         const eventsFromAPI = response.data.map((event) => {
           return {
@@ -92,8 +92,8 @@ function Agenda({
 
   // Add new event in Calendar
   const newEventForCalendar = () => {
-    axios
-      .post(`${import.meta.env.VITE_PORT_BACKEND}/calendar`, {
+    api
+      .post(`/calendar`, {
         firstName: `${formDetails.firstName}`,
         lastName: `${formDetails.lastName}`,
         email: `${formDetails.email}`,

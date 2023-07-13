@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "@components/apiRest/ApiRest";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import NavbarRepair from "@components/navbar/NavbarRepair";
@@ -38,8 +38,8 @@ function Reservation() {
 
   const sendEmailReservation = (e) => {
     e.preventDefault();
-    axios
-      .post(`${import.meta.env.VITE_PORT_BACKEND}/sendemailreservation`, {
+    api
+      .post(`/sendemailreservation`, {
         formDetails,
         modelName,
         price: totalCardPrice,

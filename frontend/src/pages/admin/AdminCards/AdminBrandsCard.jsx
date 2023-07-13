@@ -1,9 +1,8 @@
-import React, { useContext, useCallback } from "react";
-import axios from "axios";
+import React, { useCallback } from "react";
+import api from "@components/apiRest/ApiRest";
 import PropTypes from "prop-types";
 import { GiGearHammer } from "react-icons/gi";
 import { RiDragMove2Fill } from "react-icons/ri";
-import UserContext from "../../../context/UserContext";
 
 function AdminBrandCard({
   id,
@@ -16,23 +15,13 @@ function AdminBrandCard({
   setShowUpdateBrand,
   getAllBrand,
 }) {
-  const { userToken } = useContext(UserContext);
   const isActive = id === choosenBrandId;
 
   const updateIsVisibleStatut = (bool) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/brand/${id}`,
-        {
-          isVisible: bool,
-        },
-        config
-      )
+    api
+      .put(`/brand/${id}`, {
+        isVisible: bool,
+      })
       .then(() => {
         getAllBrand();
       })

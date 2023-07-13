@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRefurbById } from "@components/apiRest/ApiRestGet";
+import { getRefurbById } from "@components/apiRest/ApiRestRefurb";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@components/navbar/Navbar";
 import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";

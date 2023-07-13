@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteRepair } from "@components/apiRest/ApiRestDelete";
+import { deleteRepair } from "@components/apiRest/ApiRestRepair";
 import PropTypes from "prop-types";
 import AdminToogle from "@pages/admin/AdminToogle/AdminToogle";
 import AdminUpdateRepair from "./AdminUpdateRepair";

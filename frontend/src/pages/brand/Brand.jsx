@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getAllBrands } from "@components/apiRest/ApiRestGet";
+import { getAllBrands } from "@components/apiRest/ApiRestBrand";
 import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
 import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";

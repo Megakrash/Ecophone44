@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import PropTypes from "prop-types";
+import api from "@components/apiRest/ApiRest";
 import NavbarBack from "@components/navbar/NavbarBack";
 
-function Login({ setUserContext }) {
+function Login() {
   const [showError, setShowError] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -13,10 +12,9 @@ function Login({ setUserContext }) {
   const navigate = useNavigate();
   const loginUser = (e) => {
     e.preventDefault();
-    axios
-      .post(`${import.meta.env.VITE_PORT_BACKEND}/login`, loginDetails)
+    api
+      .post(`/login`, loginDetails)
       .then((res) => {
-        setUserContext(res.data);
         localStorage.setItem(
           "Eco44Token",
           JSON.stringify({
@@ -76,7 +74,3 @@ function Login({ setUserContext }) {
 }
 
 export default Login;
-
-Login.propTypes = {
-  setUserContext: PropTypes.func.isRequired,
-};
