@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  getAllBrandByType,
-  getAllModelByBrandAndByType,
-  getModelAndRepairsByType,
-} from "@components/apiRest/ApiRestGet";
+import { getAllBrandByType } from "@components/apiRest/ApiRestBrand";
+import { getAllModelByBrandAndByType } from "@components/apiRest/ApiRestModel";
+import { getModelAndRepairsByType } from "@components/apiRest/ApiRestRepair";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaPlusCircle } from "react-icons/fa";
@@ -16,7 +14,6 @@ import AdminRefurbs from "./AdminRefurbs/AdminRefurbs";
 
 function AdminManage({
   type,
-  setUserContext,
   choosenBrandId,
   setChoosenBrandId,
   choosenModelId,
@@ -38,7 +35,7 @@ function AdminManage({
 
   // Launch ApiRest to get brands / models and repairs to dispatch
   const getAllBrand = () => {
-    getAllBrandByType(type, setBrands, setUserContext, navigate);
+    getAllBrandByType(type, setBrands, navigate);
   };
 
   useEffect(() => {
@@ -48,12 +45,7 @@ function AdminManage({
   }, [type]);
 
   const getAllModelByBrand = () => {
-    getAllModelByBrandAndByType(
-      choosenBrandId,
-      setAllModelsByBrand,
-      setUserContext,
-      navigate
-    );
+    getAllModelByBrandAndByType(choosenBrandId, setAllModelsByBrand, navigate);
   };
 
   useEffect(() => {
@@ -63,13 +55,7 @@ function AdminManage({
   }, [choosenBrandId]);
 
   const getModelAndRepairs = () => {
-    getModelAndRepairsByType(
-      choosenModelId,
-      setRepairs,
-      setModel,
-      setUserContext,
-      navigate
-    );
+    getModelAndRepairsByType(choosenModelId, setRepairs, setModel, navigate);
   };
 
   useEffect(() => {
@@ -182,7 +168,6 @@ export default AdminManage;
 
 AdminManage.propTypes = {
   type: PropTypes.number.isRequired,
-  setUserContext: PropTypes.func.isRequired,
   choosenBrandId: PropTypes.number.isRequired,
   setChoosenBrandId: PropTypes.func.isRequired,
   choosenModelId: PropTypes.number.isRequired,

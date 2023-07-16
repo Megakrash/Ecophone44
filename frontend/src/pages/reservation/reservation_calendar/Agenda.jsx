@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "@components/apiRest/ApiRest";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -38,8 +38,8 @@ function Agenda({
   // Get the events already taken in the calendar
   const [events, setEvents] = useState([]);
   const getEventsForCalendar = () => {
-    axios
-      .get(`${import.meta.env.VITE_PORT_BACKEND}/calendar`)
+    api
+      .get(`/calendar`)
       .then((response) => {
         const eventsFromAPI = response.data.map((event) => {
           return {
@@ -69,6 +69,18 @@ function Agenda({
 
     return newStyle;
   };
+  // Check screen size and change default view calendar between week & day
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const updateScreenWidth = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateScreenWidth);
+    return () => window.removeEventListener("resize", updateScreenWidth);
+  }, []);
+
   // Show confirmation when the user select a free slot
   const [showConfirmation, setShowConfirmation] = useState(false);
   // Stock info when the user select a free slot
@@ -80,8 +92,8 @@ function Agenda({
 
   // Add new event in Calendar
   const newEventForCalendar = () => {
-    axios
-      .post(`${import.meta.env.VITE_PORT_BACKEND}/calendar`, {
+    api
+      .post(`/calendar`, {
         firstName: `${formDetails.firstName}`,
         lastName: `${formDetails.lastName}`,
         email: `${formDetails.email}`,
@@ -112,8 +124,8 @@ function Agenda({
           selectable
           eventPropGetter={eventStyleGetter}
           titleAccessor={() => "Non disponible"}
-          defaultView="week"
-          views={["week"]}
+          defaultView={screenWidth > 700 ? "week" : "day"}
+          views={screenWidth > 700 ? ["week"] : ["day"]}
           step={60}
           timeslots={1}
           startAccessor="start"

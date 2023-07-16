@@ -17,12 +17,11 @@
   }
 
   &_box {
-    width: 30%;
+    width: 500px;
     display: flex;
     flex-direction: column;
     margin: auto;
     border: 0.0625rem solid $seventh-color;
-    // background-color: red;
     border-radius: 5px;
     gap: 12px;
     padding: 1%;
@@ -60,6 +59,14 @@
           color: $primary-color;
         }
       }
+    }
+  }
+}
+@media screen and (max-width: 700px) {
+  .agenda_box {
+    width: 350px;
+    &_buttons_btn {
+      width: 150px;
     }
   }
 }

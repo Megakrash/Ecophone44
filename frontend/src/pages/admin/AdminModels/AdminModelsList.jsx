@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateOrderModel } from "@components/apiRest/ApiRestPut";
+import { updateOrderModel } from "@components/apiRest/ApiRestModel";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CreateBrandOrModel from "../AdminCreate/CreateBrandOrModel";

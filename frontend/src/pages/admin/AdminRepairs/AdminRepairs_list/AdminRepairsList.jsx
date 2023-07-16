@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getIcons } from "@components/apiRest/ApiRestGet";
-import { updateOrderRepairs } from "@components/apiRest/ApiRestPut";
+import {
+  getIcons,
+  updateOrderRepairs,
+} from "@components/apiRest/ApiRestRepair";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AdminRepairCard from "./AdminRepairs_list_card/AdminRepairCard";

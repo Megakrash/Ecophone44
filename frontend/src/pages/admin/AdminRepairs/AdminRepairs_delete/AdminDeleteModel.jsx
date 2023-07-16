@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteModel } from "@components/apiRest/ApiRestDelete";
+import { deleteModel } from "@components/apiRest/ApiRestModel";
 import PropTypes from "prop-types";
 
 function AdminDeleteModel({

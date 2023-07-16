@@ -1,4 +1,4 @@
-.toggle-theme {
+.theme {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -11,45 +11,56 @@
     display: inline-block;
     width: 3.5em;
     height: 1.9em;
-  }
 
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+    .fakeinput {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $fifte-color;
+      transition: 0.5s;
+      border-radius: 30px;
 
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: $fifte-color;
-    transition: 0.5s;
-    border-radius: 30px;
+      .moon {
+        position: absolute;
+        content: "";
+        height: 1.4em;
+        width: 1.4em;
+        border-radius: 50%;
+        bottom: 15%;
+        box-shadow: inset 15px 15px 15px 15px $sixte-color;
+        background: $fourth-color;
+        transition: 0.5s;
+      }
+    }
   }
+}
 
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 1.4em;
-    width: 1.4em;
-    border-radius: 50%;
-    left: 10%;
-    bottom: 15%;
-    box-shadow: inset 8px -4px 0px 0px $sixte-color;
-    background: $fourth-color;
-    transition: 0.5s;
+.theme-light .moon {
+  left: 10%;
+}
+
+.theme-dark {
+  .switch {
+    .slider {
+      .moon {
+        left: 50%;
+        box-shadow: inset 8px -4px 0px 0px $sixte-color;
+      }
+    }
   }
+}
 
-  input:checked + .slider {
-    background-color: $fifte-color;
-  }
-
-  input:checked + .slider:before {
-    transform: translateX(100%);
-    box-shadow: inset 15px -4px 0px 15px $sixte-color;
+@media screen and (max-width: 700px) {
+  .theme-light,
+  .theme-dark {
+    transform: rotate(90deg);
   }
 }

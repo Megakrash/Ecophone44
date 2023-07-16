@@ -1,7 +1,6 @@
-import React, { useContext, useCallback } from "react";
-import axios from "axios";
+import React, { useCallback } from "react";
+import api from "@components/apiRest/ApiRest";
 import PropTypes from "prop-types";
-import UserContext from "../../../context/UserContext";
 
 function AdminToogle({
   id,
@@ -10,8 +9,6 @@ function AdminToogle({
   getBrandOrModelAndRepairs,
   getAllModelByBrand,
 }) {
-  const { userToken } = useContext(UserContext);
-
   const updateIsVisibleStatut = (bool) => {
     let endpoint = "";
     if (type === 1) {
@@ -21,20 +18,11 @@ function AdminToogle({
     } else if (type === 3) {
       endpoint = `/repairisvisible/${id}`;
     }
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
 
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}${endpoint}`,
-        {
-          isVisible: bool,
-        },
-        config
-      )
+    api
+      .put(`${endpoint}`, {
+        isVisible: bool,
+      })
       .then(() => {
         getBrandOrModelAndRepairs();
         getAllModelByBrand();

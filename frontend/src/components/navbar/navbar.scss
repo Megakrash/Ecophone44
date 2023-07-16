@@ -46,3 +46,31 @@
     margin-right: 2%;
   }
 }
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .navbar_infos {
+    .address,
+    .schedule {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 700px) {
+  .navbar_logo_img {
+    width: 80px;
+  }
+  .navbar {
+    justify-content: space-between;
+  }
+  .navbar_infos {
+    .address,
+    .schedule {
+      display: none;
+    }
+    .contact {
+      margin-left: 35px;
+    }
+    &_box_text {
+      font-size: 12px;
+    }
+  }
+}

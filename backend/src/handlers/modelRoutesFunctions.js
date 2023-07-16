@@ -1,50 +1,21 @@
+const fs = require("fs");
 const knex = require("../../knex");
 
-// -------------------------------
-// ----------- Users -------------
-// -------------------------------
+const getModelByBrandIdForFront = (req, res) => {
+  const id = parseInt(req.params.id, 10);
 
-const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
-  const { email } = req.body;
-  knex("users")
-    .where("email", email)
-    .first()
-    .then((user) => {
-      if (user) {
-        req.user = user;
-        next();
-      } else {
-        res.sendStatus(401);
-      }
-    })
+  knex
+    .select("id", "pic", "name")
+    .from("models")
+    .where("brand_id", id)
+    .where("is_visible", 1)
+    .orderBy("index_id")
+    .then((model) => res.status(200).json(model))
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
     });
 };
-
-// -------------------------------
-// ----------- Brands -----------
-// -------------------------------
-// POST NEW BRAND
-const postNewBrand = (req, res) => {
-  const { name, filename, type } = req.body;
-
-  knex("brands")
-    .insert({ name, pic: filename, type: Number(type) })
-    .then(() => {
-      res.status(201).send({ message: "Brand Added" });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error adding new Brand");
-    });
-};
-
-// -------------------------------
-// ----------- Models -----------
-// -------------------------------
-
 // POST NEW MODEL FOR SMARTPHONE OR TABLET
 
 const baseRepair = [
@@ -172,95 +143,158 @@ const postNewModel = (req, res) => {
       });
   });
 };
+const getModelByBrandId = (req, res) => {
+  const id = parseInt(req.params.id, 10);
 
-// POST NEW MODEL FOR REFURB
-
-const baseNewModelRefurb = {
-  text: "Ecophone 44 vous propose des appareils reconditionnés par notre atelier technique. L'appareil est testé avec 28 points de contrôle, fourni avec tous les accessoires de charge et un verre trempé de protection directement installé sur l'écran. Le smartphone est révisé, nettoyé et garanti par notre service technique. Tous nos smartphones reconditionnés sont vendus débloqués et peuvent être utilisés avec n'importe quel opérateur.",
-  price: "199",
+  knex
+    .select("*")
+    .from("models")
+    .where("brand_id", id)
+    .orderBy("index_id")
+    .then((model) => res.status(200).json(model))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
 };
 
-const postNewModelRefurb = (req, res) => {
-  const { name, filename, brandId } = req.body;
+const getModelById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  knex
+    .select("*")
+    .from("models")
+    .where("id", id)
+    .then((model) => res.status(200).json(model[0]))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+const updateModelById = (req, res) => {
+  const { id } = req.params;
+  const updates = {};
+
+  for (const [key, value] of Object.entries(req.body)) {
+    switch (key) {
+      case "name":
+        updates.name = value;
+        break;
+      case "text":
+        updates.text = value;
+        break;
+      case "price":
+        updates.price = value;
+        break;
+      case "isVisible":
+        updates.is_visible = Number(value);
+        break;
+      case "indexId":
+        updates.index_id = Number(value);
+        break;
+      default:
+        break;
+    }
+  }
 
   knex("models")
-    .insert({
-      name,
-      pic: filename,
-      brand_id: Number(brandId),
-      text: baseNewModelRefurb.text,
-      price: baseNewModelRefurb.price,
-    })
-    .then(() => {
-      res.status(201).send({ message: "Model Refurb Added" });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error adding new model refurb");
-    });
-};
-
-// -------------------------------
-// ----------- Repairs -----------
-// -------------------------------
-const postNewRepair = (req, res) => {
-  const { name, text, price, modelId } = req.body;
-
-  knex("repairs")
-    .insert({
-      name,
-      text,
-      price,
-      icon_id: 1,
-      model_id: Number(modelId),
-    })
-    .then(() => {
-      res.status(201).send({ message: "Repair Added" });
+    .where("id", id)
+    .update(updates)
+    .then((result) => {
+      if (result === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error adding new repair");
+      res.status(500).send("Error editing the model");
     });
 };
-
-// -------------------------------
-// ----------- Calendar ----------
-// -------------------------------
-const postNewEvent = (req, res, next) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    zipCode,
-    startDate,
-    endDate,
-  } = req.body;
-
-  knex("calendar")
-    .insert({
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      zipCode,
-      start_date: startDate,
-      end_date: endDate,
-    })
-    .then(() => {
-      next();
+const deleteModelPicByModelId = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { pic } = req.body;
+  // Update the "pic" name in "models" table to "null" then delete the file
+  knex
+    .transaction((trx) => {
+      return trx("models")
+        .where("id", id)
+        .update("pic", null)
+        .then(() => {
+          if (fs.existsSync(`public/assets/images/models/${pic}`)) {
+            fs.unlink(`public/assets/images/models/${pic}`, (err) => {
+              if (err) {
+                console.error(err);
+              }
+            });
+            res.sendStatus(204);
+          } else {
+            console.warn("file doesn't exist!");
+          }
+        });
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error adding new event");
     });
 };
+const updateModelPicByModelId = (req, res) => {
+  const { id } = req.params;
+  const { filename } = req.body;
+  knex("models")
+    .where("id", id)
+    .update({ pic: filename })
+    .then((result) => {
+      if (result === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error editing the new model pic");
+    });
+};
+/* Big function to delete one model with all the repairs & pics 
+linked to this model */
+async function deleteModelById(req, res) {
+  const modelId = parseInt(req.params.id, 10);
+  try {
+    // Step 1 : Delete all repairs for this model
+    await knex("repairs").where("model_id", modelId).del();
 
+    // Step 2 : Get the modelPic name
+    const model = await knex("models")
+      .select("pic")
+      .where("id", modelId)
+      .first();
+
+    if (model) {
+      // Delete the file
+      try {
+        await fs.promises.unlink(`public/assets/images/models/${model.pic}`);
+      } catch (error) {
+        console.error(`Erreur lors de la suppression de ${model.pic} :`, error);
+      }
+    }
+
+    // Step 3 : Delete the model in models table
+    await knex("models").where("id", modelId).del();
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+}
 module.exports = {
-  getUserByEmailWithPasswordAndPassToNext,
-  postNewBrand,
+  getModelByBrandIdForFront,
   postNewModel,
-  postNewModelRefurb,
-  postNewRepair,
-  postNewEvent,
+  getModelByBrandId,
+  getModelById,
+  updateModelById,
+  deleteModelPicByModelId,
+  updateModelPicByModelId,
+  deleteModelById,
 };

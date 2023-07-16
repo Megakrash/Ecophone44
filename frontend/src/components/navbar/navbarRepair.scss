@@ -44,3 +44,25 @@
     margin-right: 2%;
   }
 }
+@media screen and (max-width: 700px) {
+  .navbarRepair {
+    // margin-left: -20px;
+    gap: 10px;
+    .navbar_logo,
+    &_logo {
+      display: none;
+    }
+    &_infos {
+      width: 100%;
+      &_name {
+        &_brand {
+          font-size: 13px;
+        }
+        &_model {
+          font-size: 18px;
+          align-self: baseline;
+        }
+      }
+    }
+  }
+}

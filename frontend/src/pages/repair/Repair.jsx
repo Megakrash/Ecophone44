@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getAllRepairsByModel } from "@components/apiRest/ApiRestGet";
+import { getAllRepairsByModel } from "@components/apiRest/ApiRestRepair";
 import { FaExclamationCircle } from "react-icons/fa";
 import NavbarRepair from "@components/navbar/NavbarRepair";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";

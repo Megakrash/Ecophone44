@@ -2,7 +2,7 @@ import React from "react";
 import {
   deleteModelPic,
   uploadNewModelPic,
-} from "@components/apiRest/ApiRestPut";
+} from "@components/apiRest/ApiRestModel";
 import PropTypes from "prop-types";
 import { FaTrashAlt } from "react-icons/fa";
 

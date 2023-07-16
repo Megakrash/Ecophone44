@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import api from "@components/apiRest/ApiRest";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
 import AdminToogle from "../AdminToogle/AdminToogle";
 import AdminModelPic from "../AdminRepairs/AdminRepairs_pic/AdminModelPic";
 import AdminDeleteModel from "../AdminRepairs/AdminRepairs_delete/AdminDeleteModel";
-import UserContext from "../../../context/UserContext";
 
 function AdminRefurbs({
   choosenModelId,
@@ -25,7 +24,6 @@ function AdminRefurbs({
   const [newPrice, setNewPrice] = useState("");
   const [showUpdatePrice, setShowUpdatePrice] = useState(false);
   const [showDeleteRepair, setShowDeleteRepair] = useState(false);
-  const { userToken } = useContext(UserContext);
 
   useEffect(() => {
     if (text !== null && price !== null && name !== null) {
@@ -38,11 +36,6 @@ function AdminRefurbs({
   }, [text, price, name]);
 
   const updateModel = (property) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
     let data = {};
 
     switch (property) {
@@ -60,12 +53,8 @@ function AdminRefurbs({
         return;
     }
 
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/model/${choosenModelId}`,
-        data,
-        config
-      )
+    api
+      .put(`/model/${choosenModelId}`, data)
       .then(() => {
         getModelAndRepairs();
         getAllModelByBrand();

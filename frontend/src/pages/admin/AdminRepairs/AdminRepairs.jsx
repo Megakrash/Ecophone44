@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { updateModelName } from "@components/apiRest/ApiRestPut";
+import { updateModelName } from "@components/apiRest/ApiRestModel";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
 import AdminModelPic from "./AdminRepairs_pic/AdminModelPic";

@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import api from "@components/apiRest/ApiRest";
 import PropTypes from "prop-types";
 import { FaCheck, FaPen, FaChevronCircleLeft } from "react-icons/fa";
 import Select from "react-select";
-import UserContext from "../../../../../context/UserContext";
 
 function AdminUpdateRepair({
   repairId,
@@ -23,27 +22,16 @@ function AdminUpdateRepair({
   const [showUpdatePrice, setShowUpdatePrice] = useState(false);
   const [newRepairIcon, setNewRepairIcon] = useState(iconId);
   const [showUpdateIcon, setShowUpdateIcon] = useState(false);
-  const { userToken } = useContext(UserContext);
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  };
 
   const updateRepair = (event) => {
     event.preventDefault();
-    axios
-      .put(
-        `${import.meta.env.VITE_PORT_BACKEND}/repair/${repairId}`,
-        {
-          name: `${newRepairName}`,
-          text: `${newRepairText}`,
-          price: `${newRepairPrice}`,
-          iconId: `${newRepairIcon}`,
-        },
-        config
-      )
+    api
+      .put(`/repair/${repairId}`, {
+        name: `${newRepairName}`,
+        text: `${newRepairText}`,
+        price: `${newRepairPrice}`,
+        iconId: `${newRepairIcon}`,
+      })
       .then(() => {
         getModelAndRepairs();
         setShowUpdateName(false);

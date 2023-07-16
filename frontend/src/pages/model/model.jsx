@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
-import { getAllModelByBrand } from "@components/apiRest/ApiRestGet";
+import { getAllModelByBrand } from "@components/apiRest/ApiRestModel";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";

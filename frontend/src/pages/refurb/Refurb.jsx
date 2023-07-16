@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRefurbById } from "@components/apiRest/ApiRestGet";
+import { getRefurbById } from "@components/apiRest/ApiRestRefurb";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@components/navbar/Navbar";
 import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
@@ -30,6 +30,13 @@ function Refurb() {
             <p className="refurb_bloc_card_title">
               {details[0].name.toUpperCase()}
             </p>
+            <div className="refurb_bloc_card_img">
+              <img
+                className="refurb_bloc_card_img_pic"
+                src={`${picPath}${details[0].pic}`}
+                alt={details[0].name}
+              />
+            </div>
             <p className="refurb_bloc_card_text">{details[0].text}</p>
             <p className="refurb_bloc_card_price">{details[0].price}.00€</p>
             <Link

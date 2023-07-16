@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { verifyToken } from "@components/apiRest/ApiRestGet";
+import { verifyToken } from "@components/apiRest/ApiRest";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import NavbarBack from "@components/navbar/NavbarBack";
 import AdminManage from "./AdminManage";
 
@@ -11,11 +10,13 @@ const typeConfig = {
   reconditionnes: { type: 3 },
 };
 
-function Admin({ setUserContext }) {
+function Admin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    verifyToken(setUserContext, navigate);
+    if (localStorage.getItem("Eco44Token")) {
+      verifyToken(navigate);
+    }
   }, []);
 
   const [showType, setShowType] = useState(null);
@@ -40,7 +41,6 @@ function Admin({ setUserContext }) {
   );
 
   const adminSectionProps = {
-    setUserContext,
     choosenBrandId,
     setChoosenBrandId,
     choosenModelId,
@@ -84,7 +84,3 @@ function Admin({ setUserContext }) {
 }
 
 export default Admin;
-
-Admin.propTypes = {
-  setUserContext: PropTypes.func.isRequired,
-};

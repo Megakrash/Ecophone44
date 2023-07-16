@@ -1,5 +1,5 @@
 import React from "react";
-import { updateOrderBrand } from "@components/apiRest/ApiRestPut";
+import { updateOrderBrand } from "@components/apiRest/ApiRestBrand";
 import PropTypes from "prop-types";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AdminBrandsCard from "../AdminCards/AdminBrandsCard";

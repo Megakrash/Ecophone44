@@ -66,3 +66,25 @@
     border-bottom: 2px solid $sixte-color;
   }
 }
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .breadcrumbs_line {
+    width: 120px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .breadcrumbs {
+    &_step {
+      width: 35px;
+      &_name {
+        font-size: 12px;
+      }
+      &_ring {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    &_line {
+      width: 35px;
+    }
+  }
+}

@@ -1,16 +1,16 @@
 .home {
-  min-height: calc(100vh - 130px);
+  min-height: calc(100vh - 150px);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 2%;
-  // margin-top: 90px;
 
   &_title {
     font-family: $font-title;
     font-size: 35px;
     font-weight: 600;
     margin-top: 2%;
+    text-align: center;
   }
 
   &_link {
@@ -43,6 +43,25 @@
 
     .refurb-link {
       width: 350px;
+    }
+  }
+}
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .home_title {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .home {
+    &_title {
+      font-size: 25px;
+    }
+    &_link {
+      flex-direction: column;
+      gap: 20px;
+    }
+    &_refurb {
+      gap: 20px;
     }
   }
 }

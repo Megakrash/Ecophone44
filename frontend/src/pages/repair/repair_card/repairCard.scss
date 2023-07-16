@@ -22,6 +22,7 @@
     }
     &_name {
       font-size: 19px;
+      text-align: left;
     }
     &_xforce {
       display: flex;
@@ -80,4 +81,9 @@
 
 .card-selected {
   border-color: $sixte-color;
+}
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .repairCard_bloc_name {
+    font-size: 17px;
+  }
 }
