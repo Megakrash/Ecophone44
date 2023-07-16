@@ -14,7 +14,9 @@ function Admin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    verifyToken(navigate);
+    if (localStorage.getItem("Eco44Token")) {
+      verifyToken(navigate);
+    }
   }, []);
 
   const [showType, setShowType] = useState(null);
