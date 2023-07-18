@@ -97,6 +97,8 @@ function Reservation() {
               <input
                 className="reservation_form_box_input"
                 type="text"
+                id="firstName"
+                autoComplete="given-name"
                 name="firstName"
                 placeholder="Votre prénom"
                 onChange={(e) => {
@@ -107,6 +109,8 @@ function Reservation() {
               <input
                 className="reservation_form_box_input"
                 type="text"
+                id="lastName"
+                autoComplete="family-name"
                 name="lastName"
                 placeholder="Votre nom"
                 onChange={(e) => {
@@ -118,6 +122,8 @@ function Reservation() {
             <input
               className="reservation_form_box_input email-input"
               type="email"
+              id="email"
+              autoComplete="off"
               name="email"
               placeholder="Votre email"
               onChange={(e) => {
@@ -128,23 +134,38 @@ function Reservation() {
             <div className="reservation_form_box">
               <input
                 className="reservation_form_box_input"
-                type="text"
-                name="zipCode"
+                type="tel"
+                id="zipCode"
+                autoComplete="off"
+                name="zip code"
+                maxLength="5"
+                pattern="\d{5}"
                 placeholder="Votre code postal"
                 onChange={(e) => {
-                  setFormDetails({ ...formDetails, zipCode: e.target.value });
+                  const inputNumber = e.target.value;
+                  const regex = /^[0-9]*$/;
+                  if (regex.test(inputNumber)) {
+                    setFormDetails({ ...formDetails, zipCode: inputNumber });
+                  }
                 }}
               />
               <input
                 className="reservation_form_box_input"
-                type="text"
+                type="tel"
+                id="phoneNumber"
                 name="phoneNumber"
                 placeholder="Numéro de téléphone"
+                maxLength="10"
+                pattern="\d{10}"
                 onChange={(e) => {
-                  setFormDetails({
-                    ...formDetails,
-                    phoneNumber: e.target.value,
-                  });
+                  const inputNumber = e.target.value;
+                  const regex = /^[0-9]*$/;
+                  if (regex.test(inputNumber)) {
+                    setFormDetails({
+                      ...formDetails,
+                      phoneNumber: inputNumber,
+                    });
+                  }
                 }}
                 required
               />
