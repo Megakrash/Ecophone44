@@ -19,7 +19,7 @@ function CreateBrandOrModel({
       endpoint = "/refurb";
     }
     api
-      .post(`${endpoint}`, data)
+      .post(`/api-token${endpoint}`, data)
       .then(() => {
         if (brandOrModel === 1) {
           setShowCreateBrandOrModel(false);

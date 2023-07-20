@@ -39,7 +39,7 @@ function Agenda({
   const [events, setEvents] = useState([]);
   const getEventsForCalendar = () => {
     api
-      .get(`/calendar`)
+      .get(`/api/calendar`)
       .then((response) => {
         const eventsFromAPI = response.data.map((event) => {
           return {
@@ -93,7 +93,7 @@ function Agenda({
   // Add new event in Calendar
   const newEventForCalendar = () => {
     api
-      .post(`/calendar`, {
+      .post(`/api/calendar`, {
         firstName: `${formDetails.firstName}`,
         lastName: `${formDetails.lastName}`,
         email: `${formDetails.email}`,

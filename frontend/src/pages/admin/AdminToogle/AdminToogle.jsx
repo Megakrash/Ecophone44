@@ -20,7 +20,7 @@ function AdminToogle({
     }
 
     api
-      .put(`${endpoint}`, {
+      .put(`/api-token${endpoint}`, {
         isVisible: bool,
       })
       .then(() => {

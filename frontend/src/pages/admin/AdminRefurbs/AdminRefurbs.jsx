@@ -54,7 +54,7 @@ function AdminRefurbs({
     }
 
     api
-      .put(`/model/${choosenModelId}`, data)
+      .put(`/api-token/model/${choosenModelId}`, data)
       .then(() => {
         getModelAndRepairs();
         getAllModelByBrand();

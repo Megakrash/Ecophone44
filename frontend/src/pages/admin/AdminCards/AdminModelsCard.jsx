@@ -18,7 +18,7 @@ function AdminModelCard({
 
   const updateIsVisibleStatut = (bool) => {
     api
-      .put(`/model/${id}`, {
+      .put(`/api-token/model/${id}`, {
         isVisible: bool,
       })
       .then(() => {

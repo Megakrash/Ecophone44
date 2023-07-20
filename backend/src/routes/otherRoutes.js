@@ -10,11 +10,11 @@ const { verifyPassword } = require("../handlers/auth");
 // ---- Front user no verify token ---
 // -----------------------------------
 // Get the calendar events
-router.get("/calendar", otherRoutesFunctions.getCalendarForFront);
+router.get("/api/calendar", otherRoutesFunctions.getCalendarForFront);
 
 // Add new event
 router.post(
-  "/calendar",
+  "/api/calendar",
   otherRoutesFunctions.postNewEvent,
   sendConfirmationEmail
 );
@@ -23,10 +23,10 @@ router.post(
 // ------------ Back-office -------
 // --------------------------------
 // First verify user in login.jsx
-router.get("/user", otherRoutesFunctions.getUserToVerifyToken);
+router.get("/api/user", otherRoutesFunctions.getUserToVerifyToken);
 // LOGIN
 router.post(
-  "/login",
+  "/api/login",
   otherRoutesFunctions.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );

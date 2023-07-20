@@ -13,7 +13,7 @@ export const getAllModelByBrandAndByType = (
 ) =>
   apiRequest(
     "get",
-    `/modelbybrand/${choosenBrandId}`,
+    `/api-token/modelbybrand/${choosenBrandId}`,
     navigate,
     setAllModelsByBrand
   );
@@ -26,7 +26,7 @@ export const updateOrderModel = async (
   const promises = [];
 
   items.forEach((element) => {
-    const promise = api.put(`/model/${element.id}`, {
+    const promise = api.put(`/api-token/model/${element.id}`, {
       indexId: `${element.index_id}`,
     });
     promises.push(promise);
@@ -49,7 +49,7 @@ export const updateModelName = (
 ) =>
   apiRequestPut(
     "put",
-    `/model/${choosenModelId}`,
+    `/api-token/model/${choosenModelId}`,
     { name: newName },
     () => {
       getModelAndRepairs();
@@ -62,7 +62,7 @@ export const updateModelName = (
 export const deleteModelPic = (choosenModelId, modelPic, getModelAndRepairs) =>
   apiRequestPut(
     "put",
-    `/modelpic_delete/${choosenModelId}`,
+    `/api-token/modelpic_delete/${choosenModelId}`,
     { pic: `${modelPic}` },
     getModelAndRepairs,
     () => console.error("Error delete brand pic")
@@ -71,7 +71,7 @@ export const deleteModelPic = (choosenModelId, modelPic, getModelAndRepairs) =>
 export const uploadNewModelPic = (choosenModelId, getModelAndRepairs, data) =>
   apiRequestPut(
     "put",
-    `/modelpic/${choosenModelId}`,
+    `/api-token/modelpic/${choosenModelId}`,
     data,
     getModelAndRepairs,
     () => console.error("Error upload new model pic")
@@ -93,4 +93,4 @@ export const deleteModel = (
 
 // Model.jsx
 export const getAllModelByBrand = (id, setModel) =>
-  apiRequest("get", `/modelbybrandforfront/${id}`, null, setModel);
+  apiRequest("get", `/api/modelbybrandforfront/${id}`, null, setModel);

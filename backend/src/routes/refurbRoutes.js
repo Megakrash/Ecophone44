@@ -10,16 +10,16 @@ const { sendReservationEmail } = require("../handlers/nodeMailer");
 // ---- Front user no verify token ---
 // -----------------------------------
 router.get(
-  "/refurbbyidforfront/:id",
+  "/api/refurbbyidforfront/:id",
   refurbRoutesFunctions.getRefurbByIdForFront
 );
-router.post("/sendemailreservation", sendReservationEmail);
+router.post("/api/sendemailreservation", sendReservationEmail);
 // --------------------------------
 // ------------ Back-office -------
 // --------------------------------
 // Add new Model refurb
 router.post(
-  "/refurb",
+  "/api-token/refurb",
   uploadModelPic.single("file"),
   refurbRoutesFunctions.postNewModelRefurb
 );

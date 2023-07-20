@@ -6,4 +6,4 @@ import { apiRequest } from "./ApiRest";
 
 //Refurb.jsx
 export const getRefurbById = (id, setDetails) =>
-  apiRequest("get", `/refurbbyidforfront/${id}`, null, setDetails);
+  apiRequest("get", `/api/refurbbyidforfront/${id}`, null, setDetails);
