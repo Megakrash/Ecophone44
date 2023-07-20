@@ -6,16 +6,21 @@ import { apiRequest, apiRequestPut, deleteEntity } from "./ApiRest";
 // -------------------------------------------
 // AdminManage.jsx
 export const getAllBrandByType = (type, setBrands, navigate) =>
-  apiRequest("get", `/brands/${type}`, navigate, setBrands);
+  apiRequest("get", `/api-token/brands/${type}`, navigate, setBrands);
 
 // UpdateBrand.jsx
 export const getBrandSelectedById = (choosenBrandId, setBrandSelected) =>
-  apiRequest("get", `/brand/${choosenBrandId}`, null, setBrandSelected);
+  apiRequest(
+    "get",
+    `/api-token/brand/${choosenBrandId}`,
+    null,
+    setBrandSelected
+  );
 
 export const updateBrandName = (brandSelected, newName, getAllBrand) =>
   apiRequestPut(
     "put",
-    `/brand/${brandSelected.id}`,
+    `/api-token/brand/${brandSelected.id}`,
     { name: `${newName}` },
     getAllBrand,
     () => console.error("Name not updated")
@@ -24,7 +29,7 @@ export const updateBrandName = (brandSelected, newName, getAllBrand) =>
 export const deleteBrandPic = (brandSelected, getBrandSelected) =>
   apiRequestPut(
     "put",
-    `/brandpic_delete/${brandSelected.id}`,
+    `/api-token/brandpic_delete/${brandSelected.id}`,
     { pic: `${brandSelected.pic}` },
     getBrandSelected,
     () => console.error("Error delete brand pic")
@@ -33,7 +38,7 @@ export const deleteBrandPic = (brandSelected, getBrandSelected) =>
 export const uploadNewBrandPic = (brandSelected, getBrandSelected, data) =>
   apiRequestPut(
     "put",
-    `/brandpic/${brandSelected.id}`,
+    `/api-token/brandpic/${brandSelected.id}`,
     data,
     getBrandSelected,
     () => console.error("Error upload new brand pic")
@@ -59,7 +64,7 @@ export const updateOrderBrand = async (items, getAllBrand) => {
   const promises = [];
 
   items.forEach((element) => {
-    const promise = api.put(`/brand/${element.id}`, {
+    const promise = api.put(`/api-token/brand/${element.id}`, {
       indexId: `${element.index_id}`,
     });
     promises.push(promise);
@@ -78,9 +83,9 @@ export const updateOrderBrand = async (items, getAllBrand) => {
 // Brand.jsx
 export const getAllBrands = (id, setAllBrands) => {
   const brandRoutes = {
-    1: "/smartbrands",
-    2: "/tabbrands",
-    3: "/refurbbrands",
+    1: "/api/smartbrands",
+    2: "/api/tabbrands",
+    3: "/api/refurbbrands",
   };
   const url = brandRoutes[id];
   apiRequest("get", url, null, setAllBrands);

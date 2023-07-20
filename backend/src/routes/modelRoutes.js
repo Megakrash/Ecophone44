@@ -9,7 +9,7 @@ const { uploadModelPic } = require("./multers/multers");
 // ---- Front user no verify token ---
 // -----------------------------------
 router.get(
-  "/modelbybrandforfront/:id",
+  "/api/modelbybrandforfront/:id",
   modelRoutesFunctions.getModelByBrandIdForFront
 );
 
@@ -18,28 +18,31 @@ router.get(
 // --------------------------------
 // Add new Model
 router.post(
-  "/model",
+  "/api-token/model",
   uploadModelPic.single("file"),
   modelRoutesFunctions.postNewModel
 );
 // get by brand Id
-router.get("/modelbybrand/:id", modelRoutesFunctions.getModelByBrandId);
+router.get(
+  "/api-token/modelbybrand/:id",
+  modelRoutesFunctions.getModelByBrandId
+);
 // get by model Id
-router.get("/model/:id", modelRoutesFunctions.getModelById);
+router.get("/api-token/model/:id", modelRoutesFunctions.getModelById);
 // Update model by id
-router.put("/model/:id", modelRoutesFunctions.updateModelById);
+router.put("/api-token/model/:id", modelRoutesFunctions.updateModelById);
 // Update Pic in models table then delete pic file
 router.put(
-  "/modelpic_delete/:id",
+  "/api-token/modelpic_delete/:id",
   modelRoutesFunctions.deleteModelPicByModelId
 );
 // upload new pic file then Update pic in brands
 router.put(
-  "/modelpic/:id",
+  "/api-token/modelpic/:id",
   uploadModelPic.single("file"),
   modelRoutesFunctions.updateModelPicByModelId
 );
 // Delete the model pic then all repairs link then delete the model
-router.delete("/model/:id", modelRoutesFunctions.deleteModelById);
+router.delete("/api-token/model/:id", modelRoutesFunctions.deleteModelById);
 
 module.exports = router;

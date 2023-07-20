@@ -20,7 +20,7 @@ export default api;
 
 // Admin.jsx - Function to verify the token
 export const verifyToken = (navigate) =>
-  apiRequest("get", "/user", navigate, null);
+  apiRequest("get", "/api/user", navigate, null);
 
 // Helper function to handle errors 401 token
 const handleError = (error, navigate) => {
@@ -63,7 +63,7 @@ export const apiRequestPut = async (
 // Helper function to handle Api delete
 export const deleteEntity = async (entityType, id, updateFunctions) => {
   try {
-    const response = await api.delete(`/${entityType}/${id}`);
+    const response = await api.delete(`/api-token/${entityType}/${id}`);
     updateFunctions.forEach((func) => func());
     return response;
   } catch (error) {

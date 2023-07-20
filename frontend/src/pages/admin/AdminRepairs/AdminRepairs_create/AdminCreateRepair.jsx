@@ -14,7 +14,7 @@ function AdminCreateRepair({
   const createNewRepair = (event) => {
     event.preventDefault();
     api
-      .post(`/repair`, {
+      .post(`/api-token/repair`, {
         name: `${newRepairName}`,
         text: `${newRepairText}`,
         price: `${newRepairPrice}`,

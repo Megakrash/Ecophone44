@@ -26,7 +26,7 @@ function AdminUpdateRepair({
   const updateRepair = (event) => {
     event.preventDefault();
     api
-      .put(`/repair/${repairId}`, {
+      .put(`/api-token/repair/${repairId}`, {
         name: `${newRepairName}`,
         text: `${newRepairText}`,
         price: `${newRepairPrice}`,

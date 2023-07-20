@@ -14,8 +14,8 @@ export const getModelAndRepairsByType = async (
 ) => {
   try {
     const [allRepairs, getModel] = await Promise.all([
-      api.get(`/repairs/${choosenModelId}`),
-      api.get(`/model/${choosenModelId}`),
+      api.get(`/api-token/repairs/${choosenModelId}`),
+      api.get(`/api-token/model/${choosenModelId}`),
     ]);
 
     setRepairs(allRepairs.data);
@@ -27,13 +27,13 @@ export const getModelAndRepairsByType = async (
 
 // AdminRepairsList.jsx
 export const getIcons = (setIcons) =>
-  apiRequest("get", `/icons`, null, setIcons);
+  apiRequest("get", `/api-token/icons`, null, setIcons);
 
 export const updateOrderRepairs = async (items, getModelAndRepairs) => {
   const promises = [];
 
   items.forEach((element) => {
-    const promise = api.put(`/repairsindex/${element.id}`, {
+    const promise = api.put(`/api-token/repairsindex/${element.id}`, {
       indexId: `${element.index_id}`,
     });
     promises.push(promise);
@@ -55,4 +55,4 @@ export const deleteRepair = (repairId, getModelAndRepairs) => {
 
 //Repair.jsx
 export const getAllRepairsByModel = (id, setAllRepairs) =>
-  apiRequest("get", `/repairsforfront/${id}`, null, setAllRepairs);
+  apiRequest("get", `/api/repairsforfront/${id}`, null, setAllRepairs);

@@ -19,7 +19,7 @@ function AdminBrandCard({
 
   const updateIsVisibleStatut = (bool) => {
     api
-      .put(`/brand/${id}`, {
+      .put(`/api-token/brand/${id}`, {
         isVisible: bool,
       })
       .then(() => {

@@ -13,7 +13,7 @@ function Login() {
   const loginUser = (e) => {
     e.preventDefault();
     api
-      .post(`/login`, loginDetails)
+      .post(`/api/login`, loginDetails)
       .then((res) => {
         localStorage.setItem(
           "Eco44Token",

@@ -8,7 +8,7 @@ const repairRoutesFunctions = require("../handlers/repairRoutesFunctions");
 // ---- Front user no verify token ---
 // -----------------------------------
 router.get(
-  "/repairsforfront/:id",
+  "/api/repairsforfront/:id",
   repairRoutesFunctions.getRepairsByModelIdForFront
 );
 
@@ -16,21 +16,24 @@ router.get(
 // ------------ Back-office -------
 // --------------------------------
 // Add new repair
-router.post("/repair", repairRoutesFunctions.postNewRepair);
+router.post("/api-token/repair", repairRoutesFunctions.postNewRepair);
 // by model id
-router.get("/repairs/:id", repairRoutesFunctions.getRepairsByModelId);
+router.get("/api-token/repairs/:id", repairRoutesFunctions.getRepairsByModelId);
 // Update repair by id
-router.put("/repair/:id", repairRoutesFunctions.updateRepairById);
+router.put("/api-token/repair/:id", repairRoutesFunctions.updateRepairById);
 // Update repair index_id with D&D
-router.put("/repairsindex/:id", repairRoutesFunctions.updateRepairIndexById);
+router.put(
+  "/api-token/repairsindex/:id",
+  repairRoutesFunctions.updateRepairIndexById
+);
 // Update Is visible
 router.put(
-  "/repairisvisible/:id",
+  "/api-token/repairisvisible/:id",
   repairRoutesFunctions.updateRepairIsVisibleById
 );
 // Delete the repair by id
-router.delete("/repair/:id", repairRoutesFunctions.deleteRepairById);
+router.delete("/api-token/repair/:id", repairRoutesFunctions.deleteRepairById);
 // Get the repairs icons
-router.get("/icons", repairRoutesFunctions.getIcons);
+router.get("/api-token/icons", repairRoutesFunctions.getIcons);
 
 module.exports = router;

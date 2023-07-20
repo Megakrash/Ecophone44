@@ -26,36 +26,14 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // Use the middleware "verifyToken" for all routes except "/login" & front-user path
 app.use((req, res, next) => {
-  const { path: reqPath, method } = req;
-  const unauthenticatedPaths = ["/smartbrands", "/tabbrands", "/refurbbrands"];
+  const { path: reqPath } = req;
 
-  const unauthenticatedPathsForGetAndPost = [
-    "/login",
-    "/calendar",
-    "/sendemailreservation",
-  ];
-
-  const unauthenticatedPrefixes = [
-    "/refurbbyidforfront",
-    "/modelbybrandforfront/",
-    "/repairsforfront/",
-  ];
-
-  const isUnauthenticatedPath =
-    unauthenticatedPaths.includes(reqPath) ||
-    unauthenticatedPrefixes.some((prefix) => reqPath.startsWith(prefix));
-
-  const isUnauthenticatedPathForGetAndPost =
-    unauthenticatedPathsForGetAndPost.includes(reqPath);
-
-  if (
-    (isUnauthenticatedPath && method === "GET") ||
-    (isUnauthenticatedPathForGetAndPost &&
-      (method === "GET" || method === "POST"))
-  ) {
+  if (reqPath.startsWith("/api/")) {
     next();
-  } else {
+  } else if (reqPath.startsWith("/api-token/")) {
     verifyToken(req, res, next);
+  } else {
+    res.status(403).json({ message: "Invalid path" });
   }
 });
 
