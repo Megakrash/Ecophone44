@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 function NavbarBack({
   setChoosenBrandId,
@@ -7,6 +8,7 @@ function NavbarBack({
   setShowCreateBrand,
   setShowType,
 }) {
+  const navigate = useNavigate();
   return (
     <div className="navbarBack">
       <div className="navbarBack_logo">
@@ -32,6 +34,16 @@ function NavbarBack({
       <div className="navbarBack_title">
         <p>BACK-OFFICE</p>
       </div>
+      <button
+        className="repair_bloc_card_btn navbarBack_deco"
+        type="button"
+        onClick={() => {
+          localStorage.removeItem("Eco44Token");
+          navigate("/login");
+        }}
+      >
+        <p>DECONNECTION</p>
+      </button>
     </div>
   );
 }

@@ -9,7 +9,7 @@
   &_logo {
     position: absolute;
     height: 80px;
-    margin-right: auto;
+    margin-left: 2%;
 
     &_btn {
       background-color: transparent;
@@ -27,5 +27,12 @@
     color: $secondary-color;
     font-weight: 600;
     font-size: 35px;
+  }
+  &_deco {
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    margin-top: 0%;
+    margin-right: 2%;
   }
 }
