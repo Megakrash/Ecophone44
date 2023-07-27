@@ -52,7 +52,10 @@
 .App.dark-theme {
   background-color: $fifte-color;
   color: $primary-color;
-
+  // Loader
+  .loader-container {
+    background-color: $fifte-color;
+  }
   // Navbar
   .navbar {
     background-color: $fourth-color;
