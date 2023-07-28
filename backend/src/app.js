@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   } else if (reqPath.startsWith("/api-token/")) {
     verifyToken(req, res, next);
   } else {
-    res.status(403).json({ message: "Invalid path" });
+    next();
   }
 });
 
