@@ -1,76 +1,149 @@
 .navbar {
+  background: white;
   width: 100%;
   height: 90px;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  background-color: white;
 
-  &_logo {
-    width: 10%;
-    margin-left: 2%;
-
-    &_img {
-      width: 120px;
-    }
-  }
-
-  &_infos {
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    gap: 15%;
-
-    &_box {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 7px;
-
-      &_fa {
-        width: 20px;
-        height: auto;
-        color: $secondary-color;
-      }
-
-      &_text {
-        font-size: 15px;
-
-        p {
-          margin-bottom: 4px;
-        }
-      }
-    }
-  }
   &_toogle {
     margin-right: 2%;
   }
-}
-@media screen and (min-width: 700px) and (max-width: 1000px) {
-  .navbar_infos {
-    .address,
-    .schedule {
-      display: none;
-    }
-  }
-}
-@media screen and (max-width: 700px) {
-  .navbar_logo_img {
-    width: 80px;
-  }
-  .navbar {
+  &_container {
+    display: flex;
     justify-content: space-between;
+    height: 90px;
+    &_logo {
+      width: 120px;
+      margin-left: 20px;
+    }
   }
-  .navbar_infos {
-    .address,
-    .schedule {
-      display: none;
+  .container {
+    z-index: 1;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    .phone-number {
+      display: flex;
+      align-items: center;
+      padding-left: 5px;
+      gap: 10px;
+      width: 180px;
+      height: 50px;
+      margin-right: 15px;
+      border-radius: 5px;
+      background-color: $secondary-color;
+      &_fa {
+        width: 25px;
+        height: auto;
+        color: $primary-color;
+      }
+      p {
+        font-size: 20px;
+        font-weight: 600;
+        color: $primary-color;
+      }
     }
-    .contact {
-      margin-left: 35px;
+  }
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    text-align: center;
+    justify-content: flex-end;
+  }
+  .nav-item:hover {
+    border-bottom: 2px solid $eighth-color;
+  }
+  .nav-links {
+    color: $fifte-color;
+    font-size: 25px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+  }
+  .activated {
+    color: $eighth-color;
+  }
+  .menu-icon {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .navbar {
+    .container {
+      .phone-number {
+        display: none;
+      }
     }
-    &_box_text {
-      font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .navbar {
+    .container {
+      padding-left: 0%;
+      padding-right: 5px;
+      .navbar_container_logo {
+        width: 100px;
+        margin-left: 10px;
+        margin-top: 12px;
+      }
+    }
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 90px;
+      left: -100%;
+      opacity: 1;
+      transition: all 0.5s ease;
+    }
+
+    .nav-menu.active {
+      background: $fourth-color;
+      left: 0;
+      opacity: 1;
+      transition: all 0.6s ease;
+      z-index: 1;
+      .phone-number {
+        margin-left: 10%;
+      }
+    }
+
+    .nav-links {
+      padding: 2rem;
+      width: 100%;
+      display: table;
+      color: $primary-color;
+    }
+    .activated {
+      color: $secondary-color;
+    }
+    .nav-links:hover {
+      color: $eighth-color;
+      transform: scale(1.2);
+      transition: all 0.3s ease;
+    }
+
+    .nav-item:hover {
+      border: none;
+    }
+
+    .nav-item {
+      width: 100%;
+    }
+
+    .menu-icon {
+      display: flex;
+      align-self: center;
+      font-size: 5rem;
+      cursor: pointer;
+      background: none;
     }
   }
 }

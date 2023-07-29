@@ -1,49 +1,85 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { FaInfoCircle, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import React, { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa6";
 import ThemeToggle from "./themeToogle/ThemeToogle";
 
 function Navbar() {
+  const [click, setClick] = useState(false);
+
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
   return (
-    <div className="navbar">
-      <div className="navbar_logo">
-        <NavLink to="/">
+    <nav className="navbar">
+      <div className="navbar_container container">
+        <Link to="/" onClick={closeMobileMenu}>
           <img
-            className="navbar_logo_img"
+            className="navbar_container_logo"
             src={`${
               import.meta.env.VITE_PORT_BACKEND
             }/assets/images/general/logo-simple.png`}
             alt="Ecophone 44"
           />
-        </NavLink>
-      </div>
-      <div className="navbar_infos">
-        <div className="navbar_infos_box address">
-          <FaMapMarkerAlt className="navbar_infos_box_fa" />
-          <div className="navbar_infos_box_text">
-            <p>2 rue Deurbroucq</p>
-            <p>44000 Nantes</p>
-          </div>
-        </div>
-        <div className="navbar_infos_box contact">
-          <FaInfoCircle className="navbar_infos_box_fa" />
-          <div className="navbar_infos_box_text">
+        </Link>
+
+        <button type="button" className="menu-icon" onClick={handleClick}>
+          {click ? <FaTimes /> : <FaBars />}
+        </button>
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <div className="phone-number">
+            <FaPhone className="phone-number_fa" />
             <p>02 52 10 37 71</p>
-            <p>contact@ecophone44.com</p>
           </div>
-        </div>
-        <div className="navbar_infos_box schedule">
-          <FaClock className="navbar_infos_box_fa" />
-          <div className="navbar_infos_box_text">
-            <p>Lundi au samedi</p>
-            <p>10:00 à 19:00</p>
-          </div>
-        </div>
+          <li className="nav-item">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `nav-links${isActive ? " activated" : ""}`
+              }
+              onClick={closeMobileMenu}
+            >
+              Accueil
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/brands/3"
+              className={({ isActive }) =>
+                `nav-links${isActive ? " activated" : ""}`
+              }
+              onClick={closeMobileMenu}
+            >
+              Reconditionnés
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/boutique"
+              className={({ isActive }) =>
+                `nav-links${isActive ? " activated" : ""}`
+              }
+              onClick={closeMobileMenu}
+            >
+              Boutique
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `nav-links${isActive ? " activated" : ""}`
+              }
+              onClick={closeMobileMenu}
+            >
+              Contact
+            </NavLink>
+          </li>
+        </ul>
       </div>
       <div className="navbar_toogle">
         <ThemeToggle />
       </div>
-    </div>
+    </nav>
   );
 }
 

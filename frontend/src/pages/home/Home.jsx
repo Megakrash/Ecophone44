@@ -11,9 +11,7 @@ export default function Home() {
     <div className="home">
       <Navbar />
       <Header />
-      <h1 className="home_title">
-        Quel type d'appareil souhaitez-vous réparer ?
-      </h1>
+      <h1 className="home_title">Que souhaitez-vous réparer ?</h1>
       <div className="home_link">
         <Link to="/brands/1">
           <div className="home_link_btn">

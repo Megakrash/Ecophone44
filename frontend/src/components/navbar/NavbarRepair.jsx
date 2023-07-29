@@ -10,7 +10,7 @@ function NavbarRepair({ brandName, modelName, modelPic, price }) {
       <div className="navbar_logo">
         <NavLink to="/">
           <img
-            className="navbar_logo_img navbarRepair_logo"
+            className="navbar_container_logo navbarRepair_logo"
             src={`${
               import.meta.env.VITE_PORT_BACKEND
             }/assets/images/general/logo-simple.png`}
