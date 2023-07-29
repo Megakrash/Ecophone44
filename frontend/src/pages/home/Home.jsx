@@ -66,7 +66,9 @@ export default function Home() {
             vie des appareils.
           </p>
           <Link to="/brands/3">
-            <p className="home_link_btn text-btn">Nos reconditionnés</p>
+            <div className="home_link_btn text-btn">
+              <p>Nos reconditionnés</p>
+            </div>
           </Link>
         </div>
       </div>
