@@ -81,7 +81,7 @@ function Repair() {
             })}
             <RepairCard
               picIcon="xforce.webp"
-              name={"Protection d'écran XFORCE"}
+              name={"Protection d'écran hydrogel"}
               price="20"
               handleTotalPrice={handleTotalPrice}
               handleRepairSelect={handleRepairSelect}

@@ -39,7 +39,7 @@ function Reservation() {
   const sendEmailReservation = (e) => {
     e.preventDefault();
     api
-      .post(`/sendemailreservation`, {
+      .post(`/api/sendemailreservation`, {
         formDetails,
         modelName,
         price: totalCardPrice,

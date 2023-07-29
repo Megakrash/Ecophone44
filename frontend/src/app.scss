@@ -52,13 +52,20 @@
 .App.dark-theme {
   background-color: $fifte-color;
   color: $primary-color;
-
-  // Navbar
-  .navbar {
-    background-color: $fourth-color;
+  // Loader
+  .loader-container {
+    background-color: $fifte-color;
   }
+  // Navbar
+  .navbar,
   .navbarRepair {
     background-color: $fourth-color;
+    .nav-links {
+      color: $primary-color;
+    }
+    .activated {
+      color: $eighth-color;
+    }
   }
   // Repair
   .repair_bloc_card_btn:hover,
