@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { MdPhoneIphone } from "react-icons/md";
+import { FaTabletAlt, FaPlay } from "react-icons/fa";
 import Navbar from "@components/navbar/Navbar";
 import Header from "@components/header/Header";
 
@@ -14,10 +16,18 @@ export default function Home() {
       </h1>
       <div className="home_link">
         <Link to="/brands/1">
-          <p className="home_link_btn">SMARTPHONE</p>
+          <div className="home_link_btn">
+            <MdPhoneIphone className="home_link_btn_phone" />
+            <p className="home_link_btn_text">SMARTPHONE</p>
+            <FaPlay className="home_link_btn_play" />
+          </div>
         </Link>
         <Link to="/brands/2">
-          <p className="home_link_btn">TABLETTE</p>
+          <div className="home_link_btn">
+            <FaTabletAlt className="home_link_btn_phone" />
+            <p className="home_link_btn_text">TABLETTE</p>
+            <FaPlay className="home_link_btn_play" />
+          </div>
         </Link>
       </div>
       <div className="home_refurb">
