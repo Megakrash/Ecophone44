@@ -3,7 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 const otherRoutesFunctions = require("../handlers/otherRoutesFunctions");
-const { sendConfirmationEmail } = require("../handlers/nodeMailer");
+const {
+  sendConfirmationEmail,
+  sendContactEmail,
+} = require("../handlers/nodeMailer");
 const { verifyPassword } = require("../handlers/auth");
 
 // -----------------------------------
@@ -18,6 +21,8 @@ router.post(
   otherRoutesFunctions.postNewEvent,
   sendConfirmationEmail
 );
+// Send contact email
+router.post("/api/sendemailcontact", sendContactEmail);
 
 // --------------------------------
 // ------------ Back-office -------
