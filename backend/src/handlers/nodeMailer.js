@@ -182,7 +182,79 @@ const sendReservationEmail = (req, res) => {
     });
 };
 
+const sendContactEmail = (req, res) => {
+  const { formDetails } = req.body;
+
+  const mailOptions1 = {
+    from: process.env.MAIL_USER,
+    to: formDetails.email,
+    subject: "Votre message à Ecophone 44",
+    html: `<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Réservation confirmée</title>
+    </head>
+    <body>
+      <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+        <div style="margin:50px auto;width:70%;padding:20px 0">
+          <div style="border-bottom 1px solid #eee">
+          <p>Cher client,</p>
+          <p>Votre message nous a bien été transmis. Nous y répondrons dans les meilleurs délais.</p>
+          <p>Cordialement,</p>
+          <p>Votre message : ${formDetails.message}.</p>
+          <div style="float:left;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+            <p>Ecophone 44</p>
+            <p>2 rue deurbroucq</p>
+            <p>44000 Nantes</p>
+            <p>02 52 10 37 71</p>
+            <p>contact@ecophone44.com</p>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+    `,
+  };
+
+  const mailOptions2 = {
+    from: process.env.MAIL_USER,
+    to: process.env.MAIL_USER,
+    replyTo: formDetails.email,
+    subject: "Vous avez un nouveau message d'un client",
+    html: `<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Nouveau message reçu :</title>
+    </head>
+    <body>
+      <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+        <div style="margin:50px auto;width:70%;padding:20px 0">
+          <div style="border-bottom 1px solid #eee">
+          <p>Nom : ${formDetails.lastName}</p>
+          <p>Prénom : ${formDetails.firstName}</p>
+          <p>Email : ${formDetails.email}</p>
+          <p>Téléphone : ${formDetails.phoneNumber}</p>
+          <p>Message : ${formDetails.message}</p>
+        </div>
+      </div>
+    </body>
+    </html>
+    `,
+  };
+
+  Promise.all([sendEmail(mailOptions1), sendEmail(mailOptions2)])
+    .then(() => {
+      res.status(200).send("Emails envoyés avec succès");
+    })
+    .catch(() => {
+      res.status(500).send("Une erreur s'est produite");
+    });
+};
+
 module.exports = {
   sendConfirmationEmail,
   sendReservationEmail,
+  sendContactEmail,
 };
