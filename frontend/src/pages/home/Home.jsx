@@ -4,6 +4,7 @@ import { MdPhoneIphone } from "react-icons/md";
 import { FaTabletAlt, FaPlay } from "react-icons/fa";
 import Navbar from "@components/navbar/Navbar";
 import Header from "@components/header/Header";
+import Expertise from "@components/expertise/Expertise";
 
 export default function Home() {
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/general/`;
@@ -112,6 +113,7 @@ export default function Home() {
           </p>
         </div>
       </div>
+      <Expertise />
     </div>
   );
 }

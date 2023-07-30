@@ -4,6 +4,7 @@ import { getAllRepairsByModel } from "@components/apiRest/ApiRestRepair";
 import { FaExclamationCircle } from "react-icons/fa";
 import NavbarRepair from "@components/navbar/NavbarRepair";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
+import Expertise from "@components/expertise/Expertise";
 import RepairCard from "./repair_card/RepairCard";
 
 function Repair() {
@@ -126,6 +127,7 @@ function Repair() {
           Oups ! Aucune réparation disponible pour ce modèle pour le moment...
         </p>
       )}
+      <Expertise />
     </div>
   );
 }
