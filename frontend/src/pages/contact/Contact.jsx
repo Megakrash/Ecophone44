@@ -16,7 +16,7 @@ function Contact() {
   const sendContactEmail = (e) => {
     e.preventDefault();
     api
-      .post(`/api/sendemailcontact`, {
+      .post(`/api/sendcontactemail`, {
         formDetails,
       })
       .then(() => {

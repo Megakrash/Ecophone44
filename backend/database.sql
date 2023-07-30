@@ -104,7 +104,10 @@ VALUES
   ('water.png'),
   ('tools.png'),
   ('autres.png'),
-  ('hp.png');
+  ('hp.png'),
+  ('antenna.png'),
+  ('what.png'),
+  ('vibrator.png');
 
 -- -----------------------------------------------------
 -- Table `ecophone44`.`users`

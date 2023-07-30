@@ -22,7 +22,7 @@ router.post(
   sendConfirmationEmail
 );
 // Send contact email
-router.post("/api/sendemailcontact", sendContactEmail);
+router.post("/api/sendcontactemail", sendContactEmail);
 
 // --------------------------------
 // ------------ Back-office -------

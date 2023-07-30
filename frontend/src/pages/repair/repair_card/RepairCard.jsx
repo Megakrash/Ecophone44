@@ -15,7 +15,7 @@ function RepairCard({
   const picPath =
     picIcon === "xforce.webp"
       ? `${import.meta.env.VITE_PATH_IMAGE}general/`
-      : `${import.meta.env.VITE_PATH_IMAGE}/icons/`;
+      : `${import.meta.env.VITE_PATH_IMAGE}icons/`;
 
   const handleClick = () => {
     setSelected(!selected);
@@ -64,7 +64,7 @@ function RepairCard({
               : " repairCard_bloc_name activ-price"
           }
         >
-          {price}.00€
+          {price === "nc" ? "Nous contacter" : `${price}.00€`}
         </p>
         <div
           className={
