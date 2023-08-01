@@ -52,7 +52,7 @@ function Navbar() {
               Reconditionnés
             </NavLink>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <NavLink
               to="/boutique"
               className={({ isActive }) =>
@@ -62,7 +62,7 @@ function Navbar() {
             >
               Boutique
             </NavLink>
-          </li>
+          </li> */}
           <li className="nav-item">
             <NavLink
               to="/contact"

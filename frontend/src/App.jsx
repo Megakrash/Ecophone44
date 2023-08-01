@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useState, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
-import ThemeContext from "./context/ThemeContext";
+import ThemeContext from "@context/ThemeContext";
 
 const Footer = lazy(() => import("@components/footer/Footer"));
 const Home = lazy(() => import("@pages/home/Home"));
