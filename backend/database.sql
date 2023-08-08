@@ -173,9 +173,9 @@ CREATE TABLE
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 INSERT INTO
-  `yflt5483_ecophone44`.`header` ( pic )
+  `yflt5483_ecophone44`.`header` (name, pic )
 VALUES
-  ('pub1.png'),
-  ('pub2.png'),
-  ('pub3.png'),
-  ('pub4.png');
+  ('pub1','pub1.png'),
+  ('pub2','pub2.png'),
+  ('pub3','pub3.png'),
+  ('pub4','pub4.png');
