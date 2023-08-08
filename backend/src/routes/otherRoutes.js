@@ -8,10 +8,14 @@ const {
   sendContactEmail,
 } = require("../handlers/nodeMailer");
 const { verifyPassword } = require("../handlers/auth");
+const { uploadHeaderPic } = require("./multers/multers");
 
 // -----------------------------------
 // ---- Front user no verify token ---
 // -----------------------------------
+// Get the header
+router.get("/api/header", otherRoutesFunctions.getheader);
+
 // Get the calendar events
 router.get("/api/calendar", otherRoutesFunctions.getCalendarForFront);
 
@@ -35,4 +39,13 @@ router.post(
   otherRoutesFunctions.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
+
+// Post new header
+router.post(
+  "/api-token/header",
+  uploadHeaderPic.single("file"),
+  otherRoutesFunctions.postNewHeaderPic
+);
+// Delete pic header
+router.delete("/api-token/header/:id", otherRoutesFunctions.deleteHeaderPic);
 module.exports = router;
