@@ -81,12 +81,23 @@ export const updateOrderBrand = async (items, getAllBrand) => {
 // -------------- FRONT-USER -----------------
 // -------------------------------------------
 // Brand.jsx
-export const getAllBrands = (id, setAllBrands) => {
+export const getAllBrands = (id, setAllBrands, setErrorMessage) => {
   const brandRoutes = {
     1: "/api/smartbrands",
     2: "/api/tabbrands",
     3: "/api/refurbbrands",
   };
   const url = brandRoutes[id];
-  apiRequest("get", url, null, setAllBrands);
+  api
+    .get(`${url}`)
+    .then((res) => {
+      if (!res.data || Object.keys(res.data).length === 0) {
+        setErrorMessage(true);
+      }
+      setAllBrands(res.data);
+    })
+    .catch(() => {
+      console.error("Error database");
+      setErrorMessage(true);
+    });
 };

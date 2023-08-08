@@ -9,11 +9,12 @@ import { FaSearch, FaTrashAlt } from "react-icons/fa";
 export default function Brand() {
   const [allBrands, setAllBrands] = useState([]);
   const [brandQuery, setBrandQuery] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
   const picPath = `${import.meta.env.VITE_PORT_BACKEND}/assets/images/brands/`;
   const { id } = useParams();
 
   useEffect(() => {
-    getAllBrands(id, setAllBrands);
+    getAllBrands(id, setAllBrands, setErrorMessage);
   }, []);
 
   return (
@@ -24,7 +25,7 @@ export default function Brand() {
       ) : (
         <Breadcrumbs type="brand" />
       )}
-      {allBrands.length >= 1 ? (
+      {allBrands.length >= 1 && errorMessage === false && (
         <>
           <p className="brand_title">
             {id === "3"
@@ -51,12 +52,14 @@ export default function Brand() {
             )}
           </div>
         </>
-      ) : (
+      )}
+      {errorMessage === true && (
         <p className="brand_title">
           Oups ! Aucune marque disponible dans cette catégorie pour le moment...
         </p>
       )}
-      {allBrands.length >= 1 && (
+
+      {allBrands.length >= 1 && errorMessage === false && (
         <div className="brand_brand">
           {allBrands
             .filter((search) =>
