@@ -157,3 +157,25 @@ CREATE TABLE
         `end_date` DATETIME NOT NULL,
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Table `ecophone44`.`header`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `yflt5483_ecophone44`.`header` ;
+
+CREATE TABLE
+    IF NOT EXISTS `yflt5483_ecophone44`.`header` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `name` VARCHAR(255) NULL DEFAULT NULL,
+        `pic` VARCHAR(255) NULL DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+INSERT INTO
+  `yflt5483_ecophone44`.`header` ( pic )
+VALUES
+  ('pub1.png'),
+  ('pub2.png'),
+  ('pub3.png'),
+  ('pub4.png');

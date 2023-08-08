@@ -3,11 +3,13 @@ import { verifyToken } from "@components/apiRest/ApiRest";
 import { useNavigate } from "react-router-dom";
 import NavbarBack from "@components/navbar/NavbarBack";
 import AdminManage from "./AdminManage";
+import AdminCarousel from "./AdminCarousel/AdminCarousel";
 
 const typeConfig = {
   smartphones: { type: 1 },
   tablettes: { type: 2 },
   reconditionnes: { type: 3 },
+  pub: { type: 4 },
 };
 
 function Admin() {
@@ -72,12 +74,15 @@ function Admin() {
         ))}
       </div>
       <div className="admin_section">
-        {showType && (
+        {(showType === "smartphones" ||
+          showType === "tablettes" ||
+          showType === "reconditionnes") && (
           <>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <AdminManage {...typeConfig[showType]} {...adminSectionProps} />
           </>
         )}
+        {showType === "pub" && <AdminCarousel />}
       </div>
     </div>
   );

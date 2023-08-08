@@ -33,8 +33,12 @@ const uploadBrandPic = multer({
 const uploadModelPic = multer({
   storage: createMulterStorage("./public/assets/images/models"),
 });
+const uploadHeaderPic = multer({
+  storage: createMulterStorage("./public/assets/images/header"),
+});
 
 module.exports = {
   uploadBrandPic,
   uploadModelPic,
+  uploadHeaderPic,
 };

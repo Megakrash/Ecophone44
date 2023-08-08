@@ -21,6 +21,8 @@
 
 @import "./AdminRefurbs/adminRefurbs.scss";
 
+@import "./AdminCarousel/adminCarousel.scss";
+
 .admin {
   width: 100%;
   min-height: calc(100vh - 155px);
@@ -45,7 +47,7 @@
       color: $primary-color;
       background-color: $fifte-color;
       font-size: 20px;
-      width: 20%;
+      width: 200px;
       min-height: 50px;
       border: 0.5px solid $fourth-color;
       border-radius: 5px;
