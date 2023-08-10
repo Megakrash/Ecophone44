@@ -92,5 +92,17 @@ export const deleteModel = (
 // -------------------------------------------
 
 // Model.jsx
-export const getAllModelByBrand = (id, setModel) =>
-  apiRequest("get", `/api/modelbybrandforfront/${id}`, null, setModel);
+export const getAllModelByBrand = (id, setModel, setErrorMessage) => {
+  api
+    .get(`/api/modelbybrandforfront/${id}`)
+    .then((res) => {
+      if (!res.data || Object.keys(res.data).length === 0) {
+        setErrorMessage(true);
+      }
+      setModel(res.data);
+    })
+    .catch(() => {
+      console.error("Error database");
+      setErrorMessage(true);
+    });
+};

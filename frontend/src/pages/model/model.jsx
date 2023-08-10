@@ -9,7 +9,7 @@ import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
 function Model() {
   const [model, setModel] = useState([]);
   const [modelQuery, setModelQuery] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState(false);
   const picPath = `${import.meta.env.VITE_PATH_IMAGE}models/`;
   const { id } = useParams();
 
@@ -18,7 +18,7 @@ function Model() {
   const { type } = location.state;
 
   useEffect(() => {
-    getAllModelByBrand(id, setModel);
+    getAllModelByBrand(id, setModel, setErrorMessage);
   }, []);
 
   return (
@@ -29,7 +29,7 @@ function Model() {
       ) : (
         <Breadcrumbs type="model" />
       )}
-      {model.length >= 1 ? (
+      {model.length >= 1 && errorMessage === false && (
         <>
           {type === "3" ? (
             <p className="brand_title">Quel modèle recherchez vous ?</p>
@@ -56,11 +56,13 @@ function Model() {
             )}
           </div>
         </>
-      ) : (
+      )}
+      {errorMessage === true && (
         <p className="brand_title">
           Oups ! Aucun modèle disponible dans cette catégorie pour le moment...
         </p>
       )}
+
       {model.length >= 1 && (
         <div className="brand_brand">
           {model

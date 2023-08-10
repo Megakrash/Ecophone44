@@ -14,6 +14,7 @@ function Repair() {
   const [totalCardPrice, setTotalCardPrice] = useState(0);
   // Names and prices of all selected repairs
   const [selectedRepairs, setSelectedRepairs] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(false);
   const picPath = `${import.meta.env.VITE_PATH_IMAGE}models/`;
   const { id } = useParams();
 
@@ -36,7 +37,7 @@ function Repair() {
   }, []);
 
   useEffect(() => {
-    getAllRepairsByModel(id, setAllRepairs);
+    getAllRepairsByModel(id, setAllRepairs, setErrorMessage);
   }, []);
 
   return (
@@ -53,7 +54,7 @@ function Repair() {
         <Breadcrumbs type="repair" />
       </div>
 
-      {allRepairs.length >= 1 ? (
+      {allRepairs.length >= 1 && errorMessage === false && (
         <div className="repair_bloc">
           <div className="repair_bloc_img">
             <img
@@ -122,7 +123,8 @@ function Repair() {
             )}
           </div>
         </div>
-      ) : (
+      )}
+      {errorMessage === true && (
         <p className="brand_title">
           Oups ! Aucune réparation disponible pour ce modèle pour le moment...
         </p>

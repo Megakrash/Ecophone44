@@ -54,5 +54,17 @@ export const deleteRepair = (repairId, getModelAndRepairs) => {
 // -------------------------------------------
 
 //Repair.jsx
-export const getAllRepairsByModel = (id, setAllRepairs) =>
-  apiRequest("get", `/api/repairsforfront/${id}`, null, setAllRepairs);
+export const getAllRepairsByModel = (id, setAllRepairs, setErrorMessage) => {
+  api
+    .get(`/api/repairsforfront/${id}`)
+    .then((res) => {
+      if (!res.data || Object.keys(res.data).length === 0) {
+        setErrorMessage(true);
+      }
+      setAllRepairs(res.data);
+    })
+    .catch(() => {
+      console.error("Error database");
+      setErrorMessage(true);
+    });
+};
