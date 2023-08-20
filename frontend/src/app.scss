@@ -67,6 +67,14 @@
       color: $eighth-color;
     }
   }
+  // Local
+  .local {
+    background-color: transparent;
+    box-shadow: 0 0 3px 2px $primary-color;
+    &_article_title {
+      color: $primary-color;
+    }
+  }
   // Repair
   .repair_bloc_card_btn:hover,
   .repair_bloc_card_warning {

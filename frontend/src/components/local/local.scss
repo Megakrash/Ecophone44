@@ -1,0 +1,61 @@
+.local {
+  width: 95%;
+  margin-top: 25px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: $shadow-color;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1%;
+  &_article {
+    width: 50%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    &_title {
+      margin: auto;
+      font-family: $font-title;
+      font-weight: 600;
+      font-size: 25px;
+      color: $secondary-color;
+    }
+    &_title2 {
+      font-family: $font-title;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    &_text {
+      font-family: $font-text;
+      font-size: 16px;
+      line-height: 1.3;
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+  &_pic {
+    width: 40%;
+    &_img {
+      width: 97%;
+      border-radius: 5px;
+      height: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .local {
+    width: 95%;
+    flex-direction: column-reverse;
+    &_article {
+      width: 95%;
+      margin-top: 10px;
+    }
+    &_pic {
+      width: 60%;
+    }
+  }
+}
