@@ -13,6 +13,7 @@ const Confirmation = lazy(() => import("@pages/confirmation/Confirmation"));
 const Login = lazy(() => import("@pages/login/Login"));
 const Admin = lazy(() => import("@pages/admin/Admin"));
 const Contact = lazy(() => import("@pages/contact/Contact"));
+const Cgv = lazy(() => import("@pages/cgv/Cgv"));
 
 function App() {
   // Context theme dark / light mode false === Light mode
@@ -42,6 +43,7 @@ function App() {
             <Route path="/reservation" element={<Reservation />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/cgv" element={<Cgv />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
