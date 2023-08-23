@@ -11,7 +11,8 @@ const getheader = (req, res) => {
 };
 
 const postNewHeaderPic = (req, res) => {
-  const { name, filename } = req.body;
+  const { name } = req.body;
+  const { filename } = req.file;
   knex("header")
     .insert({
       name,
@@ -25,6 +26,7 @@ const postNewHeaderPic = (req, res) => {
       res.status(500).send("Error adding new header pic");
     });
 };
+
 const deleteHeaderPic = (req, res) => {
   const { id } = req.params;
 

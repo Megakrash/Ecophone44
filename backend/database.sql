@@ -175,7 +175,11 @@ CREATE TABLE
 INSERT INTO
   `yflt5483_ecophone44`.`header` (name, pic )
 VALUES
-  ('pub1','pub1.png'),
-  ('pub2','pub2.png'),
-  ('pub3','pub3.png'),
-  ('pub4','pub4.png');
+  ('pub1_large','pub1_large.png'),
+  ('pub2_large','pub2_large.png'),
+  ('pub3_large','pub3_large.png'),
+  ('pub4_large','pub4_large.png'),
+  ('pub1_small','pub1_small.png'),
+  ('pub2_small','pub2_small.png'),
+  ('pub3_small','pub3_small.png'),
+  ('pub4_small','pub4_small.png');

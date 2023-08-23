@@ -4,6 +4,7 @@ import { MdPhoneIphone } from "react-icons/md";
 import { FaTabletAlt, FaPlay } from "react-icons/fa";
 import Navbar from "@components/navbar/Navbar";
 import Header from "@components/header/Header";
+import Local from "@components/local/Local";
 import Expertise from "@components/expertise/Expertise";
 
 export default function Home() {
@@ -37,6 +38,7 @@ export default function Home() {
           <p className="home_link_btn refurb-link">RECONDITIONNES</p>
         </Link>
       </div>
+      <Local />
       <div className="home_article">
         <div className="home_article_img">
           <img
