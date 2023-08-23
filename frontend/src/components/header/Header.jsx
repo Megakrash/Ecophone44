@@ -5,7 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 4000, min: 700 },
+    breakpoint: { max: 4000, min: 370 },
     items: 1,
     slidesToSlide: 1,
   },
@@ -19,9 +19,32 @@ function Header() {
   useEffect(() => {
     getHeader(setSliderData);
   }, []);
+
+  // Check window width
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const isMobile = windowWidth < 700;
+
+  const filteredSliderData = sliderData.filter((item) => {
+    if (isMobile) {
+      return item.pic.includes("_small");
+    }
+    return item.pic.includes("_large");
+  });
+
   return (
     <div className="header">
-      {sliderData.length >= 1 && (
+      {filteredSliderData.length >= 1 && (
         <Carousel
           containerClass=""
           responsive={responsive}
@@ -29,7 +52,7 @@ function Header() {
           autoPlay
           autoPlaySpeed={5000}
         >
-          {sliderData.map(({ id, pic }) => {
+          {filteredSliderData.map(({ id, pic }) => {
             return (
               <img
                 key={id}

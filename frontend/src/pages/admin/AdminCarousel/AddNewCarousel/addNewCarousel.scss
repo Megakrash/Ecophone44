@@ -1,4 +1,10 @@
 .addNewCarousel {
   margin-top: 1%;
   width: 33%;
+  &_form_toogle {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+    gap: 15px;
+  }
 }
