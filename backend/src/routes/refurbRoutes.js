@@ -13,6 +13,8 @@ router.get(
   "/api/refurbbyidforfront/:id",
   refurbRoutesFunctions.getRefurbByIdForFront
 );
+
+router.get("/api/refurbsmodels", refurbRoutesFunctions.getAllRefurbsModels);
 router.post("/api/sendemailreservation", sendReservationEmail);
 // --------------------------------
 // ------------ Back-office -------
