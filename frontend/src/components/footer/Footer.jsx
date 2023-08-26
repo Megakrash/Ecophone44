@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LinkBrands from "./LinkBrands";
+import LinkRefurb from "./LinkRefurb";
 
 function Footer() {
   return (
@@ -39,8 +41,8 @@ function Footer() {
           </div>
         </div>
         <div className="footer_infos_schedules">
-          <h2 className="footer_infos_google_title">REPARATIONS</h2>
-          <div className="footer_infos_schedules_bloc_text">
+          <h2 className="footer_infos_google_title">SMARTPHONES</h2>
+          {/* <div className="footer_infos_schedules_bloc_text">
             <Link to="/brands/1">
               <p>Réparations Apple</p>
             </Link>
@@ -59,18 +61,20 @@ function Footer() {
             <Link to="/brands/1">
               <p>Réparations Google Pixel</p>
             </Link>
-          </div>
+          </div> */}
+          <LinkBrands />
         </div>
         <div className="footer_infos_schedules">
           <h2 className="footer_infos_google_title">RECONDITIONNES</h2>
-          <div className="footer_infos_schedules_bloc_text">
+          {/* <div className="footer_infos_schedules_bloc_text">
             <Link to="/brands/3">
               <p>Reconditionnés Apple</p>
             </Link>
             <Link to="/brands/3">
               <p>Reconditionnés Samsung</p>
             </Link>
-          </div>
+          </div> */}
+          <LinkRefurb />
         </div>
       </div>
       <div className="footer_legal">

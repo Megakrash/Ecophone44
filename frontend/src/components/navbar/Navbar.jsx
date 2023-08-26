@@ -26,10 +26,12 @@ function Navbar() {
           {click ? <FaTimes /> : <FaBars />}
         </button>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <div className="phone-number">
-            <FaPhone className="phone-number_fa" />
-            <p>02 52 10 37 71</p>
-          </div>
+          <Link to="tel:+33252103771">
+            <div className="phone-number">
+              <FaPhone className="phone-number_fa" />
+              <p>02 52 10 37 71</p>
+            </div>
+          </Link>
           <li className="nav-item">
             <NavLink
               to="/"

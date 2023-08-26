@@ -15,6 +15,20 @@ const getRefurbByIdForFront = (req, res) => {
       res.status(500).send("Error retrieving data from database");
     });
 };
+
+const getAllRefurbsModels = (req, res) => {
+  knex
+    .select("name", "id")
+    .from("models")
+    .whereNotNull("price")
+    .orderBy("index_id")
+    .then((refurb) => res.status(200).json(refurb))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 // POST NEW MODEL FOR REFURB
 
 const baseNewModelRefurb = {
@@ -43,5 +57,6 @@ const postNewModelRefurb = (req, res) => {
 };
 module.exports = {
   getRefurbByIdForFront,
+  getAllRefurbsModels,
   postNewModelRefurb,
 };

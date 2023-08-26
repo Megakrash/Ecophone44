@@ -11,7 +11,7 @@ function Refurb() {
 
   useEffect(() => {
     getRefurbById(id, setDetails);
-  }, []);
+  }, [id]);
 
   return (
     <div className="refurb">

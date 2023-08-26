@@ -1,0 +1,25 @@
+.contactButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  &_btn {
+    width: 38px;
+    height: 38px;
+    background-color: $secondary-color;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+    }
+    &_fa {
+      width: 20px;
+      height: 20px;
+      color: $primary-color;
+    }
+  }
+}

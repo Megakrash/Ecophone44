@@ -3,6 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import ThemeContext from "@context/ThemeContext";
 
 const Footer = lazy(() => import("@components/footer/Footer"));
+const ContactButtons = lazy(() =>
+  import("@components/contactButtons/ContactButtons")
+);
 const Home = lazy(() => import("@pages/home/Home"));
 const Brand = lazy(() => import("@pages/brand/Brand"));
 const Model = lazy(() => import("@pages/model/Model"));
@@ -47,6 +50,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
+          <ContactButtons />
           <Footer />
         </ThemeContext.Provider>
       </Suspense>

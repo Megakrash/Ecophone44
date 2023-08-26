@@ -98,8 +98,12 @@ export const getAllModelByBrand = (id, setModel, setErrorMessage) => {
     .then((res) => {
       if (!res.data || Object.keys(res.data).length === 0) {
         setErrorMessage(true);
+        setModel([]);
       }
-      setModel(res.data);
+      if (!res.data || Object.keys(res.data).length >= 1) {
+        setModel(res.data);
+        setErrorMessage(false);
+      }
     })
     .catch(() => {
       console.error("Error database");
