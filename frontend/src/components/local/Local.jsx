@@ -32,7 +32,7 @@ function Local() {
       <div className="local_pic">
         <img
           className="local_pic_img"
-          src={`${picPath}tech.jpg`}
+          src={`${picPath}tech.png`}
           alt="technicien"
         />
       </div>

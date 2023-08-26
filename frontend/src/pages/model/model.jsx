@@ -19,7 +19,7 @@ function Model() {
 
   useEffect(() => {
     getAllModelByBrand(id, setModel, setErrorMessage);
-  }, []);
+  }, [id]);
 
   return (
     <div className="brand">
