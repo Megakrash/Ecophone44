@@ -29,7 +29,7 @@ function Model() {
       ) : (
         <Breadcrumbs type="model" />
       )}
-      {model.length >= 1 && errorMessage === false && (
+      {errorMessage === false && (
         <>
           {type === "3" ? (
             <p className="brand_title">Quel modèle recherchez vous ?</p>
