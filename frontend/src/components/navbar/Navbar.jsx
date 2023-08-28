@@ -54,17 +54,17 @@ function Navbar() {
               Reconditionnés
             </NavLink>
           </li>
-          {/* <li className="nav-item">
+          <li className="nav-item">
             <NavLink
-              to="/boutique"
+              to="/recrutement"
               className={({ isActive }) =>
                 `nav-links${isActive ? " activated" : ""}`
               }
               onClick={closeMobileMenu}
             >
-              Boutique
+              Recrutement
             </NavLink>
-          </li> */}
+          </li>
           <li className="nav-item">
             <NavLink
               to="/contact"
