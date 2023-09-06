@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import api from "@components/apiRest/ApiRest";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
@@ -6,6 +6,7 @@ import NavbarRepair from "@components/navbar/NavbarRepair";
 import Navbar from "@components/navbar/Navbar";
 import Breadcrumbs from "@components/breadcrumbs/Breadcrumbs";
 import BreadcrumbsRefurb from "@components/breadcrumbs/BreadcrumbsRefurb";
+import ReCAPTCHA from "react-google-recaptcha";
 import Agenda from "./reservation_calendar/Agenda";
 
 function Reservation() {
@@ -18,6 +19,13 @@ function Reservation() {
   const { totalCardPrice } = location.state;
   const { selectedRepairs } = location.state;
   const { type } = location.state;
+
+  // ReCaptcha
+  const [recaptcha, setRecaptcha] = useState(false);
+  const captchaRef = useRef(null);
+  const handleCaptchaChange = (value) => {
+    setRecaptcha(!!value);
+  };
 
   // Create state for form
   const [formDetails, setFormDetails] = useState({
@@ -38,11 +46,14 @@ function Reservation() {
 
   const sendEmailReservation = (e) => {
     e.preventDefault();
+    const token = captchaRef.current.getValue();
+    captchaRef.current.reset();
     api
       .post(`/api/sendemailreservation`, {
         formDetails,
         modelName,
         price: totalCardPrice,
+        token,
       })
       .then(() => {
         navigate("/confirmation");
@@ -190,9 +201,18 @@ function Reservation() {
                 <span>de la part d'Ecophone 44.</span>
               </p>
             </button>
-            <button className="repair_bloc_card_btn btn-form" type="submit">
-              {type === "repair" ? "PRENDRE RDV" : "RESERVER L'APPAREIL"}
-            </button>
+            <div className="captcha">
+              <ReCAPTCHA
+                sitekey={`${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`}
+                ref={captchaRef}
+                onChange={handleCaptchaChange}
+              />
+            </div>
+            {recaptcha && (
+              <button className="repair_bloc_card_btn btn-form" type="submit">
+                {type === "repair" ? "PRENDRE RDV" : "RESERVER L'APPAREIL"}
+              </button>
+            )}
           </form>
         </>
       )}

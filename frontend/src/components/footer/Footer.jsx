@@ -42,55 +42,30 @@ function Footer() {
         </div>
         <div className="footer_infos_schedules">
           <h2 className="footer_infos_google_title">SMARTPHONES</h2>
-          {/* <div className="footer_infos_schedules_bloc_text">
-            <Link to="/brands/1">
-              <p>Réparations Apple</p>
-            </Link>
-            <Link to="/brands/1">
-              <p>Réparations Samsung</p>
-            </Link>
-            <Link to="/brands/1">
-              <p>Réparations Huawei</p>
-            </Link>
-            <Link to="/brands/1">
-              <p>Réparations Xiaomi</p>
-            </Link>
-            <Link to="/brands/1">
-              <p>Réparations Sony</p>
-            </Link>
-            <Link to="/brands/1">
-              <p>Réparations Google Pixel</p>
-            </Link>
-          </div> */}
           <LinkBrands />
         </div>
         <div className="footer_infos_schedules">
           <h2 className="footer_infos_google_title">RECONDITIONNES</h2>
-          {/* <div className="footer_infos_schedules_bloc_text">
-            <Link to="/brands/3">
-              <p>Reconditionnés Apple</p>
-            </Link>
-            <Link to="/brands/3">
-              <p>Reconditionnés Samsung</p>
-            </Link>
-          </div> */}
           <LinkRefurb />
         </div>
       </div>
       <div className="footer_legal">
-        <img
-          className="footer_legal_img"
-          src={`${
-            import.meta.env.VITE_PORT_BACKEND
-          }/assets/images/general/logo-simple.png`}
-          alt="Ecophone 44"
-        />
+        <Link to="/">
+          <img
+            className="footer_legal_img"
+            src={`${
+              import.meta.env.VITE_PORT_BACKEND
+            }/assets/images/general/logo-simple.png`}
+            alt="Ecophone 44"
+          />
+        </Link>
+
         <div className="footer_legal_baseline">
           <p>Création Ecophone44 @2023 -</p>
           <Link to="/cgv">
             <p>CGV -</p>
           </Link>
-          <Link to="/cgv">
+          <Link to="/mentions-legales">
             <p> Mentions légales</p>
           </Link>
         </div>

@@ -11,19 +11,45 @@
     width: 95%;
     height: 250px;
     border-radius: 5px;
-    background-color: $secondary-color;
     color: $primary-color;
+
+    &_img {
+      width: 100%;
+      border-radius: 5px;
+      height: 250px;
+      object-fit: cover;
+    }
     &_title {
       font-size: 35px;
       font-weight: 600;
       margin-top: 55px;
       margin-bottom: 30px;
+      position: absolute;
     }
-    &_text {
+    &_text1,
+    &_text2 {
       font-size: 20px;
       margin-bottom: 15px;
       text-align: center;
     }
+    &_text1 {
+      position: absolute;
+      top: 210px;
+    }
+    &_text2 {
+      position: absolute;
+      top: 250px;
+    }
+  }
+  &_map {
+    width: 80%;
+    height: 500px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+  .captcha {
+    align-self: flex-start;
+    margin-bottom: 2%;
   }
   .confirm-message {
     display: flex;

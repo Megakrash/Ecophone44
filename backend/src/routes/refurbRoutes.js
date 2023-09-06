@@ -4,7 +4,6 @@ const router = express.Router();
 
 const refurbRoutesFunctions = require("../handlers/refurbRoutesFunctions");
 const { uploadModelPic } = require("./multers/multers");
-const { sendReservationEmail } = require("../handlers/nodeMailer");
 
 // -----------------------------------
 // ---- Front user no verify token ---
@@ -15,7 +14,6 @@ router.get(
 );
 
 router.get("/api/refurbsmodels", refurbRoutesFunctions.getAllRefurbsModels);
-router.post("/api/sendemailreservation", sendReservationEmail);
 // --------------------------------
 // ------------ Back-office -------
 // --------------------------------

@@ -18,6 +18,7 @@ const Admin = lazy(() => import("@pages/admin/Admin"));
 const Contact = lazy(() => import("@pages/contact/Contact"));
 const Recruitment = lazy(() => import("@pages/recruitment/Recruitment"));
 const Cgv = lazy(() => import("@pages/cgv/Cgv"));
+const Legal = lazy(() => import("@pages/legal/Legal"));
 
 function App() {
   // Context theme dark / light mode false === Light mode
@@ -49,6 +50,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/recrutement" element={<Recruitment />} />
             <Route path="/cgv" element={<Cgv />} />
+            <Route path="/mentions-legales" element={<Legal />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
