@@ -8,7 +8,10 @@ const otherRoutesFunctions = require("../handlers/otherRoutesFunctions");
 const {
   sendConfirmationEmail,
   sendContactEmail,
+  sendReservationEmail,
 } = require("../handlers/nodeMailer");
+
+const { verifyRecaptchaToken } = require("../handlers/reCaptcha");
 const { verifyPassword } = require("../handlers/auth");
 const { uploadHeaderPic } = require("./multers/multers");
 
@@ -28,7 +31,13 @@ router.post(
   sendConfirmationEmail
 );
 // Send contact email
-router.post("/api/sendcontactemail", sendContactEmail);
+router.post("/api/sendcontactemail", verifyRecaptchaToken, sendContactEmail);
+// Send reservation email
+router.post(
+  "/api/sendemailreservation",
+  verifyRecaptchaToken,
+  sendReservationEmail
+);
 
 // --------------------------------
 // ------------ Back-office -------
