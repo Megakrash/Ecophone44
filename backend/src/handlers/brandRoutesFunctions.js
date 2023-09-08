@@ -4,7 +4,7 @@ const knex = require("../../knex");
 
 const unlinkAsync = promisify(fs.unlink);
 
-const getSmartBrandsForFront = (req, res) => {
+const getSmartBrandsForFront = (req, res, next) => {
   knex
     .select("id", "pic", "name")
     .from("brands")
@@ -12,7 +12,10 @@ const getSmartBrandsForFront = (req, res) => {
     .where("type", 1)
     .orderBy("index_id")
     .then((brand) => res.status(200).json(brand))
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      next(err);
+    });
 };
 
 const getTabBrandsForFront = (req, res) => {

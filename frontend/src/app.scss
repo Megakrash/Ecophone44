@@ -85,7 +85,9 @@
     background-color: $primary-color;
   }
   // Reservation
-  .reservation_form_box_input,
+  .reservation_form_box_input {
+    color: $primary-color;
+  }
   .reservation_form_subscribe {
     color: $primary-color;
     &:hover {

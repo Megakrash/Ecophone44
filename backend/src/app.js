@@ -1,6 +1,9 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const morgan = require("morgan");
+const fs = require("fs");
+
 const { verifyToken } = require("./handlers/auth");
 
 const brandRoutes = require("./routes/brandRoutes");
@@ -10,6 +13,13 @@ const refurbRoutes = require("./routes/refurbRoutes");
 const otherRoutes = require("./routes/otherRoutes");
 
 const app = express();
+
+// Configuration de morgan pour enregistrer dans un fichier
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" }
+);
+app.use(morgan("combined", { stream: accessLogStream }));
 
 // use some application-level middlewares
 app.use(
@@ -45,6 +55,15 @@ app.use(otherRoutes);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+app.use((err, req, res) => {
+  fs.appendFileSync(
+    path.join(__dirname, "error.log"),
+    `ERROR: ${err.message} - ${err.stack}\n`
+  );
+
+  res.status(500).send("Quelque chose a mal tourné !");
 });
 
 module.exports = app;
