@@ -4,7 +4,7 @@ const knex = require("../../knex");
 
 const unlinkAsync = promisify(fs.unlink);
 
-const getSmartBrandsForFront = (req, res, next) => {
+const getSmartBrandsForFront = (req, res) => {
   knex
     .select("id", "pic", "name")
     .from("brands")
@@ -14,7 +14,6 @@ const getSmartBrandsForFront = (req, res, next) => {
     .then((brand) => res.status(200).json(brand))
     .catch((err) => {
       console.error(err);
-      next(err);
     });
 };
 

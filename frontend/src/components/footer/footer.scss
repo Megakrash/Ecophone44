@@ -7,7 +7,7 @@
   background-color: $fifte-color;
   color: $primary-color;
   &_infos {
-    width: 95%;
+    width: 98%;
     margin-top: 20px;
     display: flex;
     flex-direction: row;
@@ -26,6 +26,7 @@
       }
     }
     &_schedules {
+      width: 20%;
       display: flex;
       flex-direction: column;
       gap: 30px;
@@ -64,13 +65,32 @@
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+  .footer {
+    &_infos {
+      &_google {
+        width: 310px;
+        height: 200px;
+        &_map {
+          width: 300px;
+          height: 200px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
   .footer {
     &_infos {
       margin-left: 2%;
       gap: 15px;
       flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      &_schedules {
+        width: 80%;
+      }
     }
   }
 }
