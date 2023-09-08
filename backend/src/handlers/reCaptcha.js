@@ -15,7 +15,6 @@ const verifyRecaptchaToken = async (req, res, next) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error verifying reCAPTCHA");
-    next(error);
   }
 };
 
