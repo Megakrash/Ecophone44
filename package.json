@@ -13,9 +13,9 @@
   },
   "keywords": [],
   "author": "Megakrash",
-  "license": "None",
+  "license": "MIT",
   "devDependencies": {
-    "concurrently": "^7.6.0",
-    "husky": "^7.0.4"
+    "concurrently": "^8.2.0",
+    "husky": "^8.0.3"
   }
 }
