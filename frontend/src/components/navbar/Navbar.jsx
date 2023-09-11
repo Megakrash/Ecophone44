@@ -21,15 +21,16 @@ function Navbar() {
             alt="Ecophone 44"
           />
         </Link>
-
+        <p className="navbar_fictif">Site fictif</p>
         <button type="button" className="menu-icon" onClick={handleClick}>
           {click ? <FaTimes /> : <FaBars />}
         </button>
+
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <Link to="tel:+33252103771">
             <div className="phone-number">
               <FaPhone className="phone-number_fa" />
-              <p>02 52 10 37 71</p>
+              <p>XX XX XX XX XX</p>
             </div>
           </Link>
           <li className="nav-item">
