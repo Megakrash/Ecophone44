@@ -5,7 +5,7 @@ import { FaPhone, FaEnvelope } from "react-icons/fa6";
 function ContactButtons() {
   return (
     <div className="contactButtons">
-      <Link to="tel:+33252103771">
+      <Link to="tel:+33000000000">
         <div className="contactButtons_btn">
           <FaPhone className="contactButtons_btn_fa" />
         </div>

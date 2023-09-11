@@ -28,15 +28,15 @@ function Footer() {
           <div className="footer_infos_schedules_bloc">
             <h2 className="footer_infos_google_title">ADRESSE</h2>
             <div className="footer_infos_schedules_bloc_text">
-              <p>2 rue Deurbroucq</p>
-              <p>44000 Nantes</p>
+              <p>Il était une fois</p>
+              <p>44000 WestSide</p>
             </div>
           </div>
           <div className="footer_infos_schedules_bloc">
             <h2 className="footer_infos_google_title">CONTACT</h2>
             <div className="footer_infos_schedules_bloc_text">
-              <p>Téléphone : 02 52 10 37 71</p>
-              <p>Email : contact@ecophone44.com</p>
+              <p>Téléphone : XX XX XX XX XX</p>
+              <p>Email : contact@ecophone44.megakrash.com</p>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ function Footer() {
         </Link>
 
         <div className="footer_legal_baseline">
-          <p>Création Ecophone44 @2023 -</p>
+          <p>Création Megakrash @2023 -</p>
           <Link to="/cgv">
             <p>CGV -</p>
           </Link>

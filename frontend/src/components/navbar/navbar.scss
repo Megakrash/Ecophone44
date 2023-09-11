@@ -5,6 +5,14 @@
   display: flex;
   align-items: center;
 
+  &_fictif {
+    align-self: center;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: $font-title;
+    color: $tertiary-color;
+  }
+
   &_toogle {
     margin-right: 2%;
   }
@@ -27,7 +35,7 @@
       align-items: center;
       padding-left: 5px;
       gap: 10px;
-      width: 180px;
+      width: 185px;
       height: 50px;
       margin-right: 15px;
       border-radius: 5px;

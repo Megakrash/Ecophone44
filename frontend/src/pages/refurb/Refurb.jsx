@@ -21,7 +21,7 @@ function Refurb() {
         <div className="repair_bloc">
           <div className="repair_bloc_img">
             <img
-              className="repair_bloc_img_pic"
+              className="repair_bloc_img_pic pic-refurb"
               src={`${picPath}${details[0].pic}`}
               alt={details[0].name}
             />

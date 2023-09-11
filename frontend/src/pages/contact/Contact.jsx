@@ -63,7 +63,7 @@ function Contact() {
         />
         <p className="contact_header_title">Contactez-nous</p>
         <p className="contact_header_text1">
-          Vous pouvez nous joindre au 02 52 10 37 71
+          Vous pouvez nous joindre au XX XX XX XX XX
         </p>
         <p className="contact_header_text2">du Lundi au Samedi de 10H à 19H</p>
       </div>
@@ -81,7 +81,7 @@ function Contact() {
         )}
         {errorMessage && (
           <div className="confirm-message error-message">
-            Une erreur s'est produite. Contactez-nous au 02 52 10 37 71 ou à
+            Une erreur s'est produite. Contactez-nous au XX XX XX XX XX ou à
             contact@ecophone44.megakrash.com
           </div>
         )}
