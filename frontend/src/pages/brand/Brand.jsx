@@ -15,7 +15,7 @@ export default function Brand() {
 
   useEffect(() => {
     getAllBrands(id, setAllBrands, setErrorMessage);
-  }, []);
+  }, [id]);
 
   return (
     <div className="brand">
