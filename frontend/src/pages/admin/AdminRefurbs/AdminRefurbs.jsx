@@ -85,6 +85,7 @@ function AdminRefurbs({
                 className="adminRepair_name_btn"
                 type="button"
                 onClick={() => setShowUpdateName(!showUpdateName)}
+                aria-label="Update"
               >
                 <FaPen className="adminRepair_name_btn_fa" />
               </button>
@@ -105,11 +106,15 @@ function AdminRefurbs({
                 className="adminRepair_name_update_btn"
                 type="button"
                 onClick={() => setShowUpdateName(false)}
+                aria-label="Update name"
               >
                 <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
               </button>
               <button className="adminRepair_name_update_btn" type="submit">
-                <FaCheck className="adminRepair_name_update_btn_fa" />
+                <FaCheck
+                  className="adminRepair_name_update_btn_fa"
+                  aria-label="Update name"
+                />
               </button>
             </form>
           )}
@@ -139,6 +144,7 @@ function AdminRefurbs({
               className="adminUpdateRepair_bloc_btn"
               type="button"
               onClick={() => setShowUpdateText(!showUpdateText)}
+              aria-label="Text update"
             >
               <FaPen className="adminUpdateRepair_bloc_btn_fa" />
             </button>
@@ -155,16 +161,22 @@ function AdminRefurbs({
               value={newText}
               placeholder={text}
               onChange={(e) => setNewText(e.target.value)}
+              aria-label="Update name"
               required
             />
             <button
               className="adminRepair_name_update_btn"
               type="button"
               onClick={() => setShowUpdateText(false)}
+              aria-label="Submit Update name"
             >
               <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
             </button>
-            <button className="adminRepair_name_update_btn" type="submit">
+            <button
+              className="adminRepair_name_update_btn"
+              type="submit"
+              aria-label="submit"
+            >
               <FaCheck className="adminRepair_name_update_btn_fa" />
             </button>
           </form>
@@ -180,6 +192,7 @@ function AdminRefurbs({
               className="adminUpdateRepair_bloc_btn"
               type="button"
               onClick={() => setShowUpdatePrice(!showUpdatePrice)}
+              aria-label="Price update"
             >
               <FaPen className="adminUpdateRepair_bloc_btn_fa" />
             </button>
@@ -196,16 +209,22 @@ function AdminRefurbs({
               value={newPrice}
               placeholder={price}
               onChange={(e) => setNewPrice(e.target.value)}
+              aria-label="Update price"
               required
             />
             <button
               className="adminRepair_name_update_btn"
               type="button"
               onClick={() => setShowUpdatePrice(false)}
+              aria-label="Submit Update price"
             >
               <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
             </button>
-            <button className="adminRepair_name_update_btn" type="submit">
+            <button
+              className="adminRepair_name_update_btn"
+              type="submit"
+              aria-label="Submit Update price"
+            >
               <FaCheck className="adminRepair_name_update_btn_fa" />
             </button>
           </form>

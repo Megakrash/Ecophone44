@@ -98,6 +98,7 @@ function UpdateBrand({
                 onClick={() => {
                   deleteBrandPic(brandSelected, getBrandSelected);
                 }}
+                aria-label="Delete brand pic"
               >
                 <FaTrashAlt className="fa-delete" />
               </button>
@@ -120,6 +121,7 @@ function UpdateBrand({
               <button
                 className="updateBrand_infos_name_update_submit"
                 type="submit"
+                aria-label="Submit Update name"
               >
                 <FaCheck className="fa-submit" />
               </button>
@@ -161,6 +163,7 @@ function UpdateBrand({
                     getAllBrand
                   );
                 }}
+                aria-label="Delete brand"
               >
                 <FaSkull className="fabig-delete" />
               </button>
@@ -170,6 +173,7 @@ function UpdateBrand({
                 onClick={() => {
                   setShowDeleteWarning(false);
                 }}
+                aria-label="Cancel delete brand"
               >
                 <FaTimesCircle className="fabig-cancel" />
               </button>

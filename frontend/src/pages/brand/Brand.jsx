@@ -46,6 +46,7 @@ export default function Brand() {
                 type="button"
                 className="brand_search_trash"
                 onClick={() => setBrandQuery("")}
+                aria-label="Effacer la recherche"
               >
                 <FaTrashAlt className="brand_search_trash_fa" />
               </button>

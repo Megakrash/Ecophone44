@@ -40,6 +40,7 @@ function Breadcrumbs({ type }) {
                   navigate(-3);
                 }
               }}
+              aria-label="Retour"
             >
               <FaCheck className="fa-home" />
             </button>
@@ -100,6 +101,7 @@ function Breadcrumbs({ type }) {
                 className="breadcrumbs_step_ring ring-navigate"
                 type="button"
                 onClick={() => navigate(-1)}
+                aria-label="Retour"
               >
                 <FaCheck className="fa-home" />
               </button>

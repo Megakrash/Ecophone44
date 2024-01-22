@@ -51,6 +51,7 @@ function AdminModelPic({
             onClick={() => {
               deleteModelPic(choosenModelId, modelPic, getModelAndRepairs);
             }}
+            aria-label="Effacer l'image"
           >
             <FaTrashAlt className="fa-delete" />
           </button>

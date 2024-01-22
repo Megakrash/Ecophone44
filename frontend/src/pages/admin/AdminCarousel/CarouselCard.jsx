@@ -23,6 +23,7 @@ function CarouselCard({ sliderData, getSliderHeader }) {
                 onClick={() => {
                   deleteHeaderPic(id, getSliderHeader);
                 }}
+                aria-label="Effacer l'image"
               >
                 <FaTrashAlt className="fa-delete" />
               </button>

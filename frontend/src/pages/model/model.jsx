@@ -50,6 +50,7 @@ function Model() {
                 type="button"
                 className="brand_search_trash"
                 onClick={() => setModelQuery("")}
+                aria-label="Effacer la recherche"
               >
                 <FaTrashAlt className="brand_search_trash_fa" />
               </button>

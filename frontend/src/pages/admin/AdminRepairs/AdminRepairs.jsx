@@ -53,6 +53,7 @@ function AdminRepair({
                 className="adminRepair_name_btn"
                 type="button"
                 onClick={() => setShowUpdateName(!showUpdateName)}
+                aria-label="Show Update name"
               >
                 <FaPen className="adminRepair_name_btn_fa" />
               </button>
@@ -67,16 +68,22 @@ function AdminRepair({
                 type="text"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
+                aria-label="Update name input"
                 required
               />
               <button
                 className="adminRepair_name_update_btn"
                 type="button"
                 onClick={() => setShowUpdateName(false)}
+                aria-label="Update name"
               >
                 <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
               </button>
-              <button className="adminRepair_name_update_btn" type="submit">
+              <button
+                className="adminRepair_name_update_btn"
+                type="submit"
+                aria-label="Submit"
+              >
                 <FaCheck className="adminRepair_name_update_btn_fa" />
               </button>
             </form>

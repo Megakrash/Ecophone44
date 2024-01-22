@@ -15,6 +15,7 @@ function ThemeToggle() {
           className="fakeinput"
           type="checkbox"
           onChange={() => setThemeToggle(!themeToggle)}
+          aria-label="Light/Dark mode"
         />
         <div className="slider">
           <span className="moon" />

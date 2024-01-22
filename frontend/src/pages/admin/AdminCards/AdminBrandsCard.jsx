@@ -68,6 +68,7 @@ function AdminBrandCard({
           setShowUpdateBrand(true);
           window.scrollTo(0, 0);
         }}
+        aria-label="Update"
       >
         <GiGearHammer
           className={isActive ? "fa-hammer hammer-activ" : "fa-hammer"}

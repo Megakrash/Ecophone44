@@ -37,6 +37,7 @@ function BreadcrumbsRefurb({ type }) {
                   navigate(-2);
                 }
               }}
+              aria-label="Retour"
             >
               <FaCheck className="fa-home" />
             </button>

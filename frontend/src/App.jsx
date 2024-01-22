@@ -3,8 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import ThemeContext from "@context/ThemeContext";
 
 const Footer = lazy(() => import("@components/footer/Footer"));
-const ContactButtons = lazy(() =>
-  import("@components/contactButtons/ContactButtons")
+const ContactButtons = lazy(
+  () => import("@components/contactButtons/ContactButtons")
 );
 const Home = lazy(() => import("@pages/home/Home"));
 const Brand = lazy(() => import("@pages/brand/Brand"));

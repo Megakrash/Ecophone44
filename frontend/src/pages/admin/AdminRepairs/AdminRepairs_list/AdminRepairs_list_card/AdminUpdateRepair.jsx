@@ -72,6 +72,7 @@ function AdminUpdateRepair({
             className="adminUpdateRepair_bloc_btn"
             type="button"
             onClick={() => setShowUpdateIcon(!showUpdateIcon)}
+            aria-label="Show update icon"
           >
             <FaPen className="adminUpdateRepair_bloc_btn_fa" />
           </button>
@@ -87,10 +88,15 @@ function AdminUpdateRepair({
             className="adminRepair_name_update_btn"
             type="button"
             onClick={() => setShowUpdateIcon(false)}
+            aria-label="Don't show update price"
           >
             <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
           </button>
-          <button className="adminRepair_name_update_btn" type="submit">
+          <button
+            className="adminRepair_name_update_btn"
+            type="submit"
+            aria-label="Submit Update name"
+          >
             <FaCheck className="adminRepair_name_update_btn_fa" />
           </button>
         </form>
@@ -103,6 +109,7 @@ function AdminUpdateRepair({
             className="adminUpdateRepair_bloc_btn"
             type="button"
             onClick={() => setShowUpdateName(!showUpdateName)}
+            aria-label="Show Update name"
           >
             <FaPen className="adminUpdateRepair_bloc_btn_fa" />
           </button>
@@ -119,16 +126,22 @@ function AdminUpdateRepair({
             value={newRepairName}
             placeholder={name}
             onChange={(e) => setNewRepairName(e.target.value)}
+            aria-label="Update name input"
             required
           />
           <button
             className="adminRepair_name_update_btn"
             type="button"
             onClick={() => setShowUpdateName(false)}
+            aria-label="Don't show update name"
           >
             <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
           </button>
-          <button className="adminRepair_name_update_btn" type="submit">
+          <button
+            className="adminRepair_name_update_btn"
+            type="submit"
+            aria-label="Submit Update name"
+          >
             <FaCheck className="adminRepair_name_update_btn_fa" />
           </button>
         </form>
@@ -141,6 +154,7 @@ function AdminUpdateRepair({
             className="adminUpdateRepair_bloc_btn"
             type="button"
             onClick={() => setShowUpdateText(!showUpdateText)}
+            aria-label="Show Update text"
           >
             <FaPen className="adminUpdateRepair_bloc_btn_fa" />
           </button>
@@ -157,16 +171,22 @@ function AdminUpdateRepair({
             value={newRepairText}
             placeholder={text}
             onChange={(e) => setNewRepairText(e.target.value)}
+            aria-label="New repair text"
             required
           />
           <button
             className="adminRepair_name_update_btn"
             type="button"
             onClick={() => setShowUpdateText(false)}
+            aria-label="Show Update text"
           >
             <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
           </button>
-          <button className="adminRepair_name_update_btn" type="submit">
+          <button
+            className="adminRepair_name_update_btn"
+            type="submit"
+            aria-label="Submit Update name"
+          >
             <FaCheck className="adminRepair_name_update_btn_fa" />
           </button>
         </form>
@@ -182,6 +202,7 @@ function AdminUpdateRepair({
             className="adminUpdateRepair_bloc_btn"
             type="button"
             onClick={() => setShowUpdatePrice(!showUpdatePrice)}
+            aria-label="Show Update price"
           >
             <FaPen className="adminUpdateRepair_bloc_btn_fa" />
           </button>
@@ -198,16 +219,22 @@ function AdminUpdateRepair({
             value={newRepairPrice}
             placeholder={price}
             onChange={(e) => setNewRepairPrice(e.target.value)}
+            aria-label="Update price input"
             required
           />
           <button
             className="adminRepair_name_update_btn"
             type="button"
             onClick={() => setShowUpdatePrice(false)}
+            aria-label="Don't show update price"
           >
             <FaChevronCircleLeft className="adminRepair_name_update_btn_fa" />
           </button>
-          <button className="adminRepair_name_update_btn" type="submit">
+          <button
+            className="adminRepair_name_update_btn"
+            type="submit"
+            aria-label="Submit Update price"
+          >
             <FaCheck className="adminRepair_name_update_btn_fa" />
           </button>
         </form>
