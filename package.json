@@ -15,7 +15,7 @@
   "author": "Megakrash",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.0",
-    "husky": "^8.0.3"
+    "concurrently": "^8.2.2",
+    "husky": "^9.0.11"
   }
 }
